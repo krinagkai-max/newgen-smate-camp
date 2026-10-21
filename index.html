@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="New Gen SMATE Camp ทีมงานจัดค่ายบูรณาการ Science · Math · AI · Technology · Engineering สำหรับนักเรียน">
+<meta property="og:title" content="New Gen SMATE Camp">
+<meta property="og:description" content="ทีมงานจัดค่ายบูรณาการ Science · Math · AI · Technology · Engineering">
+<meta property="og:image" content="img/group-hall.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a8ea3'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-weight='700' font-size='38' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
+<title>New Gen SMATE Camp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Anuphan:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: camp brand site. Full-bleed photo hero, colour-blocked SMATE letters, photo-led activity cards. Sea navy + lagoon + sun + coral + mangrove. */
+:root{
+  --bg:#f3f7fa; --bg-2:#e4edf3; --surface:#ffffff; --ink:#0b2240; --ink-2:#4a5f78; --line:#d3dee7;
+  --navy:#0b2a4a; --lagoon:#0a8ea3; --sun:#ffbf2e; --coral:#f2603f; --mangrove:#2b8a4c; --violet:#6b4fd3;
+  --on-dark:#ffffff;
+  --display:"Kanit","Anuphan",system-ui,sans-serif;
+  --body:"Anuphan","Noto Sans Thai",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#081626; --bg-2:#0e2236; --surface:#10263c; --ink:#e8f1f8; --ink-2:#9fb4c8; --line:#1f3a55;
+  --navy:#04111f; --lagoon:#3cc4d6; --sun:#ffcb52; --coral:#ff7b5c; --mangrove:#5cc27f; --violet:#9b86ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#081626; --bg-2:#0e2236; --surface:#10263c; --ink:#e8f1f8; --ink-2:#9fb4c8; --line:#1f3a55;
+  --navy:#04111f; --lagoon:#3cc4d6; --sun:#ffcb52; --coral:#ff7b5c; --mangrove:#5cc27f; --violet:#9b86ff; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7}
+a{color:var(--lagoon)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+h1,h2,h3{font-family:var(--display);line-height:1.2;text-wrap:balance;margin:0;font-weight:700}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--lagoon)}
+.muted{color:var(--ink-2)}
+.num{font-variant-numeric:tabular-nums}
+.small{font-size:14px}
+
+/* nav */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.brand .gen{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);line-height:1}
+.brand .name{font-family:var(--display);font-weight:800;font-size:20px;line-height:1}
+.tiles{display:flex;gap:3px}
+.tiles i{width:22px;height:26px;border-radius:5px;display:grid;place-items:center;font:800 13px var(--display);font-style:normal;color:#fff}
+.t-s{background:var(--lagoon)}.t-m{background:var(--navy)}.t-a{background:var(--coral)}.t-t{background:var(--violet)}.t-e{background:var(--mangrove)}
+:root .t-m{outline:1px solid color-mix(in srgb,var(--ink) 25%,transparent)}
+.links{display:flex;gap:4px;flex-wrap:wrap}
+.links a{text-decoration:none;color:var(--ink-2);padding:7px 14px;border-radius:999px;font-size:15px;font-weight:500}
+.links a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+.links a:hover{color:var(--ink)}
+
+section.page{padding-bottom:80px}
+section.page[hidden]{display:none!important}
+.page-pad{padding-top:40px}
+
+/* HERO */
+.hero{position:relative;color:var(--on-dark);overflow:hidden;background:var(--navy)}
+.hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:4px}
+.hero-bg img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-bg img:first-child{grid-row:span 2}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(6,22,40,.94) 0%,rgba(6,22,40,.82) 42%,rgba(6,22,40,.35) 100%)}
+.hero-inner{position:relative;z-index:1;padding-block:72px 64px;max-width:1180px;margin:0 auto;padding-inline:20px}
+.hero .kicker{display:inline-flex;align-items:center;gap:8px;font:600 14px var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--sun)}
+.hero .kicker::before{content:"";width:28px;height:3px;background:var(--sun);border-radius:2px}
+.hero h1{margin-top:14px;font-size:clamp(40px,7.4vw,92px);font-weight:800;line-height:.98;letter-spacing:-.01em}
+.hero h1 .ng{display:block;font-size:.42em;font-weight:600;letter-spacing:.14em;color:#cfe7ef;margin-bottom:6px}
+.hero h1 .word{display:inline-flex;gap:.06em}
+.hero h1 .word b{display:inline-grid;place-items:center;width:1.02em;height:1.1em;border-radius:.14em;color:#fff;font-weight:800}
+.hero h1 .campword{color:var(--sun)}
+.hero .lead{margin-top:20px;max-width:36em;font-size:clamp(17px,1.6vw,20px);color:#dbe8f1}
+.hero .lead strong{color:#fff}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:600;font-family:var(--display);font-size:16px;border:2px solid currentColor;color:inherit}
+.btn.sun{background:var(--sun);border-color:var(--sun);color:#1b1300}
+.btn.ghost{color:#fff;border-color:rgba(255,255,255,.6)}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,255,255,.18)}
+.hero-facts div{min-width:0}
+.hero-facts b{display:block;font:700 30px var(--display);color:#fff;line-height:1.1}
+.hero-facts span{font-size:14px;color:#b9cfdd}
+
+/* SMATE band */
+.band{margin-top:-1px;background:var(--surface);border-bottom:1px solid var(--line)}
+.smate{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.smate > div{padding:22px 18px 24px;border-left:1px solid var(--line);min-width:0}
+.smate > div:first-child{border-left:0}
+.smate .L{width:46px;height:52px;border-radius:10px;display:grid;place-items:center;font:800 26px var(--display);color:#fff}
+.smate h3{font-size:18px;margin-top:12px}
+.smate h3 small{display:block;font:500 13px var(--body);color:var(--ink-2);letter-spacing:.02em}
+.smate p{font-size:14.5px;color:var(--ink-2);margin-top:6px}
+
+.block{margin-top:80px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.head h2{font-size:clamp(28px,3.4vw,42px)}
+.head p{max-width:46ch}
+
+/* about */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.about .pics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.about .pics img{width:100%;height:100%;object-fit:cover;border-radius:var(--r);display:block;aspect-ratio:4/5}
+.about .pics img:nth-child(2){margin-top:40px}
+.about h2{font-size:clamp(28px,3.4vw,42px)}
+.about .prose{margin-top:16px;display:grid;gap:12px;color:var(--ink-2);font-size:17px}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.pillars div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.pillars b{font-family:var(--display);font-size:17px;display:block}
+.pillars span{font-size:14px;color:var(--ink-2)}
+
+/* feature camp */
+.feature{display:grid;grid-template-columns:1.1fr 1fr;border-radius:22px;overflow:hidden;background:var(--navy);color:#fff}
+.feature img{width:100%;height:100%;object-fit:cover;display:block;min-height:320px}
+.feature .txt{padding:36px 36px 32px;display:grid;gap:14px;align-content:center}
+.feature h3{font-size:clamp(26px,3vw,38px);font-weight:800}
+.feature .sub{color:var(--sun);font:600 16px var(--display)}
+.feature p{color:#cfe0ea}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 13px var(--display);padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.feature .btn{justify-self:start}
+
+/* activity cards */
+.acts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.act{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.act img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.act .b{padding:16px 18px 18px;display:grid;gap:6px;align-content:start}
+.act .n{font:800 13px var(--display);letter-spacing:.08em;text-transform:uppercase}
+.act h3{font-size:20px}
+.act p{font-size:14.5px;color:var(--ink-2)}
+.act.c1 .n{color:var(--lagoon)}.act.c2 .n{color:var(--coral)}.act.c3 .n{color:var(--mangrove)}.act.c4 .n{color:var(--violet)}
+.act .score{margin-top:6px;font-size:13.5px;font-weight:600;color:var(--ink)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.stat b{display:block;font:800 40px var(--display);line-height:1.05}
+.stat span{font-size:14px;color:var(--ink-2)}
+.stat:nth-child(1) b{color:var(--lagoon)}.stat:nth-child(2) b{color:var(--coral)}.stat:nth-child(3) b{color:var(--mangrove)}.stat:nth-child(4) b{color:var(--violet)}
+
+/* film strip */
+.strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.strip img{height:220px;width:auto;border-radius:12px;scroll-snap-align:start;flex:none;max-width:none}
+
+.closing{margin-top:80px;border-radius:22px;padding:40px 32px;background:linear-gradient(120deg,var(--lagoon),var(--mangrove));color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.closing h2{font-size:clamp(24px,3vw,36px);max-width:22ch}
+.closing .btn{color:#fff}
+
+/* team page */
+.team-hero{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+.team-hero img{width:100%;border-radius:var(--r)}
+.team-hero h1{font-size:clamp(32px,4.6vw,52px)}
+.people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.person{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start}
+.avatar{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:700 22px var(--display);color:#fff}
+.person h3{font-size:17px;color:var(--ink)}
+.person .role{color:var(--lagoon)!important}
+.person .duty-line{color:var(--ink);font-size:14px}
+.person .role{font-size:14.5px;font-weight:600;color:var(--ink)}
+.person p{font-size:14px;color:var(--ink-2);margin-top:4px}
+.notice{border:1.5px dashed var(--coral);padding:14px 16px;border-radius:12px;font-size:14.5px;background:color-mix(in srgb,var(--coral) 8%,transparent);margin-bottom:18px}
+.duties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.duty{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.duty h3{font-size:19px}
+.duty ul{margin:8px 0 0;padding-left:20px;color:var(--ink-2)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.grid4 figure{margin:0}
+.grid4 img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
+.grid4 figcaption{font-size:13.5px;color:var(--ink-2);margin-top:4px}
+
+/* camps list */
+.camps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.camp{display:grid;grid-template-rows:auto 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;color:var(--ink)}
+.camp img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.camp .b{padding:18px 20px;display:grid;gap:8px;align-content:start}
+.camp h3{font-size:23px}
+.tag{display:inline-block;font:600 12.5px var(--display);padding:3px 10px;border-radius:999px;background:var(--bg-2);color:var(--ink-2);margin-right:6px}
+.camp.next{border-style:dashed;background:transparent;place-content:center;text-align:center;padding:40px 24px;grid-template-rows:auto}
+.camp .lbl{font:600 13px var(--display);color:var(--ink-2);margin-top:4px}
+.past-body{margin-top:36px;align-items:start}
+.plist{margin:0;padding-left:20px;display:grid;gap:10px}
+.plist b{display:block;font-family:var(--display)}
+.past-note{margin:0}
+.camp .acts{margin:0;padding-left:20px;display:grid;grid-template-columns:1fr;gap:2px;font-size:15px;columns:auto}
+.camp .acts li{display:list-item}
+.camp .pending{font-size:13.5px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:8px;margin-top:4px}
+
+/* report */
+.report-hero{position:relative;border-radius:22px;overflow:hidden;min-height:380px;display:grid;align-items:end;margin-top:28px}
+.report-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.report-hero .veil{position:relative;padding:32px;background:linear-gradient(transparent,rgba(6,22,40,.9) 50%);color:#fff}
+.report-hero h1{font-size:clamp(30px,4.6vw,52px);color:#fff;font-weight:800}
+.report-hero .sub{color:var(--sun);font:600 18px var(--display);margin-top:6px}
+.report-hero .meta{display:flex;gap:8px 20px;flex-wrap:wrap;margin-top:12px;font-size:14.5px;color:#d5e5ee}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.prose{max-width:62ch;display:grid;gap:12px}
+.objectives{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.objectives div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px}
+.objectives b{font-family:var(--display);display:block;font-size:15.5px}
+.sched{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.day h3{font-size:19px}
+.day h3 small{display:block;font:500 14px var(--body);color:var(--ink-2)}
+.day ol{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:0}
+.day li{display:grid;grid-template-columns:118px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:15px}
+.day li span:first-child{font-family:var(--mono);font-size:13px;color:var(--ink-2);padding-top:2px}
+.day li.k span:last-child{font-weight:600}
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:200px 1fr}
+.dcard img{width:100%;height:100%;object-fit:cover;display:block;min-height:180px}
+.dcard .b{padding:16px 18px;display:grid;gap:6px;align-content:start;min-width:0}
+.dcard h3{font-size:19px}
+.dcard ul{margin:0;padding-left:18px;font-size:14.5px;color:var(--ink-2)}
+.stations{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.station{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.station .no{font:800 22px var(--display);color:var(--coral)}
+.station h3{font-size:15.5px;margin-top:2px}
+.station p{font-size:13.5px;color:var(--ink-2);margin-top:4px}
+.station .rank{margin-top:10px;font-size:12.5px;font-weight:600;color:var(--mangrove)}
+.gallery{columns:4 220px;column-gap:10px}
+.gallery figure{margin:0 0 10px;break-inside:avoid;border-radius:10px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
+.gallery img{width:100%;display:block;cursor:zoom-in}
+.gallery figcaption{font-size:13px;padding:6px 10px;color:var(--ink-2)}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 12px}
+.chart h3{font-size:18px}
+.chart .sub{font-size:13.5px;color:var(--ink-2);margin-bottom:12px}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) 150px 44px;gap:10px;align-items:center;font-size:14px}
+.bar .lab{min-width:0;line-height:1.35}
+.bar .track{position:relative;height:12px;background:var(--bg-2);border-radius:6px}
+.bar .fill{position:absolute;inset:0 auto 0 0;background:var(--lagoon);border-radius:6px}
+.bar.low .fill{background:var(--coral)}
+.bar .v{font-family:var(--mono);font-size:13px;text-align:right}
+.axis{display:grid;grid-template-columns:minmax(0,1fr) 150px 44px;gap:10px;font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-top:6px}
+.axis .ticks{display:flex;justify-content:space-between}
+.fav{display:grid;gap:8px}
+.fav .row{display:grid;grid-template-columns:minmax(0,1fr) 40px;gap:10px;align-items:center;font-size:14px}
+.fav .t{position:relative;padding:6px 10px;z-index:0}
+.fav .t i{position:absolute;inset:0 auto 0 0;background:color-mix(in srgb,var(--mangrove) 24%,transparent);z-index:-1;border-radius:6px}
+.quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.quote{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;font-size:15px}
+.quote cite{display:block;margin-top:10px;font-style:normal;font-size:13px;color:var(--ink-2)}
+.lessons{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lessons .box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px}
+.lessons .keep{border-top:4px solid var(--mangrove)}.lessons .fix{border-top:4px solid var(--coral)}
+.lessons ul{margin:8px 0 0;padding-left:20px}
+.lessons li{margin-bottom:6px}
+
+.video{position:relative;display:block;border-radius:22px;overflow:hidden;text-decoration:none;color:#fff;background:var(--navy)}
+.video img{width:100%;aspect-ratio:21/9;object-fit:cover;display:block;opacity:.6}
+.video .ov{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;text-align:center;padding:20px}
+.video .play{width:78px;height:78px;border-radius:50%;background:var(--sun);display:grid;place-items:center;box-shadow:0 8px 30px rgba(0,0,0,.35);transition:transform .2s}
+.video:hover .play{transform:scale(1.08)}
+.video .play::before{content:"";margin-left:6px;border-left:24px solid #1b1300;border-top:15px solid transparent;border-bottom:15px solid transparent}
+.video b{font:700 clamp(20px,2.6vw,30px) var(--display)}
+.video span{font-size:14.5px;color:#d5e5ee}
+@media (max-width:600px){.video img{aspect-ratio:4/3}}
+footer{background:var(--navy);color:#b9cfdd;padding-block:28px 40px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:#fff;font-family:var(--display)}
+
+dialog{border:0;padding:0;background:transparent;max-width:min(96vw,1200px)}
+dialog::backdrop{background:rgba(0,0,0,.88)}
+dialog img{max-height:86vh;width:auto;display:block;margin:auto;border-radius:8px}
+dialog p{color:#fff;text-align:center;padding:8px}
+dialog button{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:16px;background:#fff;color:#000;border:0;border-radius:999px;padding:8px 14px;font:600 14px var(--body);cursor:pointer}
+
+@media (max-width:980px){
+  .acts{grid-template-columns:1fr 1fr}
+  .smate{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .smate > div:nth-child(4){border-left:0}
+  .smate > div:nth-child(n+4){border-top:1px solid var(--line)}
+  .stats{grid-template-columns:1fr 1fr}
+  .stations{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .about,.feature,.team-hero,.two,.lessons,.sched,.detail{grid-template-columns:1fr}
+  .people,.quotes{grid-template-columns:1fr 1fr}
+  .grid4{grid-template-columns:1fr 1fr}
+  .hero-bg{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+  .hero-bg img:nth-child(n+4){display:none}
+}
+@media (max-width:600px){
+  .acts,.camps,.people,.quotes,.duties,.objectives,.pillars{grid-template-columns:1fr}
+  .smate{grid-template-columns:1fr 1fr}
+  .smate > div{border-left:0;border-top:1px solid var(--line)}
+  .smate > div:nth-child(odd){border-right:1px solid var(--line)}
+  .smate > div:first-child{border-top:0}.smate > div:nth-child(2){border-top:0}
+  .dcard{grid-template-columns:1fr}
+  .dcard img{aspect-ratio:16/9;min-height:0}
+  .bar,.axis{grid-template-columns:minmax(0,1fr) 84px 38px}
+  .hero-inner{padding-block:48px 40px}
+  .hero-facts b{font-size:24px}
+  .feature .txt{padding:24px 20px}
+  .closing{padding:28px 20px}
+  .about .pics img:nth-child(2){margin-top:24px}
+  .links a{padding:6px 10px;font-size:14px}
+  .day li{grid-template-columns:96px 1fr}
+}
+@media (prefers-reduced-motion:no-preference){
+  .hero h1 .word b{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+  .hero h1 .word b:nth-child(2){animation-delay:.06s}.hero h1 .word b:nth-child(3){animation-delay:.12s}
+  .hero h1 .word b:nth-child(4){animation-delay:.18s}.hero h1 .word b:nth-child(5){animation-delay:.24s}
+  @keyframes pop{from{transform:translateY(10px) scale(.92)}to{transform:none}}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="New Gen SMATE Camp หน้าแรก">
+      <span class="tiles" aria-hidden="true"><i class="t-s">S</i><i class="t-m">M</i><i class="t-a">A</i><i class="t-t">T</i><i class="t-e">E</i></span>
+      <span><span class="gen">New Gen</span><br><span class="name">SMATE Camp</span></span>
+    </a>
+    <nav class="links" aria-label="เมนูหลัก">
+      <a href="#home">เกี่ยวกับเรา</a>
+      <a href="#team">วิทยากร</a>
+      <a href="#camps">ค่ายของเรา</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ================= HOME ================= -->
+<section class="page" data-page="home">
+  <div class="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <img src="img/station-solve.jpg" alt="">
+      <img src="img/mangrove-plant.jpg" alt="">
+      <img src="img/balloon-tower.jpg" alt="">
+      <img src="img/night-star.jpg" alt="">
+      <img src="img/station-pier.jpg" alt="">
+    </div>
+    <div class="hero-inner">
+      <span class="kicker">ทีมงานจัดค่ายบูรณาการ</span>
+      <h1><span class="ng">NEW GEN</span>
+        <span class="word"><b class="t-s">S</b><b class="t-m" style="background:#163f6b">M</b><b class="t-a">A</b><b class="t-t">T</b><b class="t-e">E</b></span> <span class="campword">Camp</span></h1>
+      <p class="lead">เราออกแบบค่ายที่ใช้<strong>คณิตศาสตร์เป็นแกน</strong> แล้วบูรณาการวิทยาศาสตร์ AI เทคโนโลยี และวิศวกรรม เข้ากับธรรมชาติและชุมชนจริง ให้นักเรียนได้คิด ลงมือทำ และทำงานเป็นทีม</p>
+      <div class="cta">
+        <a class="btn sun" href="#undersea">ดูค่ายล่าสุด</a>
+        <a class="btn ghost" href="#team">รู้จักทีมวิทยากร</a>
+      </div>
+      <div class="hero-facts">
+        <div><b class="num">4.64</b><span>ความพึงพอใจของนักเรียน (จาก 5)</span></div>
+        <div><b class="num">15/15</b><span>ครูแนะนำให้จัดอีก</span></div>
+        <div><b class="num">10</b><span>บ้าน · 4 กิจกรรมหลัก</span></div>
+        <div><b>2 วัน 1 คืน</b><span>บ้านคลองโคน สมุทรสงคราม</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band">
+    <div class="wrap smate">
+      <div><span class="L t-s">S</span><h3>Science<small>วิทยาศาสตร์</small></h3><p>สังเกต เก็บข้อมูล และเรียนรู้จากระบบนิเวศจริง</p></div>
+      <div><span class="L t-m">M</span><h3>Math<small>คณิตศาสตร์ · แกนหลัก</small></h3><p>ร้อยละ เรขาคณิต สถิติ ความน่าจะเป็น ในสถานการณ์จริง</p></div>
+      <div><span class="L t-a">A</span><h3>AI<small>ปัญญาประดิษฐ์</small></h3><p>ใช้ AI วางแผน และตรวจสอบคำตอบอย่างมีวิจารณญาณ</p></div>
+      <div><span class="L t-t">T</span><h3>Technology<small>เทคโนโลยี</small></h3><p>ใช้เครื่องมือดิจิทัลเก็บ วิเคราะห์ และนำเสนอข้อมูล</p></div>
+      <div><span class="L t-e">E</span><h3>Engineering<small>วิศวกรรม</small></h3><p>ออกแบบ สร้าง ทดสอบ และปรับแก้ชิ้นงานเป็นทีม</p></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="block about">
+      <div class="pics">
+        <img src="img/station-deck.jpg" alt="นักเรียนนั่งฟังคำชี้แจงที่ฐานกิจกรรมริมน้ำ">
+        <img src="img/maker-greed.jpg" alt="นักเรียนนั่งเป็นวงทำโจทย์ Math Greed">
+      </div>
+      <div>
+        <p class="eyebrow">พวกเราคือใคร</p>
+        <h2>ทีมคนรุ่นใหม่ ที่เชื่อว่าคณิตศาสตร์เรียนได้ทุกที่</h2>
+        <div class="prose">
+          <p>New Gen SMATE Camp คือทีมวิทยากรและผู้จัดค่ายที่ออกแบบกิจกรรมให้นักเรียนเห็นว่าคณิตศาสตร์อยู่ในตลาด สะพานไม้ ป่าชายเลน และการตัดสินใจในชีวิตประจำวัน</p>
+          <p>ทุกค่ายเริ่มจากโจทย์ในพื้นที่จริง ใช้ระบบบ้านให้นักเรียนทำงานเป็นทีม และเก็บผลประเมินทุกครั้งเพื่อนำมาพัฒนาค่ายถัดไป</p>
+        </div>
+        <div class="pillars">
+          <div><b>เรียนจากพื้นที่จริง</b><span>ชุมชน ธรรมชาติ และสถานการณ์ใกล้ตัว</span></div>
+          <div><b>ระบบบ้านและทีม</b><span>สะสมคะแนน แบ่งหน้าที่ ฝึกภาวะผู้นำ</span></div>
+          <div><b>ลงมือสร้าง</b><span>ออกแบบ ทดลอง และปรับแก้ชิ้นงาน</span></div>
+          <div><b>วัดผลทุกค่าย</b><span>ประเมินจากนักเรียนและครูหลังค่าย</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="head"><div><p class="eyebrow">ค่ายล่าสุด</p><h2>ค่ายคณิตศาสตร์บูรณาการ ปี 2569</h2></div></div>
+      <div class="feature">
+        <img src="img/group-hall.jpg" alt="ภาพหมู่นักเรียนในค่าย Math Under the Sea Camp">
+        <div class="txt">
+          <span class="sub">27–28 กันยายน 2569 · บ้านคลองโคน จ.สมุทรสงคราม</span>
+          <h3>Math Under the Sea Camp @ บ้านคลองโคน</h3>
+          <p>ค่ายคณิตศาสตร์บูรณาการกับธรรมชาติและชุมชน สำหรับนักเรียนโรงเรียนเทพศิรินทร์ลาดหญ้า กาญจนบุรี ภายใต้แนวคิด "คณิตศาสตร์เชื่อมโยงชีวิต สู่โลกที่ยั่งยืน"</p>
+          <div class="chips"><span class="chip">Math Challenge Stations</span><span class="chip">Math Maker Cup</span><span class="chip">Math x Nature</span><span class="chip">Math Night</span></div>
+          <a class="btn sun" href="#undersea">อ่านสรุปค่าย</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="head"><div><p class="eyebrow">4 กิจกรรมหลัก</p><h2>คณิตศาสตร์ในทุกช่วงของวัน</h2></div><p class="muted small">คะแนนเฉลี่ยจากนักเรียน 47 คน มาตราส่วน 5 ระดับ</p></div>
+      <div class="acts">
+        <div class="act c1"><img src="img/station-solve.jpg" alt="นักเรียนแก้โจทย์ที่ฐานคณิตศาสตร์"><div class="b"><span class="n">กิจกรรมที่ 1</span><h3>Math Challenge Stations</h3><p>5 ฐานคณิตศาสตร์หมุนเวียน ตั้งแต่ตลาด เรขาคณิต สถิติ AI จนถึงพิกัด</p><span class="score">4.40</span></div></div>
+        <div class="act c2"><img src="img/balloon-build.jpg" alt="นักเรียนประกอบหอคอยจากหลอด"><div class="b"><span class="n">กิจกรรมที่ 2</span><h3>Math Maker Cup</h3><p>Balloon Tower และ Math Greed แข่งกันคิดเร็ว สร้างสรรค์ และทำงานเป็นทีม</p><span class="score">4.40 / 4.32</span></div></div>
+        <div class="act c3"><img src="img/mangrove-dig.jpg" alt="นักเรียนปลูกต้นกล้าในป่าชายเลน"><div class="b"><span class="n">กิจกรรมที่ 3</span><h3>Math x Nature</h3><p>วัดระยะ นับต้นกล้า ประมาณพื้นที่ แล้วลงมือปลูกป่าชายเลน</p><span class="score">กิจกรรมที่ชอบที่สุด 31/47 คน</span></div></div>
+        <div class="act c4"><img src="img/night-market.jpg" alt="บูทเกมในกิจกรรม Math Night"><div class="b"><span class="n">กิจกรรมที่ 4</span><h3>Math Night</h3><p>ตลาดคณิตศาสตร์ Camp Coins เกมความน่าจะเป็น และประกวด Star of บ้านคลองโคน</p><span class="score">4.60</span></div></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="head"><div><p class="eyebrow">บรรยากาศค่าย</p><h2>ช่วงเวลาจากคลองโคน</h2></div><a href="#undersea" class="small">ดูภาพทั้งหมด</a></div>
+      <div class="strip" tabindex="0" aria-label="ภาพบรรยากาศค่าย เลื่อนดูได้">
+        <img src="img/student-smile.jpg" alt="นักเรียนยิ้มก่อนเริ่มกิจกรรม">
+        <img src="img/station-pier.jpg" alt="ฐานกิจกรรมริมน้ำ">
+        <img src="img/maker-cubes.jpg" alt="ชิ้นงานโครงสร้างจากหลอด">
+        <img src="img/mangrove-friends.jpg" alt="นักเรียนหลังปลูกป่าชายเลน">
+        <img src="img/canal-play.jpg" alt="นักเรียนเล่นน้ำในคลอง">
+        <img src="img/night-coins.jpg" alt="นักเรียนใช้ Camp Coins ใน Math Night">
+        <img src="img/night-star.jpg" alt="ประกวด Star of บ้านคลองโคน">
+        <img src="img/team-certificates.jpg" alt="ทีมวิทยากรหลังจบค่าย">
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="head"><div><p class="eyebrow">วิดีโอ</p><h2>ดูค่ายของเราในแบบเคลื่อนไหว</h2></div></div>
+      <a class="video" href="https://www.facebook.com/share/v/1JyENTwkbU/" target="_blank" rel="noopener">
+        <img src="img/night-stage.jpg" alt="">
+        <span class="ov"><span class="play" aria-hidden="true"></span><b>ชมวิดีโอบรรยากาศค่าย</b><span>เปิดดูบน Facebook · Math Under the Sea Camp @ บ้านคลองโคน</span></span>
+      </a>
+    </div>
+
+    <div class="closing">
+      <h2>อยากจัดค่ายคณิตศาสตร์บูรณาการให้โรงเรียนของคุณ</h2>
+      <a class="btn" href="#camps">ดูค่ายของเรา</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEAM ================= -->
+<section class="page wrap page-pad" data-page="team" hidden>
+  <div class="team-hero">
+    <div>
+      <p class="eyebrow">ทีมวิทยากร</p>
+      <h1>คนที่ออกแบบโจทย์ และอยู่กับเด็กทุกฐาน</h1>
+      <p class="muted" style="margin-top:14px;font-size:17px">ค่าย Math Under the Sea มีทีมวิทยากร 6 คน นำโดยประธานและรองประธานค่าย ร่วมกับทีมพิธีกร สันทนาการ และดูแลฐานคณิตศาสตร์ ครูที่ประเมินค่ายให้คะแนนด้านความรู้และการอธิบายของวิทยากร <b class="num">4.73</b> และด้านการดูแลนักเรียน <b class="num">4.73</b> จาก 5</p>
+    </div>
+    <img src="img/team-certificates.jpg" alt="ทีมวิทยากรถือเกียรติบัตรหน้าฉากค่าย">
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>ทีมวิทยากร</h2></div>
+    <p class="muted" style="margin-bottom:16px">ทีมครูคณิตศาสตร์และทีมสันทนาการจากหลายโรงเรียน ที่ทำงานร่วมกันในค่าย</p>
+    <div class="people" id="people"></div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>บทบาทในค่าย</h2></div>
+    <div class="duties">
+      <div class="duty"><h3>วิทยากรหลักคณิตศาสตร์</h3><ul><li>ดูแลฐานคณิตศาสตร์</li><li>อธิบายโจทย์และให้คะแนน</li><li>ควบคุมเวลาแต่ละฐาน</li></ul></div>
+      <div class="duty"><h3>พิธีกรและสันทนาการ</h3><ul><li>ดูแลพิธีเปิดและเวทีกลาง</li><li>สร้างบรรยากาศและพลังของค่าย</li><li>ประกาศกิจกรรมและรางวัล</li></ul></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>วิทยากรในสนาม</h2></div>
+    <div class="grid4">
+      <figure><img src="img/lead-speaker.jpg" alt="วิทยากรเปิดค่ายในห้องประชุม"><figcaption>เปิดค่ายและแนะนำกติกา</figcaption></figure>
+      <figure><img src="img/station-brief.jpg" alt="วิทยากรชี้แจงที่ฐานกลางแจ้ง"><figcaption>ชี้แจงโจทย์ที่ฐาน</figcaption></figure>
+      <figure><img src="img/maker-judging.jpg" alt="วิทยากรตัดสิน Balloon Tower"><figcaption>ตัดสิน Balloon Tower</figcaption></figure>
+      <figure><img src="img/night-stage.jpg" alt="วิทยากรบนเวที Math Night"><figcaption>เวทีกลาง Math Night</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAMPS ================= -->
+<section class="page wrap page-pad" data-page="camps" hidden>
+  <p class="eyebrow">ค่ายของเรา</p>
+  <h1 style="font-size:clamp(32px,4.6vw,52px);margin-bottom:8px">สรุปค่ายทุกครั้ง</h1>
+  <p class="muted" style="max-width:60ch;margin-bottom:28px">ค่ายคณิตศาสตร์ที่ทีมงานจัด เรียงจากล่าสุด ค่ายที่มีข้อมูลครบมีหน้าสรุปของตัวเอง ทั้งกิจกรรม ภาพบรรยากาศ ผลประเมินจากนักเรียนและครู และสิ่งที่จะปรับในครั้งต่อไป</p>
+  <div class="camps">
+    <a class="camp" href="#undersea">
+      <img src="img/group-hall.jpg" alt="ภาพหมู่นักเรียนค่าย Math Under the Sea Camp">
+      <div class="b">
+        <p class="eyebrow">ปี 2569 · 27–28 ก.ย. 2569</p>
+        <h3>Math Under the Sea Camp @ บ้านคลองโคน</h3>
+        <p class="muted">ค่ายคณิตศาสตร์บูรณาการกับธรรมชาติและชุมชน · โรงเรียนเทพศิรินทร์ลาดหญ้า กาญจนบุรี</p>
+        <p><span class="tag">Math</span><span class="tag">Science</span><span class="tag">AI</span><span class="tag">Engineering</span></p>
+      </div>
+    </a>
+    <a class="camp" href="#mtt3">
+      <img src="img/mtt3-01.jpg" alt="ภาพหมู่ผู้เข้าร่วม MTT MATH CAMP #3 บนชายหาดสามร้อยยอด">
+      <div class="b">
+        <p class="eyebrow">ปี 2566 · 9–10 ก.ย. 2566</p>
+        <h3>MTT MATH CAMP #3</h3>
+        <p class="muted">ค่ายคณิตศาสตร์ครั้งที่ 3 · บ้านรักทะเล หาดสามร้อยยอด จ.ประจวบคีรีขันธ์ · นักเรียนโรงเรียนมัธยมวัดธาตุทอง ประมาณ 100 คน (ม.1–6)</p>
+        <p><span class="tag">Math</span><span class="tag">ฐานกิจกรรม</span><span class="tag">ชายหาด</span></p>
+      </div>
+    </a>
+    <a class="camp" href="#mtt2">
+      <img src="img/mtt2-01.jpg" alt="ภาพหมู่นักเรียน MTT MATH CAMP #2 ก่อนออกเดินทาง">
+      <div class="b">
+        <p class="eyebrow">ปี 2565 · 27–28 ส.ค. 2565</p>
+        <h3>MTT MATH CAMP #2</h3>
+        <p class="muted">ค่ายคณิตศาสตร์ครั้งที่ 2 · ชื่นวารินรีสอร์ท จ.ระยอง · นักเรียนโรงเรียนมัธยมวัดธาตุทอง ประมาณ 100 คน (ม.1–6)</p>
+        <p><span class="tag">Math</span><span class="tag">เรขาคณิต</span><span class="tag">Engineering</span></p>
+      </div>
+    </a>
+    <div class="camp next"><p class="eyebrow">ค่ายถัดไป</p><h3 style="margin-top:6px">ค่ายครั้งต่อไป</h3><p class="muted" style="margin-top:6px">พื้นที่นี้เตรียมไว้สำหรับค่ายครั้งถัดไป</p></div>
+  </div>
+</section>
+
+<!-- ================= MTT3 ================= -->
+<section class="page wrap" data-page="mtt3" hidden>
+  <div class="report-hero">
+    <img src="img/mtt3-01.jpg" alt="" style="object-position:center 70%">
+    <div class="veil">
+      <p class="eyebrow" style="color:#9fe3ee">ค่ายคณิตศาสตร์ครั้งที่ 3 · ภาพรวมค่าย</p>
+      <h1>MTT MATH CAMP #3</h1>
+      <p class="sub">ค่ายพักแรมคณิตศาสตร์ 2 วัน 1 คืน</p>
+      <div class="meta"><span>9–10 กันยายน 2566</span><span>บ้านรักทะเล หาดสามร้อยยอด จ.ประจวบคีรีขันธ์</span><span>นักเรียนโรงเรียนมัธยมวัดธาตุทอง ประมาณ 100 คน ระดับ ม.1–6</span><span>จัดโดย กลุ่มสาระการเรียนรู้คณิตศาสตร์ โรงเรียนมัธยมวัดธาตุทอง</span></div>
+    </div>
+  </div>
+  <div class="two past-body">
+    <div class="prose">
+      <p class="eyebrow">กิจกรรมหลัก</p>
+      <h2>สิ่งที่นักเรียนได้ทำในค่าย</h2>
+      <ul class="plist"><li><b>พิธีเปิดและชี้แจงกิจกรรม</b> ครูและพิธีกรต้อนรับ ชี้แจงกติกาและกำหนดการค่าย</li><li><b>ฐานกิจกรรมกลุ่มบนชายหาด</b> แบ่งกลุ่มเวียนฐาน แต่ละฐานมีพี่เลี้ยงประจำ ทำภารกิจและโจทย์ร่วมกัน</li><li><b>เกมทีม</b> เกมใช้เชือก เกมทาแป้ง และเกมแข่งวิ่งบนชายหาด</li><li><b>ภารกิจกลุ่มริมทะเล</b> เช่น เกมโยนลูกบอลเข้าเป้า</li><li><b>ภาพหมู่และปิดค่าย</b> ถ่ายภาพร่วมกันหน้าป้ายค่ายบนหาดสามร้อยยอด</li></ul>
+    </div>
+    <aside class="notice past-note">ชื่อกิจกรรมเรียบเรียงจากภาพถ่ายในเพจของโรงเรียน เพราะโพสต์ไม่มีคำบรรยาย ยังไม่มีข้อมูลผลการประเมินของค่ายนี้</aside>
+  </div>
+  <p class="eyebrow" style="margin-top:40px">ภาพบรรยากาศ</p>
+  <h2 style="margin-bottom:16px">ภาพจากค่ายครั้งที่ 3</h2>
+  <div class="gallery" data-set="mtt3"></div>
+  <p class="muted" style="font-size:13.5px;margin-top:12px">ที่มาภาพ: เพจ Facebook กลุ่มสาระการเรียนรู้คณิตศาสตร์ โรงเรียนมัธยมวัดธาตุทอง</p>
+  <p style="margin:28px 0 64px"><a class="btn" href="#camps">← กลับไปหน้าค่ายของเรา</a></p>
+</section>
+
+<!-- ================= MTT2 ================= -->
+<section class="page wrap" data-page="mtt2" hidden>
+  <div class="report-hero">
+    <img src="img/mtt2-01.jpg" alt="" style="object-position:center 80%">
+    <div class="veil">
+      <p class="eyebrow" style="color:#9fe3ee">ค่ายคณิตศาสตร์ครั้งที่ 2 · ภาพรวมค่าย</p>
+      <h1>MTT MATH CAMP #2</h1>
+      <p class="sub">ค่ายพักแรมคณิตศาสตร์ 2 วัน 1 คืน</p>
+      <div class="meta"><span>27–28 สิงหาคม 2565</span><span>ชื่นวารินรีสอร์ท จ.ระยอง</span><span>นักเรียนโรงเรียนมัธยมวัดธาตุทอง ประมาณ 100 คน ระดับ ม.1–6</span><span>จัดโดย กลุ่มสาระการเรียนรู้คณิตศาสตร์ โรงเรียนมัธยมวัดธาตุทอง</span></div>
+    </div>
+  </div>
+  <div class="two past-body">
+    <div class="prose">
+      <p class="eyebrow">กิจกรรมหลัก</p>
+      <h2>สิ่งที่นักเรียนได้ทำในค่าย</h2>
+      <ul class="plist"><li><b>สันทนาการและละลายพฤติกรรม</b> ทีมพี่เลี้ยงนำเกม ร้องเพลง และเตรียมความพร้อมก่อนเข้าฐาน</li><li><b>ฐานกิจกรรมคณิตศาสตร์</b> นักเรียนเวียนฐานเป็นกลุ่ม เช่น ฐานเกมหอคอยฮานอย ฝึกคิดเชิงตรรกะและวางแผน</li><li><b>พับกระดาษเป็นรูปทรงเรขาคณิต</b> พับชิ้นส่วนกระดาษประกอบเป็นลูกบาศก์และทรงสามมิติ</li><li><b>สร้างหอคอยจากหลอด</b> แข่งกันออกแบบโครงสร้างที่สูงและมั่นคง ฝึกทำงานเป็นทีม</li><li><b>กิจกรรมกลุ่มริมทะเล</b> เกมและภารกิจกลุ่มบนชายหาด</li></ul>
+    </div>
+    <aside class="notice past-note">ชื่อกิจกรรมเรียบเรียงจากภาพถ่ายในเพจของโรงเรียน เพราะโพสต์ไม่มีคำบรรยาย ยังไม่มีข้อมูลผลการประเมินของค่ายนี้</aside>
+  </div>
+  <p class="eyebrow" style="margin-top:40px">ภาพบรรยากาศ</p>
+  <h2 style="margin-bottom:16px">ภาพจากค่ายครั้งที่ 2</h2>
+  <div class="gallery" data-set="mtt2"></div>
+  <p class="muted" style="font-size:13.5px;margin-top:12px">ที่มาภาพ: เพจ Facebook กลุ่มสาระการเรียนรู้คณิตศาสตร์ โรงเรียนมัธยมวัดธาตุทอง</p>
+  <p style="margin:28px 0 64px"><a class="btn" href="#camps">← กลับไปหน้าค่ายของเรา</a></p>
+</section>
+
+<!-- ================= REPORT ================= -->
+<section class="page wrap" data-page="undersea" hidden>
+  <div class="report-hero">
+    <img src="img/group-hall.jpg" alt="">
+    <div class="veil">
+      <p class="eyebrow" style="color:#9fe3ee">ค่ายปี 2569 · สรุปผลการจัดค่าย</p>
+      <h1>Math Under the Sea Camp @ บ้านคลองโคน</h1>
+      <p class="sub">ค่ายคณิตศาสตร์บูรณาการกับธรรมชาติและชุมชน</p>
+      <div class="meta"><span>27–28 กันยายน 2569 (2 วัน 1 คืน)</span><span>บ้านคลองโคน จ.สมุทรสงคราม</span><span>โรงเรียนเทพศิรินทร์ลาดหญ้า กาญจนบุรี</span><span>นักเรียน 10 บ้าน</span></div>
+    </div>
+  </div>
+
+  <div class="block two">
+    <div class="prose">
+      <div class="head" style="margin-bottom:4px"><h2>ภาพรวม</h2></div>
+      <p>ค่ายที่ใช้คณิตศาสตร์เป็นแกน แล้วบูรณาการกับระบบนิเวศป่าชายเลนและวิถีชีวิตชุมชนบ้านคลองโคน นักเรียนแบ่งเป็น 10 บ้าน สะสมคะแนนผ่าน 4 กิจกรรมหลัก ภายใต้แนวคิด "คณิตศาสตร์เชื่อมโยงชีวิต สู่โลกที่ยั่งยืน"</p>
+      <p>ผลลัพธ์ที่คาดหวังคือ นักเรียนคิดเป็น ทำงานเป็นทีม รับผิดชอบต่อสิ่งแวดล้อม และสนุกกับการเรียนรู้</p>
+    </div>
+    <div>
+      <div class="head" style="margin-bottom:14px"><h2>วัตถุประสงค์</h2></div>
+      <div class="objectives">
+        <div><b>บูรณาการคณิตศาสตร์</b>กับธรรมชาติและชุมชน</div>
+        <div><b>คิดวิเคราะห์</b>ใช้ข้อมูลจริงหาวิธีแก้ปัญหา</div>
+        <div><b>ทำงานเป็นทีม</b>สื่อสาร ร่วมมือ และภาวะผู้นำ</div>
+        <div><b>การเงินเบื้องต้น</b>วางแผนค่าใช้จ่ายและตัดสินใจ</div>
+        <div><b>ประสบการณ์นอกห้องเรียน</b>ปลอดภัยและสนุก</div>
+        <div><b>เชื่อมสู่ชีวิตจริง</b>เห็นคุณค่าคณิตศาสตร์ต่อชุมชน</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>กำหนดการ</h2><p class="muted small">ตามแผนที่ใช้ประชุมครูก่อนค่าย เวลาจริงบางช่วงปรับตามสภาพอากาศและสถานที่</p></div>
+    <div class="sched">
+      <div class="day"><h3>วันที่ 1<small>เรียนรู้ สัมผัส ลงมือทำ</small></h3><ol>
+        <li><span>08.30–09.30</span><span>ลงทะเบียน</span></li>
+        <li><span>10.00–10.30</span><span>พิธีเปิด + Recreation</span></li>
+        <li class="k"><span>10.30–12.00</span><span>กิจกรรมที่ 1 Math Challenge Stations</span></li>
+        <li class="k"><span>13.00–14.30</span><span>กิจกรรมที่ 2 Math Maker Cup</span></li>
+        <li class="k"><span>14.30–16.30</span><span>กิจกรรมที่ 3 Math x Nature ปลูกป่าชายเลน</span></li>
+        <li class="k"><span>18.30–21.00</span><span>กิจกรรมที่ 4 Math Night @ บ้านคลองโคน</span></li>
+        <li><span>21.00–21.30</span><span>สรุปผลและมอบรางวัล</span></li>
+      </ol></div>
+      <div class="day"><h3>วันที่ 2<small>ต่อยอดความรู้ สู่การเปลี่ยนแปลง</small></h3><ol>
+        <li><span>07.30–09.00</span><span>อาหารเช้าและเก็บสัมภาระ</span></li>
+        <li class="k"><span>09.00–11.00</span><span>Workshop คณิตศาสตร์และการออกแบบ</span></li>
+        <li><span>11.00–11.30</span><span>พิธีปิด</span></li>
+        <li><span>11.30 เป็นต้นไป</span><span>เดินทางกลับ</span></li>
+      </ol></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>4 กิจกรรมหลัก</h2></div>
+    <div class="detail">
+      <div class="dcard"><img src="img/station-pier.jpg" alt="ฐานคณิตศาสตร์ริมน้ำ"><div class="b"><span class="eyebrow">กิจกรรมที่ 1</span><h3>Math Challenge Stations</h3><ul><li>5 ฐานคณิตศาสตร์หมุนเวียน ฐานละ 2 บ้าน</li><li>ฝึกคิดเร็ว คำนวณ วิเคราะห์ แก้ปัญหา</li><li>คะแนนเก็บเข้าบ้านทุกฐาน</li></ul></div></div>
+      <div class="dcard"><img src="img/balloon-tower.jpg" alt="หอคอยจากหลอดรับลูกโป่ง"><div class="b"><span class="eyebrow">กิจกรรมที่ 2</span><h3>Math Maker Cup</h3><ul><li>Balloon Tower: สร้างหอคอยให้สูงและมั่นคงที่สุดด้วยอุปกรณ์ที่กำหนด</li><li>Math Greed: ทีมละ 10 คน 9 คนทำโจทย์ 1 คนวิ่งส่งคำตอบ</li><li>ตัดสินจากความถูกต้อง ความเร็ว ความร่วมมือ การสื่อสาร ความคิดสร้างสรรค์</li></ul></div></div>
+      <div class="dcard"><img src="img/mangrove-plant.jpg" alt="ปลูกป่าชายเลน"><div class="b"><span class="eyebrow">กิจกรรมที่ 3</span><h3>Math x Nature</h3><ul><li>แบ่งพื้นที่ตามบ้าน นับต้นกล้า วัดระยะห่าง ประมาณพื้นที่</li><li>ลงมือปลูกป่าชายเลน บันทึกข้อมูลและสรุปผล</li><li>เรียนรู้ความรับผิดชอบต่อสิ่งแวดล้อม</li></ul></div></div>
+      <div class="dcard"><img src="img/night-coins.jpg" alt="Math Night"><div class="b"><span class="eyebrow">กิจกรรมที่ 4</span><h3>Math Night @ บ้านคลองโคน</h3><ul><li>10 บ้าน = 10 บูท นักเรียนได้คนละ 10,000 Camp Coins</li><li>Lottery Probability Lab และเกมคณิตศาสตร์ตอบไว</li><li>ประกวด Star of บ้านคลองโคน และขวัญใจชาวค่าย</li></ul></div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>5 ฐาน Math Challenge Stations</h2><p class="muted small">ลำดับความชอบเฉลี่ยจากนักเรียน 47 คน (1 = ชอบที่สุด)</p></div>
+    <div class="stations" id="stations"></div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>วิดีโอบรรยากาศ</h2></div>
+    <a class="video" href="https://www.facebook.com/share/v/1JyENTwkbU/" target="_blank" rel="noopener">
+        <img src="img/night-crowd.jpg" alt="">
+        <span class="ov"><span class="play" aria-hidden="true"></span><b>ชมวิดีโอบรรยากาศค่าย</b><span>เปิดดูบน Facebook · Math Under the Sea Camp @ บ้านคลองโคน</span></span>
+      </a>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>ภาพบรรยากาศ</h2><p class="muted small">แตะที่ภาพเพื่อดูขนาดใหญ่</p></div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>ผลการประเมิน</h2><p class="muted small">มาตราส่วน 5 ระดับ · 4.51–5.00 มากที่สุด, 3.51–4.50 มาก</p></div>
+    <div class="two" style="gap:16px">
+      <div class="chart"><h3>ความคิดเห็นของนักเรียน</h3><p class="sub">n = 47 · หญิง 34 ชาย 13 · ส่วนใหญ่ ม.2–ม.3</p><div class="bars" id="chart-student"></div><div class="axis"><span></span><span class="ticks"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span><span></span></div></div>
+      <div class="chart"><h3>ความคิดเห็นของครูและผู้สังเกตการณ์</h3><p class="sub">n = 15 · ครูผู้ควบคุม 8 · ครูผู้สังเกตการณ์ 3 · นักเรียน 4</p><div class="bars" id="chart-teacher"></div><div class="axis"><span></span><span class="ticks"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span><span></span></div></div>
+    </div>
+    <p class="small muted" style="margin-top:8px">แท่งสีส้มคือข้อที่ได้คะแนนต่ำสุดของแต่ละกลุ่ม</p>
+    <div class="two" style="gap:16px;margin-top:16px">
+      <div class="chart"><h3>คะแนนรายกิจกรรม (นักเรียน)</h3><p class="sub">ค่าเฉลี่ยจาก 5</p><div class="bars" id="chart-activity"></div><div class="axis"><span></span><span class="ticks"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span><span></span></div></div>
+      <div class="chart"><h3>กิจกรรมที่ชอบที่สุดตลอดค่าย</h3><p class="sub">นักเรียนเลือก 1 กิจกรรม · n = 47</p><div class="fav" id="chart-fav"></div>
+        <p class="small muted" style="margin-top:12px">ฝั่งครูเลือก Math Night ว่ามีคุณค่าต่อผู้เรียนมากที่สุด (8 จาก 15 คน) รองลงมาคือ Math Challenge Stations (4 คน)</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>เสียงจากผู้เข้าร่วม</h2><p class="muted small">คัดจากคำตอบปลายเปิด ไม่ระบุชื่อ</p></div>
+    <div class="quotes">
+      <div class="quote">"การจัดกิจกรรมที่ช่วยให้นักเรียนเห็นว่าสามารถนำคณิตศาสตร์ไปใช้ในชีวิตประจำวันแบบใกล้ตัวได้อย่างไร"<cite>ครูผู้สังเกตการณ์</cite></div>
+      <div class="quote">"กิจกรรมกลุ่มทำให้นักเรียนรู้จักการทำงานเป็นทีมและยอมรับฟังความคิดเห็นของคนอื่น"<cite>ครูผู้ควบคุมนักเรียน</cite></div>
+      <div class="quote">"ขอบคุณสำหรับกิจกรรมของแต่ละฐาน ที่ได้ทั้งประสบการณ์ ความรู้ในทักษะหลายๆ ด้าน"<cite>นักเรียน ม.2</cite></div>
+      <div class="quote">"กิจกรรมที่ทำในธรรมชาติค่อนข้างสนุก เเละฟิลธรรมชาติที่มีความร่มรื่น สดชื่น"<cite>นักเรียน ม.3</cite></div>
+      <div class="quote">"อยากให้มีกิจกรรมที่ได้รีแลกซ์แบบที่เหมือนได้ปลูกป่าชายเลน"<cite>นักเรียน ม.3</cite></div>
+      <div class="quote">"เป็นกำลังใจให้วิทยากรค่ะ เก่งมาก และกิจกรรมสนุกมาก"<cite>ครูผู้สังเกตการณ์</cite></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="head"><h2>สิ่งที่เราเรียนรู้</h2></div>
+    <div class="lessons">
+      <div class="box keep"><h3>ทำต่อ</h3><ul>
+        <li>กิจกรรมกลางแจ้งที่ผูกกับธรรมชาติ นักเรียน 31 จาก 47 คนเลือก Math x Nature เป็นกิจกรรมที่ชอบที่สุด</li>
+        <li>ฐานที่ใช้สถานการณ์ใกล้ตัว Market Math ได้ลำดับความชอบดีที่สุด (เฉลี่ย 2.04) และถูกเลือกเป็นอันดับ 1 มากที่สุด 18 คน</li>
+        <li>ระบบบ้านและการทำงานเป็นทีม ครูให้ 4.87 ทั้งด้านการทำงานเป็นทีมและด้านการคิดวิเคราะห์</li>
+      </ul></div>
+      <div class="box fix"><h3>ปรับในครั้งต่อไป</h3><ul>
+        <li>เวลา: กำหนดการและระยะเวลาได้คะแนนต่ำสุดจากครู (4.33) นักเรียนเขียนถึงเวลาเล่นฐานและเวลาอาบน้ำหลังปลูกป่าชายเลนบ่อยที่สุด</li>
+        <li>ที่พักและห้องน้ำ: หลายคนระบุว่าห้องน้ำไม่พอต่อจำนวนคน</li>
+        <li>การหมุนฐาน: ทำป้ายและสัญญาณเปลี่ยนฐานให้ชัด และเพิ่มเวลาคิดในแต่ละฐาน</li>
+        <li>ความมั่นใจในการใช้คณิตศาสตร์ได้ต่ำสุดฝั่งนักเรียน (4.36) ควรเพิ่มช่วงที่ให้นักเรียนอธิบายวิธีคิดของตัวเอง</li>
+      </ul></div>
+    </div>
+    <p class="small muted" style="margin-top:16px">หมายเหตุ: เป็นค่าเฉลี่ยเชิงพรรณนาจากผู้ตอบโดยสมัครใจหลังค่าย ไม่ใช่การวัดผลการเรียนรู้ก่อนและหลังค่าย แบบประเมินฝั่งครูมีนักเรียนตอบ 4 คน หากนับเฉพาะครู 11 คน ค่าเฉลี่ยรวม 13 ข้อเท่ากับ 4.76</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span><b>New Gen SMATE Camp</b> · ทีมงานจัดค่ายบูรณาการ Science · Math · AI · Technology · Engineering</span><span>ผลประเมินจากแบบสอบถามหลังค่าย 3–5 ต.ค. 2569</span></div></footer>
+
+<dialog id="lightbox" aria-label="ภาพขนาดใหญ่"><button type="button" id="lb-close">ปิด</button><img id="lb-img" alt=""><p id="lb-cap"></p></dialog>
+
+<script>
+const people=[
+  {"n": "นายเกรียงไกร ชาเคน", "i": "ก", "role": "ประธานค่าย", "d": "", "org": "โรงเรียนมัธยมวัดธาตุทอง", "o": "สพม.กรุงเทพมหานคร เขต 2", "c": "var(--navy)"},
+  {"n": "นางสาวพิมนภัทร์ เธียรพงศ์เกษม", "i": "พ", "role": "รองประธานค่าย", "d": "", "org": "โรงเรียนมัธยมวัดธาตุทอง", "o": "สพม.กรุงเทพมหานคร เขต 2", "c": "var(--lagoon)"},
+  {"n": "นางสาวจันทร์จิรา สมเผ่า", "i": "จ", "role": "หัวหน้าพัสดุ", "d": "ดูแลฐานคณิตศาสตร์", "org": "โรงเรียนมัธยมวัดธาตุทอง", "o": "สพม.กรุงเทพมหานคร เขต 2", "c": "var(--violet)"},
+  {"n": "นายรัฐพงศ์ มุกดาดี", "i": "ร", "role": "พิธีกรและแกนสันทนาการ", "d": "", "org": "โรงเรียนสตรีวัดมหาพฤฒาราม ในพระบรมราชินูปถัมภ์", "o": "สพม.กรุงเทพมหานคร เขต 2", "c": "var(--coral)"},
+  {"n": "นางสาวประภัสสร จันทร์สรวย", "i": "ป", "role": "พิธีกรและแกนสันทนาการ", "d": "ดูแลฐานคณิตศาสตร์", "org": "The Essence School", "o": "", "c": "var(--coral)"},
+  {"n": "นายภูริทัศน์ จันพลา", "i": "ภ", "role": "ดนตรีและสันทนาการ", "d": "ดูแลฐานคณิตศาสตร์", "org": "โรงเรียนฤทธิยะวรรณาลัย ๒", "o": "สพม.กรุงเทพมหานคร เขต 2", "c": "var(--mangrove)"}
+];
+document.getElementById('people').innerHTML=people.map(p=>`<div class="person"><div class="avatar" style="background:${p.c}" aria-hidden="true">${p.i}</div><div><h3>${p.n}</h3><div class="role">${p.role}</div><p class="duty-line">${p.d?p.d+' · ':''}ออกแบบกระบวนการจัดการเรียนรู้ อธิบายโจทย์และให้คะแนน · ผู้เชี่ยวชาญด้านการคำนวณคณิตศาสตร์</p><p>${p.org}${p.o?'<br>'+p.o:''}</p></div></div>`).join('');
+
+const stations=[
+  {n:1,t:"Baan Klong Khon Market Math",d:"เงินทอง ร้อยละ ส่วนลด การประมาณราคา",r:2.04,f:18},
+  {n:2,t:"Geometry Around Us",d:"วัดระยะ พื้นที่ และเรขาคณิตจากสิ่งรอบตัว",r:2.91,f:6},
+  {n:3,t:"Eco Stat Detective",d:"เก็บข้อมูล สถิติ ร้อยละ แปลผล",r:2.55,f:12},
+  {n:4,t:"AI Smart Traveller",d:"ใช้ AI วางแผน ตรวจสอบอย่างมีวิจารณญาณ",r:3.70,f:4},
+  {n:5,t:"Coordinate Treasure Mission",d:"พิกัด Pattern รหัสลับ การแก้ปัญหา",r:3.79,f:7}
+];
+document.getElementById('stations').innerHTML=stations.map(s=>`<div class="station"><div class="no">${s.n}</div><h3>${s.t}</h3><p>${s.d}</p><div class="rank">อันดับเฉลี่ย ${s.r.toFixed(2)} · อันดับ 1: ${s.f} คน</div></div>`).join('');
+
+function bars(id,rows){
+  const min=Math.min(...rows.map(r=>r[1]));
+  document.getElementById(id).innerHTML=rows.map(([l,v,sd])=>`<div class="bar${v===min?' low':''}"><span class="lab">${l}</span><span class="track" role="img" aria-label="${l} ${v.toFixed(2)} จาก 5"><span class="fill" style="width:${v/5*100}%"></span></span><span class="v" title="SD ${sd}">${v.toFixed(2)}</span></div>`).join('');
+}
+bars('chart-student',[["นำคณิตศาสตร์ไปใช้ในชีวิตจริงได้",4.66,.56],["ได้คิด วิเคราะห์ วางแผน แก้ปัญหา",4.64,.61],["พึงพอใจโดยรวม",4.64,.67],["ได้ฝึกทำงานร่วมกับผู้อื่น",4.57,.74],["คณิตศาสตร์สนุกและน่าสนใจขึ้น",4.49,.69],["ระบบบ้านทำให้อยากมีส่วนร่วม",4.45,.90],["มั่นใจในการใช้คณิตศาสตร์มากขึ้น",4.36,.70]]);
+bars('chart-teacher',[["วัตถุประสงค์สอดคล้องกับความต้องการ",4.93,.26],["ส่งเสริมการคิดวิเคราะห์และแก้ปัญหา",4.87,.35],["ส่งเสริมทีม ความรับผิดชอบ ภาวะผู้นำ",4.87,.35],["กิจกรรมหลากหลาย สนุก",4.73,.59],["เห็นการประยุกต์ใช้ในชีวิตจริง",4.73,.59],["ระบบบ้านเพิ่มแรงจูงใจ",4.73,.46],["วิทยากรมีความรู้ อธิบายชัด",4.73,.46],["วิทยากรดูแลนักเรียนเหมาะสม",4.73,.59],["พึงพอใจโดยรวม",4.73,.59],["การประสานงานและสื่อสาร",4.67,.49],["อุปกรณ์ สถานที่ ความปลอดภัย",4.53,.64],["เนื้อหาเหมาะกับวัย",4.47,.74],["กำหนดการและระยะเวลา",4.33,.90]]);
+bars('chart-activity',[["Math Night",4.60,.61],["Math Challenge Stations",4.40,.71],["Math Maker Cup: Balloon Tower",4.40,.65],["Math Maker Cup: Math Greed",4.32,.73],["Math Night: Star of บ้านคลองโคน",4.30,.75]]);
+const fav=[["Math x Nature ปลูกป่าชายเลน",31],["Math Night",8],["กิจกรรมนันทนาการ",5],["Star of บ้านคลองโคน",1],["Balloon Tower",1],["Math Challenge Stations",1]];
+document.getElementById('chart-fav').innerHTML=fav.map(([l,n])=>`<div class="row"><span class="t"><i style="width:${n/31*100}%"></i>${l}</span><span class="num" style="text-align:right">${n}</span></div>`).join('');
+
+const photos=[
+ ["hall-arrival","นักเรียนเข้าห้องประชุมวันแรก"],["lead-speaker","วิทยากรเปิดค่าย"],["team-four","ทีมวิทยากรแนะนำตัว"],["student-smile","รอยยิ้มก่อนเริ่มกิจกรรม"],
+ ["team-stage","อธิบายกติการะบบบ้าน"],["speakers-mic","ชวนนักเรียนร่วมกิจกรรม"],["outdoor-brief","รวมพลก่อนเข้าฐาน"],["poster-activities","โปสเตอร์ 4 กิจกรรมหลัก"],
+ ["poster-stations","โปสเตอร์ 5 ฐานคณิตศาสตร์"],["station-brief","ชี้แจงโจทย์ฐานกลางแจ้ง"],["station-deck","ฐานบนศาลาริมน้ำ"],["station-pier","ทำโจทย์ริมน้ำ"],["station-market","ฐานริมน้ำ"],
+ ["station-cards","ฐานแก้โจทย์ด้วยการ์ด"],["station-table","ฐาน Market Math"],["station-solve","ช่วยกันคำนวณในบ้าน"],["station-team","ระดมความคิดในทีม"],
+ ["maker-greed","Math Greed"],["balloon-build","ประกอบหอคอยจากหลอด"],["balloon-tower","หอคอยรับลูกโป่ง"],["balloon-test","ทดสอบโครงสร้าง"],["maker-judging","ตัดสิน Balloon Tower"],["maker-cubes","ชิ้นงาน Math Maker Cup"],
+ ["mangrove-walk","เดินเข้าป่าชายเลน"],["mangrove-plant","ปลูกต้นกล้า"],["mangrove-dig","ลงมือปลูกในโคลน"],["mangrove-friends","หลังปลูกป่าเสร็จ"],["canal-play","เล่นน้ำในคลองโคน"],
+ ["night-market","บูทเกม Math Night"],["night-booth","เกมคณิตศาสตร์ของแต่ละบ้าน"],["night-coins","ใช้ Camp Coins ที่บูท"],["night-game","เกมภาคค่ำ"],["night-stage","การแสดงบนเวที"],
+ ["night-star","ประกวด Star of บ้านคลองโคน"],["night-awards","ประกาศรางวัล"],["night-crowd","ชมการแสดง"],["day2-talk","สรุปบทเรียนวันที่ 2"],["day2-certificates","มอบเกียรติบัตร"],
+ ["floating-market","บรรยากาศชุมชนคลองโคน"],["team-certificates","ทีมวิทยากรหลังจบค่าย"]
+];
+const g=document.getElementById('gallery');
+g.innerHTML=photos.map(([f,c])=>`<figure><img loading="lazy" src="img/${f}.jpg" alt="${c}" data-cap="${c}"><figcaption>${c}</figcaption></figure>`).join('');
+const sets={
+ mtt2:[["ภาพหมู่นักเรียนก่อนออกเดินทาง"],["ทีมพี่เลี้ยงนำสันทนาการ"],["คณะครูและทีมพี่เลี้ยงหน้าป้ายค่าย"],["ฐานเกมหอคอยฮานอย"],["กิจกรรมกลุ่มในลานกิจกรรม"],["สร้างหอคอยจากหลอด"],["ครูแนะนำการพับกระดาษ"],["ผลงานพับกระดาษรูปทรงเรขาคณิต"],["กิจกรรมกลุ่มริมทะเล"],["นักเรียนและครูบนชายหาด"]],
+ mtt3:[["ภาพหมู่หน้าป้ายค่าย หาดสามร้อยยอด"],["ภาพหมู่ก่อนออกเดินทาง"],["พิธีกรชี้แจงกิจกรรม"],["เสื้อค่าย MTT MATH CAMP #3"],["ฐานกิจกรรมกลุ่มบนชายหาด"],["เกมแข่งวิ่งบนชายหาด"],["พี่เลี้ยงอธิบายภารกิจ"],["ภารกิจกลุ่มริมทะเล"],["เกมทีมใช้เชือก"],["หลังเกมทาแป้ง"]]
+};
+document.querySelectorAll('.gallery[data-set]').forEach(el=>{const k=el.dataset.set;el.innerHTML=sets[k].map(([c],i)=>`<figure><img loading="lazy" src="img/${k}-${String(i+1).padStart(2,'0')}.jpg" alt="${c}" data-cap="${c}"><figcaption>${c}</figcaption></figure>`).join('')});
+const lb=document.getElementById('lightbox');
+document.addEventListener('click',e=>{const im=e.target.closest('.gallery img');if(!im)return;const L=document.getElementById('lb-img');L.src=im.src;L.alt=im.alt;document.getElementById('lb-cap').textContent=im.dataset.cap;lb.showModal()});
+document.getElementById('lb-close').onclick=()=>lb.close();
+lb.addEventListener('click',e=>{if(e.target===lb)lb.close()});
+
+const pages=[...document.querySelectorAll('section.page')];
+function route(){
+  let id=(location.hash||'#home').slice(1); if(!pages.some(p=>p.dataset.page===id)) id='home';
+  pages.forEach(p=>p.hidden=p.dataset.page!==id);
+  const navId=['undersea','mtt2','mtt3'].includes(id)?'camps':id;
+  document.querySelectorAll('.links a').forEach(a=>{if(a.getAttribute('href')==='#'+navId)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange',route); route();
+</script>
+
+</body>
+</html>
