@@ -1,0 +1,1717 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="MATH-SPARK Learning Hub: เรียนรู้กระบวนการ SPARK ผ่านเกมจำลอง ภารกิจบอร์ดเกมคณิตศาสตร์ ม.2 โรงเรียนมัธยมวัดธาตุทอง">
+<link rel="icon" href="img/logo.webp">
+<title>MATH-SPARK Learning Hub</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&display=swap">
+<style>
+/* Layout: brand bar (navy glass) → views: หน้าแรก / บทเรียน SPARK (ภาพ+เกมจำลอง) / พื้นที่ทำงาน (บันทึก+แชท) / ภารกิจ / คลังคำถาม / รายงานผล / นวัตกรรม / ห้องครู
+   Dark-first: the brand's slides are deep navy with neon step colours; light theme mirrors it on a cool paper ground. */
+:root{
+  --bg:#070F2B; --bg2:#0B1740; --surface:#0F1F52; --surface2:#16296A; --line:#253C88; --glass:rgba(10,20,60,.78);
+  --fg:#EEF2FF; --muted:#A7B4DC; --brand:#C9D7FF; --ink-on-brand:#0B1740; --gold:#FFC83A;
+  --s:#5B9BFF; --p:#FFA640; --a:#2FD6C3; --r:#FF6C9C; --k:#A584FF;
+  --ok:#3DDC8E; --warn:#FFBE45; --bad:#FF7A86;
+  --room1:#4F8CF0; --room2:#C8731E; --heat:91,155,255;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 14px 34px rgba(0,0,0,.28);
+  --f-display:"Kanit","Prompt","Noto Sans Thai",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Thai Looped","Noto Sans Thai Looped","Noto Sans Thai",system-ui,sans-serif;
+  --radius:16px; color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#F1F4FD; --bg2:#E4EAFB; --surface:#FFFFFF; --surface2:#EDF1FC; --line:#D3DBF0; --glass:rgba(255,255,255,.86);
+  --fg:#0C1940; --muted:#4A5782; --brand:#15307A; --ink-on-brand:#FFFFFF; --gold:#F2B000;
+  --s:#2A6FE0; --p:#DE7A0B; --a:#0B9E90; --r:#DD3772; --k:#7148E0;
+  --ok:#128E55; --warn:#A86A00; --bad:#CC3445;
+  --room1:#2F6FE0; --room2:#D9730D; --heat:42,111,224;
+  --shadow:0 1px 2px rgba(12,25,64,.06),0 10px 26px rgba(12,25,64,.08); color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#F1F4FD; --bg2:#E4EAFB; --surface:#FFFFFF; --surface2:#EDF1FC; --line:#D3DBF0; --glass:rgba(255,255,255,.86);
+  --fg:#0C1940; --muted:#4A5782; --brand:#15307A; --ink-on-brand:#FFFFFF; --gold:#F2B000;
+  --s:#2A6FE0; --p:#DE7A0B; --a:#0B9E90; --r:#DD3772; --k:#7148E0;
+  --ok:#128E55; --warn:#A86A00; --bad:#CC3445;
+  --room1:#2F6FE0; --room2:#D9730D; --heat:42,111,224;
+  --shadow:0 1px 2px rgba(12,25,64,.06),0 10px 26px rgba(12,25,64,.08); color-scheme:light}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0}
+body{background:radial-gradient(900px 500px at 85% -10%,color-mix(in srgb,var(--k) 16%,transparent),transparent 70%),radial-gradient(800px 500px at -10% 10%,color-mix(in srgb,var(--s) 14%,transparent),transparent 70%),var(--bg);background-attachment:fixed;color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.25;margin:0;text-wrap:balance;font-weight:600}
+p{margin:0}
+a{color:var(--s)}
+img{max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.muted{color:var(--muted)} .small{font-size:.875rem}
+.eyebrow{font-family:var(--f-display);font-weight:500;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.c-S{--c:var(--s)}.c-P{--c:var(--p)}.c-A{--c:var(--a)}.c-R{--c:var(--r)}.c-K{--c:var(--k)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:12px;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--fg);flex:0 0 auto;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+.brand img{width:48px;height:48px;object-fit:contain}
+.brand b{font-family:var(--f-display);font-weight:700;font-size:1.05rem;line-height:1.1;display:block}
+.brand span{font-size:.72rem;color:var(--muted);display:block;line-height:1.2}
+.nav{display:flex;gap:2px;overflow-x:auto;flex:1 1 auto;min-width:0;scrollbar-width:none;justify-content:flex-end}
+.nav::-webkit-scrollbar{display:none}
+.nav button{white-space:nowrap;border:0;background:none;padding:8px 11px;border-radius:999px;cursor:pointer;font-family:var(--f-display);font-weight:500;font-size:.92rem;color:var(--muted)}
+.nav button:hover{color:var(--fg);background:var(--surface2)}
+.nav button[aria-current="page"]{background:var(--brand);color:var(--ink-on-brand)}
+.who{flex:0 0 auto;font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--surface2);cursor:pointer;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:900px){.top .wrap{flex-wrap:wrap}.brand{flex:1 1 auto}.nav{order:3;flex-basis:100%;justify-content:flex-start}.brand span{display:none}}
+
+main{padding-block:28px 72px}
+.view{display:grid;gap:30px}
+.section-h{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.section-h h2{font-size:clamp(1.45rem,2.7vw,2rem)}
+.section-h p{max-width:46em}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:12px;padding:10px 18px;cursor:pointer;font-family:var(--f-display);font-weight:500;text-decoration:none;line-height:1.2}
+.btn-gold{background:var(--gold);color:#1A1200;box-shadow:0 6px 18px color-mix(in srgb,var(--gold) 30%,transparent)}
+.btn-gold:hover{filter:brightness(1.07)}
+.btn-line{background:var(--surface);border-color:var(--line);color:var(--fg)}
+.btn-line:hover{border-color:var(--s)}
+.btn-ok{background:var(--ok);color:#03140B}
+.btn-bad{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn-sm{padding:6px 11px;font-size:.86rem;border-radius:9px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.linkbtn{background:none;border:0;padding:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.85rem}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:grid;gap:16px;min-width:0}
+.tag{display:inline-block;font-family:var(--f-display);font-size:.75rem;font-weight:500;padding:2px 10px;border-radius:999px;background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+.tag.no{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
+.tag.yes{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.notice{border-radius:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--line);font-size:.92rem}
+.notice.warn{border-color:color-mix(in srgb,var(--warn) 55%,transparent);background:color-mix(in srgb,var(--warn) 10%,var(--surface))}
+.empty{color:var(--muted);text-align:center;padding:24px 12px;font-size:.92rem}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:26px;border:1px solid var(--line);background:
+  radial-gradient(60% 90% at 95% 0%,color-mix(in srgb,var(--k) 30%,transparent),transparent 70%),
+  radial-gradient(55% 80% at 70% 110%,color-mix(in srgb,var(--s) 30%,transparent),transparent 70%),
+  radial-gradient(40% 60% at 0% 0%,color-mix(in srgb,var(--gold) 16%,transparent),transparent 70%),var(--surface);
+  display:grid;grid-template-columns:1.25fr .9fr;gap:24px;padding:clamp(22px,4.2vw,48px);align-items:center}
+.hero::after{content:"";position:absolute;inset:0;background-image:radial-gradient(color-mix(in srgb,var(--fg) 14%,transparent) 1px,transparent 1.4px);background-size:22px 22px;mask-image:linear-gradient(90deg,transparent 40%,#000);opacity:.35;pointer-events:none}
+.hero > *{position:relative;z-index:1}
+.hero h1{font-size:clamp(2rem,4.6vw,3.3rem);font-weight:700}
+.grad{background:linear-gradient(90deg,var(--s),var(--a) 35%,var(--gold) 65%,var(--r));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:1.1rem;color:var(--muted);margin-top:14px;max-width:38em}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hero .logo-big{width:100%;max-width:380px;justify-self:center;filter:drop-shadow(0 18px 36px rgba(0,0,0,.35));animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.motto{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:18px;font-family:var(--f-display);font-weight:500;font-size:.95rem}
+.motto span:nth-child(1){color:var(--s)}.motto span:nth-child(2){color:var(--p)}.motto span:nth-child(3){color:var(--r)}
+@media (max-width:820px){.hero{grid-template-columns:1fr}.hero .logo-big{max-width:220px;order:-1}}
+
+.challenge{border-radius:var(--radius);padding:22px 26px;background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 14%,var(--surface)),var(--surface) 60%);border:1px solid color-mix(in srgb,var(--gold) 40%,var(--line))}
+.challenge q{font-family:var(--f-display);font-size:clamp(1.15rem,2.2vw,1.5rem);font-weight:500;quotes:"“" "”"}
+
+.spark-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:1000px){.spark-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.spark-grid > :last-child{grid-column:1/-1}}
+@media (max-width:460px){.spark-grid{grid-template-columns:1fr}}
+.sc{text-align:left;cursor:pointer;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 14%,var(--surface)),var(--surface) 55%);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:6px;align-content:start;transition:transform .15s,border-color .15s}
+.sc:hover{transform:translateY(-3px);border-color:var(--c)}
+.sc .L{font-family:var(--f-display);font-weight:700;font-size:2.8rem;line-height:1;color:var(--c);text-shadow:0 0 22px color-mix(in srgb,var(--c) 45%,transparent)}
+.sc h3{font-size:1.02rem}
+.sc .dt{font-size:.75rem;font-family:var(--f-display);color:var(--c);letter-spacing:.04em}
+
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;counter-reset:how;padding:0;margin:0}
+@media (max-width:760px){.how{grid-template-columns:1fr}}
+.how li{list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:6px;counter-increment:how;align-content:start}
+.how li::before{content:counter(how);font-family:var(--f-display);font-weight:700;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#1A1200}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.rules{grid-template-columns:1fr}}
+.rule-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.rule-box h3{font-size:1.05rem;margin-bottom:8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rule-box ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+/* step tabs (shared by lessons & workspace) */
+.steps{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.steps button{flex:1 0 130px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:10px 12px;cursor:pointer;text-align:left}
+.steps button .L{font-family:var(--f-display);font-weight:700;font-size:1.7rem;color:var(--c);line-height:1}
+.steps button .n{font-family:var(--f-display);font-size:.86rem;font-weight:500;line-height:1.2}
+.steps button .st{font-size:.72rem;color:var(--muted)}
+.steps button[aria-selected="true"]{border-color:var(--c);box-shadow:inset 0 -3px 0 var(--c);background:color-mix(in srgb,var(--c) 12%,var(--surface))}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);display:inline-block;flex:0 0 auto}
+.dot.on{background:var(--ok)}
+
+/* lesson */
+.lesson-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:center;border-radius:22px;padding:clamp(18px,3vw,30px);border:1px solid color-mix(in srgb,var(--c) 45%,var(--line));background:radial-gradient(70% 90% at 0% 0%,color-mix(in srgb,var(--c) 22%,transparent),transparent 70%),var(--surface)}
+@media (max-width:860px){.lesson-hero{grid-template-columns:1fr}}
+.illus{width:100%;max-width:440px;justify-self:center}
+.lesson-hero h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+.lesson-hero .big{font-family:var(--f-display);font-weight:700;font-size:1rem;color:var(--c);letter-spacing:.05em}
+.keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.keys{grid-template-columns:1fr}}
+.key{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:14px;padding:14px 16px;display:grid;gap:4px;align-content:start}
+.key b{font-family:var(--f-display);font-weight:500}
+.ex{border-radius:14px;padding:14px 16px;background:color-mix(in srgb,var(--c) 10%,var(--surface));border:1px dashed color-mix(in srgb,var(--c) 60%,transparent)}
+.ex b{font-family:var(--f-display);font-weight:500;color:var(--c)}
+.game{border-radius:20px;border:1px solid color-mix(in srgb,var(--c) 50%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--c) 10%,var(--surface)),var(--surface) 40%);padding:clamp(16px,2.6vw,24px);display:grid;gap:14px}
+.game-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.game-h h3{font-size:1.25rem}
+.score{font-family:var(--f-display);font-weight:600;font-variant-numeric:tabular-nums;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 14px}
+.track{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.cell{aspect-ratio:1;border-radius:10px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center;font-family:var(--f-display);font-size:.8rem;color:var(--muted);position:relative;min-width:0}
+.cell.done{background:color-mix(in srgb,var(--c) 18%,var(--bg));color:var(--fg)}
+.cell.goal{border-color:var(--gold);color:var(--gold)}
+.pawn{position:absolute;width:62%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8,transparent 40%),var(--c);box-shadow:0 0 0 3px var(--surface),0 4px 10px rgba(0,0,0,.35)}
+.qbox{border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:14px 16px;display:grid;gap:10px}
+.qbox .qt{font-family:var(--f-display);font-weight:500;font-size:1.1rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 14px;cursor:pointer;font-size:1rem}
+.opt:hover{border-color:var(--c)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--surface))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--surface))}
+.die{width:52px;height:52px;border-radius:12px;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:1.6rem}
+.die.roll{animation:spin .5s ease}
+@keyframes spin{to{transform:rotate(360deg)}}
+.meter{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;font-size:.9rem}
+.meter .bar{height:12px;border-radius:999px;background:var(--bg);border:1px solid var(--line);overflow:hidden}
+.meter .bar i{display:block;height:100%;background:var(--c);border-radius:999px;transition:width .4s}
+.meter .bar i.low{background:var(--warn)}
+.meter b{font-variant-numeric:tabular-nums;text-align:right}
+@media (max-width:520px){.meter{grid-template-columns:110px 1fr 38px}}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:620px){.choice-grid{grid-template-columns:1fr}}
+.choice{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;cursor:pointer;display:grid;gap:4px}
+.choice:hover{border-color:var(--c)}
+.choice[aria-pressed="true"]{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,var(--surface))}
+.fb{font-size:.9rem;border-left:3px solid var(--c);padding:6px 12px;background:color-mix(in srgb,var(--c) 8%,transparent);border-radius:0 10px 10px 0}
+.fb.ok{border-color:var(--ok)} .fb.no{border-color:var(--bad)}
+.stmt{font-family:var(--f-display);font-size:1.1rem;line-height:1.6;padding:14px 16px;border-radius:14px;background:var(--bg);border:1px solid var(--line)}
+.stmt select{font-family:var(--f-body);font-size:.95rem;max-width:100%;margin:2px 0}
+
+/* workspace */
+.work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:18px;align-items:start}
+@media (max-width:980px){.work{grid-template-columns:1fr}}
+.step-head{display:flex;gap:14px;align-items:center}
+.step-head .L{font-family:var(--f-display);font-weight:700;font-size:3.2rem;line-height:1;color:var(--c);width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,transparent);flex:0 0 auto}
+.step-head h2{font-size:1.45rem}
+.ingame{background:color-mix(in srgb,var(--c) 10%,var(--surface));border:1px dashed color-mix(in srgb,var(--c) 55%,transparent);border-radius:12px;padding:12px 14px}
+.ingame b{font-family:var(--f-display);font-weight:500;color:var(--c)}
+.blk h4{font-size:.98rem;margin-bottom:6px}
+.blk ul{margin:0;padding-left:1.2em;display:grid;gap:3px}
+
+label.f{display:grid;gap:4px;font-size:.9rem;font-weight:500}
+label.f span.h{font-weight:400;color:var(--muted);font-size:.8rem}
+input[type=text],input[type=url],input[type=number],input[type=password],input[type=search],select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 12px;min-width:0}
+textarea{resize:vertical;min-height:84px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--s);outline-offset:0;border-color:transparent}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.grid2{grid-template-columns:1fr}}
+.saved{font-size:.82rem;color:var(--ok)}
+
+.tabs{display:flex;gap:4px;background:var(--surface2);padding:4px;border-radius:12px}
+.tabs button{flex:1;border:0;background:none;padding:9px 10px;border-radius:9px;cursor:pointer;font-family:var(--f-display);font-weight:500;color:var(--muted);line-height:1.25}
+.tabs button[aria-selected="true"]{background:var(--surface);color:var(--fg);box-shadow:var(--shadow)}
+.tabs button small{display:block;font-family:var(--f-body);font-weight:400;font-size:.72rem}
+.thread{display:flex;flex-direction:column;gap:10px;max-height:460px;min-height:220px;overflow-y:auto;padding:4px 2px}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;white-space:pre-wrap;word-wrap:break-word;font-size:.95rem}
+.msg.u{align-self:flex-end;background:var(--brand);color:var(--ink-on-brand);border-bottom-right-radius:4px}
+.msg.b{align-self:flex-start;background:var(--surface2);border:1px solid var(--line);border-bottom-left-radius:4px;white-space:normal}
+.msg.b p+p{margin-top:6px}
+.msg.b ul{margin:4px 0;padding-left:1.2em}
+.msg.log{align-self:stretch;max-width:100%;background:var(--bg);border:1px dashed var(--line);white-space:normal}
+.msg .meta{display:block;font-size:.72rem;opacity:.75;margin-top:4px}
+.coach-av{display:flex;align-items:center;gap:8px;font-family:var(--f-display);font-weight:500;font-size:.85rem;color:var(--a)}
+.composer{display:flex;gap:8px;align-items:flex-end}
+.composer textarea{min-height:48px;max-height:160px}
+.starters{display:flex;flex-wrap:wrap;gap:6px}
+.starters button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:5px 11px;font-size:.82rem;cursor:pointer;color:var(--muted);text-align:left}
+.starters button:hover{border-color:var(--a);color:var(--fg)}
+
+.qcard{border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;gap:6px;background:var(--bg)}
+.qcard .hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qcard .hd b{font-family:var(--f-display);font-weight:500}
+.pill{font-family:var(--f-display);font-size:.75rem;font-weight:500;padding:2px 10px;border-radius:999px;border:1px solid}
+.pill.pending{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent);background:color-mix(in srgb,var(--warn) 10%,transparent)}
+.pill.approved{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent);background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.pill.revise{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,transparent);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.lv{font-size:.75rem;color:var(--muted)}
+.tnote{border-left:3px solid var(--brand);padding:4px 10px;font-size:.9rem;background:var(--surface2);border-radius:0 8px 8px 0}
+.aicheck{font-size:.86rem;border-left:3px solid var(--a);padding:4px 10px;background:color-mix(in srgb,var(--a) 8%,transparent);border-radius:0 8px 8px 0}
+sup{font-size:.72em;line-height:0}
+
+/* game page */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.comp{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.comp{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.comp{grid-template-columns:1fr}}
+.comp div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.comp h3{font-size:1rem;margin-bottom:6px}
+.comp ul{margin:0;padding-left:1.1em;font-size:.92rem}
+.flow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;counter-reset:fl}
+@media (max-width:900px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.flow div{counter-increment:fl;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:10px;padding:10px 12px;font-size:.9rem;display:grid;gap:2px}
+.flow div::before{content:"ขั้น " counter(fl);font-family:var(--f-display);font-size:.75rem;color:var(--muted)}
+.flow b{font-family:var(--f-display);font-weight:500;color:var(--c);font-size:.8rem}
+.res{display:flex;flex-wrap:wrap;gap:8px}
+.res a{display:inline-flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--fg);border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:9px 14px;min-width:0}
+.res a:hover{border-color:var(--s)}
+.res a b{font-family:var(--f-display);font-weight:500;font-size:.95rem}
+.res a span{font-size:.78rem;color:var(--muted)}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.94rem}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-display);font-weight:500;background:var(--surface2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.num{font-variant-numeric:tabular-nums;text-align:right}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.gallery button{padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:zoom-in;background:var(--surface);text-align:left}
+.gallery img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.gallery span{display:block;padding:8px 12px;font-size:.85rem;font-family:var(--f-display);font-weight:500}
+dialog{border:0;padding:0;background:transparent;max-width:min(1200px,96vw);max-height:94vh;overflow:auto;color:var(--fg)}
+dialog::backdrop{background:rgba(3,8,26,.82)}
+dialog img{width:100%;border-radius:12px;display:block}
+dialog .x{position:absolute;top:8px;right:8px}
+
+/* questions */
+.qfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.qfilters select,.qfilters input{width:auto}
+.qfilters input[type=search]{flex:1 1 220px}
+.qlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.qlist{grid-template-columns:1fr}}
+.qitem{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.qitem .q{font-family:var(--f-display);font-weight:500;font-size:1.02rem}
+.qitem .meta{font-size:.8rem;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.qitem details summary{cursor:pointer;font-size:.86rem;color:var(--a)}
+.qitem .ans{font-size:.92rem;margin-top:6px}
+.qitem .ans p+p{margin-top:4px}
+
+/* report */
+.demo-banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-radius:14px;padding:12px 16px;border:2px dashed var(--warn);background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--warn) 12%,var(--surface)) 0 14px,var(--surface) 14px 28px)}
+.demo-banner b{font-family:var(--f-display);color:var(--warn)}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis > :first-child{grid-column:1/-1}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.kpi b{display:block;font-family:var(--f-display);font-weight:600;font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.85rem;color:var(--muted)}
+.kpi small{display:block;font-size:.78rem;color:var(--muted);margin-top:4px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:900px){.charts{grid-template-columns:1fr}}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.chart h3{font-size:1.05rem}
+.chart .sub{font-size:.84rem;color:var(--muted)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.84rem;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.chart svg{width:100%;height:auto;overflow:visible}
+#cCards svg{max-width:780px}
+.chart svg text{fill:var(--muted);font-family:var(--f-body);font-size:12px}
+.chart svg text.v{fill:var(--fg);font-variant-numeric:tabular-nums}
+.chart svg .gridl{stroke:var(--line);stroke-width:1}
+.heat td.h{text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+.heat{table-layout:fixed;min-width:520px}
+.heat th,.heat td{padding:8px 10px;overflow-wrap:anywhere}
+.heat thead th{font-size:.84rem;overflow-wrap:normal;word-break:normal}
+.nowrap{white-space:nowrap}
+.track{max-width:760px}
+.crea{display:grid;grid-template-columns:1fr 1.3fr;gap:16px}
+@media (max-width:900px){.crea{grid-template-columns:1fr}}
+.tip{position:fixed;z-index:70;pointer-events:none;background:var(--fg);color:var(--bg);font-size:.82rem;padding:6px 10px;border-radius:8px;max-width:260px;box-shadow:var(--shadow)}
+.seg{display:flex;gap:4px;flex-wrap:wrap}
+.seg button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 13px;cursor:pointer;font-size:.86rem}
+.seg button[aria-pressed="true"]{background:var(--brand);color:var(--ink-on-brand);border-color:var(--brand)}
+.vids{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.vids{grid-template-columns:1fr}}
+.vid{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.vid:hover{border-color:var(--s)}
+.vid .play{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--room);color:#fff;flex:0 0 auto}
+
+.poster-row{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:22px;align-items:start}
+@media (max-width:860px){.poster-row{grid-template-columns:1fr}}
+.poster{padding:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;cursor:zoom-in;display:grid;box-shadow:var(--shadow)}
+.poster img{display:block;width:100%}
+.poster span{background:var(--surface);color:var(--muted);font-size:.82rem;padding:8px 12px;text-align:left}
+.journey{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--f-display);font-weight:500}
+.journey span{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.journey span:last-child{background:var(--gold);color:#1A1200;border-color:var(--gold)}
+.journey i{font-style:normal;color:var(--muted)}
+.quote{margin:0;border-radius:var(--radius);padding:24px 26px;background:linear-gradient(135deg,color-mix(in srgb,var(--a) 16%,var(--surface)),var(--surface) 70%);border:1px solid var(--line);display:grid;align-content:center;gap:10px}
+.quote blockquote{margin:0;font-family:var(--f-display);font-size:clamp(1.2rem,2.3vw,1.55rem);font-weight:500;line-height:1.45}
+.quote figcaption{color:var(--muted);font-size:.9rem}
+.hl .tag{font-size:.88rem;padding:5px 12px}
+.team{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:end;border-top:1px solid var(--line);padding-top:16px}
+.people{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+@media (max-width:640px){.people{grid-template-columns:1fr}}
+.people li{display:grid;gap:2px}
+.people b{font-family:var(--f-display);font-weight:500;font-size:1.05rem}
+.people span{font-size:.85rem;color:var(--muted)}
+/* teacher */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.stat b{display:block;font-family:var(--f-display);font-weight:600;font-size:1.9rem;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:.85rem;color:var(--muted)}
+.stat.hot b{color:var(--warn)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filters select{width:auto}
+.queue{display:grid;gap:12px}
+.rv{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:10px}
+.rv .who2{font-size:.85rem;color:var(--muted)}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;font-size:.93rem}
+.kv dt{color:var(--muted)} .kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+@media (max-width:520px){.kv{grid-template-columns:1fr}.kv dt{margin-top:6px}}
+.scoregrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.scoregrid.p4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:760px){.scoregrid,.scoregrid.p4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.drawer{position:fixed;inset:0 0 0 auto;width:min(560px,100%);background:var(--surface);border-left:1px solid var(--line);z-index:40;overflow-y:auto;padding:20px max(20px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) 20px;padding-top:calc(20px + env(safe-area-inset-top,0px));box-shadow:-20px 0 40px rgba(0,0,0,.3);display:grid;gap:14px;align-content:start}
+.scrim{position:fixed;inset:0;background:rgba(3,8,26,.55);z-index:35}
+
+.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:.85rem}
+.foot .wrap{display:flex;gap:10px 24px;flex-wrap:wrap;justify-content:space-between}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;z-index:60;font-size:.9rem;max-width:calc(100% - 32px)}
+.typing{display:inline-flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:bl 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <button class="brand" data-go="home" aria-label="MATH-SPARK หน้าแรก">
+      <img src="img/logo.webp" alt="โลโก้ MATH-SPARK EDU LAB">
+      <div><b>MATH-SPARK Learning Hub</b><span>โรงเรียนมัธยมวัดธาตุทอง · ค22222</span></div>
+    </button>
+    <nav class="nav" aria-label="เมนูหลัก">
+      <button data-go="home">หน้าแรก</button>
+      <button data-go="learn">บทเรียน SPARK</button>
+      <button data-go="spark">พื้นที่ทำงานกลุ่ม</button>
+      <button data-go="game">ภารกิจบอร์ดเกม</button>
+      <button data-go="questions">คลังคำถาม</button>
+      <button data-go="report">รายงานผล</button>
+      <button data-go="about">นวัตกรรม</button>
+      <button data-go="teacher" id="navTeacher" hidden>ห้องครู</button>
+    </nav>
+    <button class="who" id="whoChip" title="ข้อมูลผู้เรียน">ยังไม่ลงทะเบียน</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- HOME -->
+<section class="view" id="v-home">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">FutureEd Fest 2026 · Human Intelligence in the Age of AI</p>
+      <h1>จุดประกายปัญญาคณิตศาสตร์<br><span class="grad">จากผู้เรียนสู่ผู้สร้างนวัตกรรม</span></h1>
+      <p class="lead">เรียนรู้กระบวนการ SPARK ผ่านเกมจำลองทีละขั้น ใช้ AI เป็นคู่คิดที่ชวนให้คิดต่อ ส่งโจทย์การ์ดบอร์ดเกมให้ครูตรวจ และเก็บหลักฐานการเรียนรู้ของกลุ่มไว้ในที่เดียว</p>
+      <div class="cta">
+        <button class="btn btn-gold" data-go="learn">เริ่มบทเรียน SPARK</button>
+        <button class="btn btn-line" data-go="spark">เข้าพื้นที่ทำงานกลุ่ม</button>
+        <button class="btn btn-line" data-go="report">ดูรายงานผล</button>
+      </div>
+      <div class="motto"><span>Spark Thinking</span><span>Create Innovation</span><span>Make Impact</span></div>
+    </div>
+    <img class="logo-big" src="img/logo.webp" alt="MATH-SPARK EDU LAB">
+  </div>
+
+  <div class="challenge">
+    <p class="eyebrow" style="margin-bottom:6px">Design Challenge</p>
+    <q>เราจะออกแบบการเรียนรู้คณิตศาสตร์อย่างไร ให้นักเรียนใช้ AI ได้ แต่ยังคงคิดด้วยตนเอง และเปลี่ยนความรู้เป็นนวัตกรรมได้จริง?</q>
+  </div>
+
+  <div class="section-h">
+    <div><p class="eyebrow">กระบวนการเรียนรู้ 5 ขั้น</p><h2>SPARK: เรียนรู้ด้วยเกม แล้วลงมือทำจริง</h2></div>
+    <p class="muted small">กดที่ขั้นใดก็ได้เพื่อเปิดบทเรียนพร้อมเกมจำลองของขั้นนั้น</p>
+  </div>
+  <div class="spark-grid" id="sparkCards"></div>
+
+  <div>
+    <div class="section-h" style="margin-bottom:12px"><h2>ใช้เว็บนี้อย่างไร</h2></div>
+    <ol class="how">
+      <li><b>ลงทะเบียนกลุ่ม</b><span class="muted small">กรอกชื่อ ห้อง เลขที่ และชื่อกลุ่ม ครูจะเห็นงานของกลุ่มตามข้อมูลนี้</span><button class="btn btn-line btn-sm" style="justify-self:start" id="openProfile2">ลงทะเบียน / เข้าสู่ระบบ</button></li>
+      <li><b>เรียนบทเรียนแล้วลงมือทำ</b><span class="muted small">เล่นเกมจำลองในบทเรียนของแต่ละขั้น แล้วไปที่พื้นที่ทำงานกลุ่มเพื่อคุยกับ AI Thinking Coach และบันทึกหลักฐาน</span></li>
+      <li><b>ส่งโจทย์การ์ดให้ครูตรวจ</b><span class="muted small">โจทย์และเฉลยที่จะใช้ในบอร์ดเกมต้องผ่านครูก่อน ดูผลตรวจและคำแนะนำได้ในพื้นที่ทำงานกลุ่ม</span></li>
+    </ol>
+  </div>
+
+  <div>
+    <div class="section-h" style="margin-bottom:12px"><div><p class="eyebrow">AI = Thinking Partner, not an Answer Machine</p><h2>กติกาการใช้ AI ในห้องเรียนนี้</h2></div></div>
+    <div class="rules">
+      <div class="rule-box"><h3><span class="tag yes">ควรทำ</span> ใช้ AI เพื่อขยายการคิด</h3>
+        <ul><li>ถาม AI หลังจากลองคิดเองแล้ว และบอก AI ว่าเราคิดอะไรไปบ้าง</li><li>ขอคำใบ้ ขอให้ตรวจเหตุผล หรือขอตัวอย่างค้าน</li><li>ตรวจคำตอบของ AI ซ้ำด้วยการคำนวณเอง หรือแทนค่าทดสอบ</li><li>บันทึกว่าเชื่อส่วนใด ไม่เชื่อส่วนใด และตัดสินใจเพราะอะไร</li></ul></div>
+      <div class="rule-box"><h3><span class="tag no">ไม่ควรทำ</span> ให้ AI คิดแทน</h3>
+        <ul><li>คัดลอกคำตอบหรือกติกาเกมทั้งชุดจาก AI ไปส่ง</li><li>เชื่อคำตอบของ AI โดยไม่ตรวจสอบ</li><li>ส่งโจทย์การ์ดที่ยังไม่มีเฉลยหรือยังไม่ตรวจร่วมกันในกลุ่ม</li><li>ใส่ข้อมูลส่วนตัว เช่น เบอร์โทรหรือที่อยู่ ลงในแชท</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section class="view" id="v-learn" hidden>
+  <div class="section-h">
+    <div><p class="eyebrow">บทเรียน · เรียนรู้ผ่านเกมจำลอง</p><h2>บทเรียน SPARK ทีละขั้น</h2></div>
+    <p class="muted small">อ่านหัวใจของขั้น เล่นเกมจำลอง แล้วไปลงมือทำจริงในพื้นที่ทำงานกลุ่ม</p>
+  </div>
+  <div class="steps" role="tablist" id="learnTabs" aria-label="บทเรียนแต่ละขั้น"></div>
+  <div id="lessonBody" style="display:grid;gap:18px"></div>
+</section>
+
+<!-- WORKSPACE -->
+<section class="view" id="v-spark" hidden>
+  <div class="section-h">
+    <div><p class="eyebrow">พื้นที่ทำงานกลุ่ม · โครงงานบอร์ดเกม Polynomial Adventure</p><h2>บันทึกหลักฐาน ถาม AI และส่งโจทย์ให้ครู</h2></div>
+    <p class="muted small" id="sparkWho"></p>
+  </div>
+  <div class="steps" role="tablist" id="stepTabs" aria-label="ขั้น SPARK"></div>
+  <div class="work">
+    <article class="panel" id="lesson"></article>
+    <aside class="panel" id="chatPanel" aria-label="แชทของขั้นนี้">
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tabAI" aria-selected="true">ถาม AI Thinking Coach<small>AI ช่วยตรวจและถามกลับ</small></button>
+        <button role="tab" id="tabTeacher" aria-selected="false">ส่งโจทย์ให้ครู<small>โจทย์การ์ดบอร์ดเกม · ครูเป็นผู้ตรวจ</small></button>
+      </div>
+      <div id="paneAI"></div>
+      <div id="paneTeacher" hidden></div>
+    </aside>
+  </div>
+</section>
+
+<!-- GAME -->
+<section class="view" id="v-game" hidden>
+  <div class="section-h">
+    <div><p class="eyebrow">ค22222 คณิตศาสตร์เสริมศักยภาพ 2 · ม.2/2 และ ม.2/3</p><h2>ภารกิจ: โครงงานบอร์ดเกมคณิตศาสตร์ Polynomial Adventure</h2></div>
+  </div>
+  <div class="panel" style="gap:12px">
+    <div class="section-h"><h3>เอกสารและที่ส่งงาน</h3><span class="small muted">เปิดใน Google Drive</span></div>
+    <div class="res" id="resDocs"></div>
+    <div><p class="small" style="margin-bottom:6px"><b>โฟลเดอร์ส่งงานของแต่ละห้อง</b> · อัปโหลดภาพต้นแบบ การ์ด กติกา และเล่มรายงานไว้ในโฟลเดอร์กลุ่มของตนเอง</p><div class="res" id="resRooms"></div></div>
+  </div>
+  <div class="two">
+    <div class="rule-box"><h3>ลักษณะกิจกรรม</h3>
+      <p>บูรณาการ Project-Based Learning กับ Game-Based Learning แต่ละห้องแบ่งกลุ่ม กลุ่มละ 4–6 คน ห้องละ 4 กลุ่ม ร่วมกันออกแบบและสร้างบอร์ดเกมคณิตศาสตร์ที่ <b>เล่นได้จริง ถูกต้องทางคณิตศาสตร์</b> มีกติกาและสื่อประกอบเหมาะสม แล้วนำเสนอและทดลองเล่นหน้าชั้นเรียน</p>
+      <p class="muted small" style="margin-top:8px">เนื้อหาที่ใช้: เอกนาม · พหุนาม · การดำเนินการของพหุนาม · การแยกตัวประกอบพหุนาม · การประยุกต์ใช้</p>
+    </div>
+    <div class="rule-box"><h3>จุดประสงค์ของกิจกรรม</h3>
+      <ul><li>ประยุกต์ใช้ความรู้ทางคณิตศาสตร์ในการออกแบบเกม</li><li>พัฒนาความคิดสร้างสรรค์และการคิดวิเคราะห์</li><li>พัฒนาทักษะการแก้ปัญหาและการทำงานเป็นทีม</li><li>สื่อสารแนวคิดทางคณิตศาสตร์ผ่านสื่อเกม</li><li>สร้างนวัตกรรมการเรียนรู้จากองค์ความรู้ทางคณิตศาสตร์</li></ul>
+    </div>
+  </div>
+  <div><h3 style="margin-bottom:10px">องค์ประกอบของชิ้นงาน</h3>
+  <div class="comp">
+    <div><h3>1 · กระดานเกม</h3><ul><li>มีเส้นทางหรือรูปแบบการเล่นชัดเจน</li><li>มีธีมหรือแนวคิดของเกม</li><li>ออกแบบสวยงาม น่าสนใจ</li></ul></div>
+    <div><h3>2 · การ์ดเกม / คำถาม</h3><ul><li>โจทย์ตรงกับเนื้อหาในรายวิชา</li><li>ระดับความยากเหมาะสม</li><li>มีเฉลยหรือแนวคำตอบ</li></ul></div>
+    <div><h3>3 · กติกาการเล่น</h3><ul><li>อธิบายเข้าใจง่าย เล่นได้จริง</li><li>มีระบบคะแนนหรือเงื่อนไขชนะ</li><li>ระบุชื่อเกม สมาชิก วิธีเล่น จุดประสงค์ และเนื้อหาที่ใช้</li></ul></div>
+    <div><h3>4 · อุปกรณ์ประกอบ</h3><ul><li>ตัวเดิน ลูกเต๋า</li><li>การ์ดพลัง Token</li><li>คะแนนสะสม</li></ul></div>
+  </div></div>
+  <div><h3 style="margin-bottom:6px">รูปแบบเกมที่เลือกได้</h3><div class="chips" id="gameTypes"></div></div>
+  <div><h3 style="margin-bottom:6px">ขั้นตอนการดำเนินงาน 7 ขั้น กับเส้นทาง SPARK</h3>
+    <p class="muted small" style="margin-bottom:10px">การจับคู่ขั้นตอนกับ SPARK เป็นการจัดเพื่อใช้ในเว็บนี้ ครูปรับได้ตามบริบทห้องเรียน</p>
+    <div class="flow" id="flow"></div></div>
+  <div class="two">
+    <div><h3 style="margin-bottom:10px">เกณฑ์การประเมินชิ้นงาน (30 คะแนน)</h3><div class="tbl-wrap"><table id="rubricTable"></table></div></div>
+    <div><h3 style="margin-bottom:10px">ระดับคุณภาพ</h3>
+      <div class="tbl-wrap"><table><thead><tr><th>ช่วงคะแนน</th><th>ระดับคุณภาพ</th></tr></thead>
+        <tbody><tr><td class="num">27–30</td><td>ดีเยี่ยม</td></tr><tr><td class="num">22–26</td><td>ดี</td></tr><tr><td class="num">17–21</td><td>พอใช้</td></tr><tr><td class="num">ต่ำกว่า 17</td><td>ปรับปรุง</td></tr></tbody></table></div>
+      <div class="notice" style="margin-top:12px"><b>ข้อกำหนดเรื่องโจทย์:</b> ใบกิจกรรมโครงร่างบอร์ดเกมกำหนดโจทย์พร้อมเฉลยอย่างน้อย 10 ข้อ แบ่งเป็น ง่าย 3 · ปานกลาง 4 · ท้าทาย 3 และตัวอย่างการ์ดคำถาม 3 ใบ ส่งโจทย์ให้ครูตรวจได้ที่ <a href="#a" data-go="a">พื้นที่ทำงานขั้น A</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="view" id="v-questions" hidden>
+  <div class="section-h">
+    <div><p class="eyebrow">คลังคำถาม · สิ่งที่นักเรียนถาม AI Thinking Coach</p><h2>นักเรียนถามอะไรในแต่ละขั้น</h2></div>
+    <p class="muted small" id="qScope"></p>
+  </div>
+  <div id="qBanner"></div>
+  <div class="qfilters">
+    <select id="qStep" aria-label="กรองตามขั้น"><option value="all">ทุกขั้น</option></select>
+    <select id="qRoom" aria-label="กรองตามห้อง"><option value="all">ทุกห้อง</option><option>ม.2/2</option><option>ม.2/3</option></select>
+    <input type="search" id="qSearch" placeholder="ค้นหาคำ เช่น แยกตัวประกอบ" aria-label="ค้นหาคำถาม">
+  </div>
+  <div id="qSummary" class="chips"></div>
+  <div class="qlist" id="qList"></div>
+</section>
+
+<!-- REPORT -->
+<section class="view" id="v-report" hidden>
+  <div class="section-h">
+    <div><p class="eyebrow">รายงานผลการใช้ MATH-SPARK · ม.2/2 และ ม.2/3 · ปีการศึกษา 2569</p><h2>สรุปรายงานผล</h2></div>
+    <div class="seg" id="rSource" aria-label="แหล่งข้อมูล"><button data-src="real" aria-pressed="false">ข้อมูลจริง</button><button data-src="demo" aria-pressed="true">ข้อมูลจำลอง (สาธิต)</button></div>
+  </div>
+  <div id="rBanner"></div>
+  <div class="kpis" id="rKpis"></div>
+  <div class="charts">
+    <div class="chart" id="cRubric"></div>
+    <div class="chart" id="cLevels"></div>
+  </div>
+  <div class="panel" id="cCreative"></div>
+  <div class="charts">
+    <div class="chart" id="cFunnel"></div>
+    <div class="chart" id="cAI"></div>
+  </div>
+  <div class="chart" id="cCards"></div>
+  <div class="chart" id="cProcess"></div>
+  <div class="chart" id="cGroups"></div>
+  <div><h3 style="margin-bottom:10px">วิดีโอการนำเสนอผลงาน</h3>
+    <div class="vids">
+      <a class="vid" style="--room:var(--room1)" href="https://drive.google.com/file/d/18BwL_czWAZFKj9YiqXdkK0o9QIeXefAr/view" target="_blank" rel="noopener"><span class="play">▶</span><span><b>ม.2/2</b><br><span class="small muted">วิดีโอใน Google Drive</span></span></a>
+      <a class="vid" style="--room:var(--room2)" href="https://drive.google.com/file/d/1rIwbUDVp9-RFSrq4ntgpcQ9aLedgdobV/view" target="_blank" rel="noopener"><span class="play">▶</span><span><b>ม.2/3</b><br><span class="small muted">วิดีโอใน Google Drive</span></span></a>
+    </div></div>
+  <p class="muted small" id="rFoot"></p>
+</section>
+
+<!-- ABOUT -->
+<section class="view" id="v-about" hidden>
+  <div class="section-h"><div><p class="eyebrow">MATH-SPARK Model & Learning Ecosystem</p><h2>นวัตกรรม MATH-SPARK</h2></div></div>
+  <div class="poster-row">
+    <button class="poster" id="posterBtn" aria-label="ขยายโปสเตอร์ MATH-SPARK Model"><img src="img/poster.jpg" alt="โปสเตอร์ MATH-SPARK Model จากผู้เรียนสู่ผู้สร้างนวัตกรรมในยุค AI" loading="lazy"><span>โปสเตอร์นำเสนอผลงานเพื่อส่งประกวด · กดเพื่อขยาย</span></button>
+    <div style="display:grid;gap:16px;align-content:start">
+      <p class="eyebrow">Mathematics × People × AI × A Better Tomorrow</p>
+      <h3 style="font-size:clamp(1.3rem,2.4vw,1.7rem)">จากผู้เรียนสู่ผู้สร้างนวัตกรรมในยุค AI</h3>
+      <p>MATH-SPARK คือกระบวนการจัดการเรียนรู้คณิตศาสตร์ที่ใช้เกมจุดประกาย ใช้ปัญหาจริงสร้างภารกิจ ใช้ AI เป็นคู่คิด ใช้ Feedback ปรับต้นแบบ และเปลี่ยนความรู้คณิตศาสตร์ให้เป็นนวัตกรรมที่มีคุณค่า โดยมี <b>MATH</b> เป็นหลักคิด 4 ประการ และ <b>SPARK</b> เป็นกระบวนการเรียนรู้ 5 ขั้น</p>
+      <div class="rule-box"><h3>ที่มาและความสำคัญ</h3><ul>
+        <li>นักเรียนจำนวนมากมองว่าคณิตศาสตร์ยาก ไกลตัว และไม่เห็นการนำไปใช้จริง</li>
+        <li>การเรียนรู้แบบเดิมยังไม่กระตุ้นการคิดสร้างสรรค์และการลงมือสร้างผลงาน</li>
+        <li>จึงพัฒนา MATH-SPARK Model เพื่อผสานเกม โครงงาน และ AI ให้ผู้เรียนคิดเป็น ทำเป็น และสร้างนวัตกรรมได้</li></ul></div>
+      <div class="rule-box"><h3>ผลลัพธ์ที่มุ่งพัฒนา</h3>
+        <div class="journey"><span>ผู้เรียน</span><i>→</i><span>นักคิด</span><i>→</i><span>นักออกแบบ</span><i>→</i><span>นักสร้างนวัตกรรม</span></div>
+        <div class="chips" style="margin-top:10px"><span class="tag">คิดวิเคราะห์</span><span class="tag">ความคิดสร้างสรรค์</span><span class="tag">การทำงานร่วมกัน</span><span class="tag">การสื่อสาร</span><span class="tag">การใช้ AI อย่างมีวิจารณญาณ</span><span class="tag">การสร้างผลกระทบในโลกจริง</span></div></div>
+    </div>
+  </div>
+  <div class="two">
+    <div class="tbl-wrap"><table><thead><tr><th>MATH: หลักคิด</th><th>สาระสำคัญ</th></tr></thead><tbody>
+      <tr><td><b>M</b> – Meaningful Mathematics</td><td>คณิตศาสตร์ต้องเชื่อมกับความหมาย ปัญหา และการตัดสินใจจริง</td></tr>
+      <tr><td><b>A</b> – Active & Authentic Learning</td><td>ผู้เรียนลงมือคิด ลงมือทำ และสร้างหลักฐานจากประสบการณ์จริง</td></tr>
+      <tr><td><b>T</b> – Technology as a Thinking Partner</td><td>AI/เทคโนโลยีช่วยขยายการคิด แต่ไม่ทำงานแทนผู้เรียน</td></tr>
+      <tr><td><b>H</b> – Human Intelligence & Human-centered Innovation</td><td>ความคิดสร้างสรรค์ จริยธรรม เหตุผล การร่วมมือ และคุณค่าต่อผู้ใช้เป็นศูนย์กลาง</td></tr>
+    </tbody></table></div>
+    <div class="tbl-wrap"><table><thead><tr><th>SPARK</th><th>Design Thinking</th><th>หลักฐานขั้นต่ำ</th></tr></thead><tbody id="dtRows"></tbody></table></div>
+  </div>
+  <div class="two">
+    <div class="rule-box"><h3>การขยายผล</h3><p class="small muted" style="margin-bottom:6px">ขยายโอกาส สร้างเครือข่าย สู่การเปลี่ยนแปลงที่ยั่งยืน</p><ul>
+      <li>ขยายสู่ MATH-SPARK Learning Hub (เว็บนี้)</li><li>ผู้เรียนเรียนรู้ คิด สร้างชิ้นงาน และส่งงานได้ด้วยตนเอง</li><li>ครูนำแนวคิดไปใช้ต่อยอดในชั้นเรียนอื่นได้</li><li>สนับสนุนการขยายผลอย่างยั่งยืน</li></ul></div>
+    <figure class="quote"><blockquote>คณิตศาสตร์ไม่ใช่แค่การหาคำตอบ แต่คือการสร้างโอกาสให้สังคมที่ดีกว่า</blockquote><figcaption>— MATH-SPARK Model</figcaption></figure>
+  </div>
+  <div class="panel" style="gap:10px"><h3>จุดเด่นของผลงาน</h3><div class="chips hl"><span class="tag yes">แก้ปัญหาจริง</span><span class="tag yes">ใช้ได้จริง</span><span class="tag yes">เรียนรู้เชิงรุก</span><span class="tag yes">บูรณาการ AI อย่างเหมาะสม</span><span class="tag yes">ขยายผลได้</span><span class="tag yes">ยั่งยืน</span></div></div>
+  <div><h3 style="margin-bottom:10px">สื่อนำเสนอนวัตกรรม</h3><div class="gallery" id="gallery"></div></div>
+  <div class="team"><div style="display:grid;gap:10px"><p class="eyebrow">คณะครูผู้พัฒนาและผู้ส่งผลงาน</p>
+    <ul class="people">
+      <li><b>นายเกรียงไกร ชาเคน</b><span>ครูกลุ่มสาระการเรียนรู้คณิตศาสตร์ · ผู้พัฒนา MATH-SPARK</span></li>
+      <li><b>นางสาวอาภาพร ไพรพนม</b><span>ผู้ส่งผลงาน</span></li>
+      <li><b>นางสาวนวมมล์ เจริญกุล</b><span>ผู้ส่งผลงาน</span></li>
+      <li><b>นางสาวพิมนภัทร์ เธียรพงศ์เกษม</b><span>ครูกลุ่มสาระการเรียนรู้คณิตศาสตร์ ผู้สอนระดับชั้น ม.2</span></li>
+    </ul>
+    <p class="small muted">โรงเรียนมัธยมวัดธาตุทอง สพม.กรุงเทพมหานคร เขต 2</p></div><p class="small muted">สถานะของ Learning Hub: ต้นแบบ (MVP) สำหรับทดลองใช้</p></div>
+</section>
+
+<!-- TEACHER -->
+<section class="view" id="v-teacher" hidden>
+  <div class="section-h"><div><p class="eyebrow">Teacher Dashboard · Quality Gatekeeper</p><h2>ห้องครู: ตรวจโจทย์ ให้คะแนน และติดตามหลักฐาน</h2></div>
+    <div class="row"><div class="seg" id="tSource" aria-label="แหล่งข้อมูลห้องครู"><button data-tsrc="real" aria-pressed="false">ข้อมูลจริง</button><button data-tsrc="demo" aria-pressed="true">ข้อมูลจำลอง (สาธิต)</button></div><button class="btn btn-line btn-sm" id="tRefresh">รีเฟรช</button></div></div>
+  <div id="tBanner"></div>
+  <div class="stats" id="tStats"></div>
+  <div class="panel">
+    <div class="section-h"><h3>โจทย์การ์ดบอร์ดเกมที่นักเรียนส่งมา</h3>
+      <div class="filters"><select id="fRoom" aria-label="กรองห้อง"><option value="all">ทุกห้อง</option><option>ม.2/2</option><option>ม.2/3</option></select>
+        <div class="seg" id="fStatus"><button data-s="pending" aria-pressed="true">รอตรวจ</button><button data-s="revise" aria-pressed="false">ให้แก้ไข</button><button data-s="approved" aria-pressed="false">ผ่านแล้ว</button><button data-s="all" aria-pressed="false">ทั้งหมด</button></div></div></div>
+    <div class="queue" id="tQueue"></div>
+  </div>
+  <div class="panel" id="scorePanel">
+    <div class="section-h"><div><h3>ให้คะแนนชิ้นงานบอร์ดเกม</h3><p class="small muted">คะแนนนี้ใช้คำนวณหน้ารายงานผล (ข้อมูลจริง)</p></div><button class="btn btn-gold btn-sm" id="publishBtn">เผยแพร่สรุปผลในหน้ารายงาน</button></div>
+    <form id="scoreForm" style="display:grid;gap:12px">
+      <div class="grid2">
+        <label class="f">ห้อง<select id="sRoom"><option>ม.2/2</option><option>ม.2/3</option></select></label>
+        <label class="f">ชื่อกลุ่ม<input type="text" id="sGroup" list="groupList" maxlength="80" required placeholder="พิมพ์หรือเลือกจากรายชื่อกลุ่ม"><datalist id="groupList"></datalist></label>
+      </div>
+      <div><p class="small" style="margin-bottom:6px"><b>เกณฑ์ชิ้นงาน 30 คะแนน</b></p><div class="scoregrid" id="sCrit"></div></div>
+      <div><p class="small" style="margin-bottom:6px"><b>Rubric กระบวนการ SPARK</b> (4 ดีเยี่ยม · 3 ดี · 2 พัฒนา · 1 เริ่มต้น)</p><div class="scoregrid p4" id="sProc"></div></div>
+      <label class="f">บันทึกของครู (ถ้ามี)<textarea id="sNote" maxlength="800" style="min-height:56px"></textarea></label>
+      <div class="row"><button class="btn btn-gold btn-sm">บันทึกคะแนนกลุ่มนี้</button><span class="saved" id="sSaved"></span></div>
+    </form>
+    <div class="tbl-wrap"><table><thead><tr><th>ห้อง</th><th>กลุ่ม</th><th class="num">ชิ้นงาน /30</th><th>ระดับ</th><th class="num">สร้างสรรค์ /5</th><th></th></tr></thead><tbody id="sList"></tbody></table></div>
+  </div>
+  <div class="panel">
+    <h3>ความก้าวหน้าตามขั้น SPARK</h3>
+    <p class="muted small">จุดสีเขียว = บันทึกหลักฐานของขั้นนั้นแล้ว กด “ดูบันทึก” เพื่ออ่านหลักฐานและ AI Log</p>
+    <div class="tbl-wrap"><table><thead><tr><th>นักเรียน / กลุ่ม</th><th>ห้อง</th><th>S</th><th>P</th><th>A</th><th>R</th><th>K</th><th class="num">โจทย์</th><th></th></tr></thead><tbody id="tProgress"></tbody></table></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot"><div class="wrap"><span>MATH-SPARK EDU LAB · Learning Hub (ต้นแบบ) · FutureEd Fest 2026 · Learn Today, Create Tomorrow</span><span class="row"><span id="modeNote"></span><button class="linkbtn" id="teacherLoginBtn" hidden>สำหรับครู</button></span></div></footer>
+
+<dialog id="lightbox"><div style="position:relative"><img id="lbImg" alt=""><button class="btn btn-line btn-sm x" id="lbClose">ปิด</button></div></dialog>
+
+<dialog id="profileDlg" style="max-width:min(520px,94vw)">
+  <form class="panel" id="profileForm" style="box-shadow:var(--shadow)">
+    <h3 id="pfTitle">ข้อมูลผู้เรียน / กลุ่ม</h3>
+    <div class="tabs" id="pfModes" hidden><button type="button" data-m="new" aria-selected="true">ลงทะเบียนครั้งแรก</button><button type="button" data-m="login" aria-selected="false">เคยลงทะเบียนแล้ว</button></div>
+    <p class="muted small" id="pfHelp">ใช้ระบุงานของกลุ่มเมื่อครูตรวจ กรอกเฉพาะข้อมูลที่จำเป็น</p>
+    <label class="f" data-only="new">ชื่อ–สกุล (หรือชื่อเล่นที่ครูรู้จัก)<input type="text" id="pfName" maxlength="80"></label>
+    <div class="grid2">
+      <label class="f">ห้อง<select id="pfRoom"><option value="">เลือกห้อง</option><option>ม.2/2</option><option>ม.2/3</option></select></label>
+      <label class="f">เลขที่<input type="number" id="pfNo" min="1" max="60"></label>
+    </div>
+    <label class="f" data-only="new">ชื่อกลุ่ม / ชื่อเกม<input type="text" id="pfGroup" maxlength="80" placeholder="เช่น กลุ่ม 3 · Poly Quest"></label>
+    <label class="f" id="pfPinWrap" hidden>PIN 4–6 หลัก<span class="h">ตั้งเองและจำไว้ ใช้เข้าระบบครั้งต่อไป ห้ามบอกเพื่อน ถ้าลืมให้แจ้งครู</span><input type="password" id="pfPin" inputmode="numeric" maxlength="6" autocomplete="off"></label>
+    <p class="small" id="pfErr" style="color:var(--bad)" hidden></p>
+    <div class="row" style="justify-content:space-between"><button type="button" class="linkbtn" id="pfLogout" hidden>ออกจากระบบ</button><span class="row"><button type="button" class="btn btn-line" id="pfCancel">ยกเลิก</button><button class="btn btn-gold" id="pfSave">บันทึก</button></span></div>
+  </form>
+</dialog>
+
+<dialog id="tpinDlg" style="max-width:min(420px,94vw)">
+  <form class="panel" id="tpinForm" style="box-shadow:var(--shadow)">
+    <h3>เข้าสู่ห้องครู</h3>
+    <label class="f">PIN ครู<input type="password" id="tpin" autocomplete="off" maxlength="40"></label>
+    <p class="small" id="tpinErr" style="color:var(--bad)" hidden></p>
+    <div class="row" style="justify-content:flex-end"><button type="button" class="btn btn-line" id="tpinCancel">ยกเลิก</button><button class="btn btn-gold">เข้าสู่ระบบ</button></div>
+  </form>
+</dialog>
+
+<div id="drawerHost"></div>
+<div class="toast" id="toast" hidden></div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+/* ============================== content ============================== */
+const ROOMS=['ม.2/2','ม.2/3'];
+const STEPS=[
+ {k:'S',name:'Stimulate with Game',th:'จุดประกายด้วยเกม',dt:'Empathize',
+  desc:'จุดประกายความสนใจด้วยเกม ภารกิจ หรือสถานการณ์ท้าทาย และทำความเข้าใจผู้เล่น/ปัญหา',
+  game:'ศึกษาตัวอย่างบอร์ดเกมและทดลองเล่น สังเกตว่าเพื่อนติดขัดเรื่องเอกนามหรือพหุนามตรงไหน',
+  todo:['ทดลองเล่นบอร์ดเกมตัวอย่างหรือภารกิจที่ครูเตรียมไว้','จดสิ่งที่ทำให้เกมสนุก และสิ่งที่ทำให้เล่นแล้วงง','ถามเพื่อน 3–5 คนว่าเรื่องใดในเอกนาม/พหุนามที่ยากที่สุด เพราะอะไร'],
+  ask:['ปัญหานี้เกิดกับใคร?','คุณเห็นหรือได้ยินอะไรที่บอกว่าเป็นปัญหาจริง?','เกมตัวอย่างใช้คณิตศาสตร์ตรงไหน?'],
+  ev:['Curiosity Note','บันทึกการสังเกต','Mini Survey'],
+  starters:['ช่วยตั้งคำถามสำรวจเพื่อนเรื่องพหุนามให้หน่อย แต่ให้ฉันเลือกเอง','ฉันสังเกตว่าเพื่อนสับสนเรื่องพจน์คล้าย ควรถามต่ออะไร?'],
+  lesson:{what:'ขั้นแรกของ SPARK ใช้เกม ภารกิจ หรือสถานการณ์ท้าทายทำให้อยากรู้ก่อนจะสอนเนื้อหา ระหว่างเล่น ให้สังเกตว่าตัวเองและเพื่อนติดขัดตรงไหน สิ่งที่สังเกตได้คือข้อมูลตั้งต้นของการออกแบบเกม ตรงกับขั้น Empathize ของ Design Thinking',
+   keys:[['เล่นก่อน คิดต่อ','ความสนุกเปิดประตูให้อยากรู้ ลองเล่นให้จบ 1 รอบก่อนวิจารณ์'],['สังเกตผู้เล่น','จดว่าใครติดข้อไหน ตอบผิดแบบไหน ใช้เวลานานตรงไหน'],['บันทึกเป็นหลักฐาน','เขียนสิ่งที่เห็นหรือได้ยินจริง ไม่ใช่ความรู้สึกลอย ๆ']],
+   ex:'ระหว่างเล่น เพื่อน 3 ใน 5 คนรวม 3x + 2x² เป็น 5x³ กลุ่มจึงจดไว้ว่า “สับสนพจน์คล้าย” เพื่อนำไปตั้งปัญหาในขั้น P',
+   game:'เกมจำลอง: เดินหมากพหุนาม',gameIntro:'ทอยลูกเต๋าแล้วเดินหมาก ตกช่องไหนต้องตอบการ์ดคำถาม จบเกมแล้วดูว่าข้อไหนพลาด นั่นคือข้อมูล Empathize ของเรา'}},
+ {k:'P',name:'Problem & Project Challenge',th:'ค้นหาปัญหา สร้างโจทย์โครงงาน',dt:'Define',
+  desc:'เปลี่ยนสิ่งที่สังเกตพบเป็น Problem Statement ระบุผู้ใช้ สาเหตุ ขอบเขต และเกณฑ์ความสำเร็จ',
+  game:'กำหนดผู้เล่นเป้าหมาย ปัญหาการเรียนรู้ที่เกมจะช่วยแก้ เป้าหมายการเรียนรู้ ชื่อเกม เรื่องราว และบทบาทผู้เล่น (ใบกิจกรรม ส่วนที่ 1–2)',
+  todo:['เขียน Problem Statement: “ผู้เล่น… มีปัญหา… เพราะ…”','ตั้งชื่อเกม เรื่องราว บทบาทผู้เล่น และภารกิจหลัก','เลือกเนื้อหาคณิตศาสตร์ที่ใช้ และเขียนเป้าหมายการเรียนรู้ 3 ข้อ','กำหนดเกณฑ์ว่าเกมนี้ “สำเร็จ” เมื่อไร'],
+  ask:['ปัญหาที่แท้จริงคืออะไร?','เกณฑ์ความสำเร็จของเกมคืออะไร?','ทำไมต้องใช้คณิตศาสตร์เรื่องนี้แก้ปัญหานี้?'],
+  ev:['Problem Statement','Project Brief','เกณฑ์ความสำเร็จ'],
+  starters:['ช่วยตรวจ Problem Statement ของกลุ่มเรา: ','เป้าหมายการเรียนรู้ 3 ข้อนี้วัดผลได้ไหม: '],
+  lesson:{what:'ขั้นนี้เปลี่ยนสิ่งที่สังเกตได้ให้เป็นปัญหาที่ชัดและแก้ได้ Problem Statement ที่ดีบอกว่าใครมีปัญหา ปัญหาคืออะไร เพราะอะไร และจะรู้ได้อย่างไรว่าแก้สำเร็จ ตรงกับขั้น Define',
+   keys:[['เจาะจงผู้ใช้','“นักเรียน ม.2 ที่เพิ่งเรียนพหุนาม” ชัดกว่า “ทุกคน”'],['หาสาเหตุที่เกมช่วยได้','สาเหตุต้องเป็นสิ่งที่เกมของเราเข้าไปแก้ได้จริง'],['เกณฑ์วัดได้','บอกเป็นตัวเลขหรือพฤติกรรมที่เห็นได้ เช่น ตอบถูก 8 ใน 10']],
+   ex:'“นักเรียน ม.2 ที่เพิ่งเรียนพหุนาม รวมพจน์ที่ไม่คล้ายกันผิด เพราะมองไม่ออกว่าพจน์ใดมีตัวแปรและเลขชี้กำลังเหมือนกัน เกมสำเร็จเมื่อผู้เล่นตอบการ์ดรวมพจน์ถูกอย่างน้อย 8 ใน 10 หลังเล่น 2 รอบ”',
+   game:'เกมจำลอง: ประกอบ Problem Statement',gameIntro:'เลือกชิ้นส่วนให้ครบ 4 ช่อง ระบบจะบอกว่าแต่ละชิ้นเจาะจงและวัดผลได้แค่ไหน'}},
+ {k:'A',name:'AI-Augmented Learning',th:'ใช้ AI ขยายการคิด',dt:'Ideate',
+  desc:'ระดมทางเลือก เปรียบเทียบ ตรวจสอบ และต่อยอดด้วย AI โดยบันทึก AI Log ทุกครั้ง',
+  game:'ออกแบบกติกา ระบบคะแนน และการ์ดคำถามอย่างน้อย 10 ข้อ (ง่าย 3 · ปานกลาง 4 · ท้าทาย 3) ใช้ AI ช่วยคิดและตรวจ แล้วส่งโจทย์ให้ครูตรวจ (ใบกิจกรรม ส่วนที่ 3–4)',
+  todo:['คิดกลไกเกมอย่างน้อย 2 แบบ แล้วเลือกหนึ่งแบบพร้อมเหตุผล','เขียนโจทย์และเฉลยเองก่อน แล้วให้ AI ช่วยตรวจ','เขียน Prompt แบบ ใคร–ทำอะไร–บริบท–รูปแบบ และบันทึกสิ่งที่แก้จากผลของ AI','ส่งโจทย์การ์ดทีละข้อให้ครูตรวจในแท็บ “ส่งโจทย์ให้ครู”'],
+  ask:['มีวิธีแก้กี่ทาง?','AI เสนออะไร และส่วนใดไม่น่าเชื่อ?','เราตรวจคำตอบของ AI อย่างไร?'],
+  ev:['Idea Matrix','AI Log','Verification Note','เหตุผลการตัดสินใจ'],
+  starters:['ฉันแยกตัวประกอบ x^2 - 9 ได้ (x - 3)(x + 3) ถูกไหม ช่วยตรวจทีละขั้น','กลไกเกมแบบ Quiz Battle กับ Escape Room ต่างกันอย่างไร ช่วยถามฉันกลับก่อน'],
+  lesson:{what:'ขั้นนี้ใช้ AI เป็นคู่คิดเพื่อสร้างทางเลือกที่หลากหลายและตรวจความถูกต้อง แต่ AI ก็ตอบผิดได้ ผู้เรียนต้องตรวจคำตอบของ AI ด้วยวิธีทางคณิตศาสตร์ เช่น กระจายกลับหรือแทนค่า แล้วตัดสินใจเอง ตรงกับขั้น Ideate',
+   keys:[['คิดเองก่อนถาม','เขียนแนวคิดของกลุ่มก่อน แล้วให้ AI ช่วยต่อยอดหรือหาจุดอ่อน'],['ตรวจด้วยการแทนค่า','ถ้าสองข้างเท่ากันจริง แทน x ค่าใดก็ต้องได้เท่ากัน'],['บันทึก AI Log','Prompt · AI ตอบอะไร · เราเชื่อหรือไม่ · ตรวจอย่างไร']],
+   ex:'AI บอกว่า (x + 3)² = x² + 9 กลุ่มแทน x = 1 ได้ซ้ายมือ 16 แต่ขวามือ 10 จึงรู้ว่า AI ผิด เพราะขาดพจน์ 6x',
+   game:'เกมจำลอง: จับผิด AI',gameIntro:'AI ส่งคำตอบมา 4 ข้อ บางข้อผิด ตัดสินว่าแต่ละข้อถูกหรือผิด ใช้เครื่องแทนค่าช่วยตรวจได้'}},
+ {k:'R',name:'Reflect, Refine & Re-design',th:'ทดลอง สะท้อนผล ปรับปรุง',dt:'Prototype + Test',
+  desc:'สร้างต้นแบบ ทดลองกับผู้ใช้ เก็บ Feedback สะท้อนคิด แล้วพัฒนาเป็นเวอร์ชันถัดไป',
+  game:'สร้างต้นแบบกระดาน การ์ด และกติกา ให้เพื่อนกลุ่มอื่นทดลองเล่น เก็บข้อเสนอแนะ แล้วปรับเป็น V2 (ใบกิจกรรม ส่วนที่ 5)',
+  todo:['สร้าง Prototype V1 (กระดาษ/Canva/PowerPoint ก็ได้)','ให้เพื่อนทดลองเล่น บันทึกสิ่งที่เข้าใจง่ายและปัญหาที่พบ','สรุปข้อเสนอแนะ แล้วเขียน Change Log ว่า V2 เปลี่ยนอะไร เพราะอะไร'],
+  ask:['ผู้เล่นทดลองแล้วพบอะไร?','คุณเปลี่ยนอะไรจากเดิม และเพราะอะไร?','เกมยังสมดุลอยู่ไหม?'],
+  ev:['Prototype V1/V2','บันทึกการทดลองเล่น','Feedback','Change Log'],
+  starters:['เพื่อนบอกว่าการ์ดระดับท้าทายยากเกินไป เราควรปรับอย่างไรดี','ช่วยออกแบบคำถามเก็บ Feedback หลังเล่นเกม 3 ข้อ'],
+  lesson:{what:'ต้นแบบแรกไม่จำเป็นต้องสวย แต่ต้องเล่นได้ ให้คนอื่นทดลองเล่น ฟัง Feedback แล้วปรับทีละเรื่องพร้อมจดเหตุผลไว้ใน Change Log วงจร ทดลอง → รับ Feedback → ปรับปรุง ทำซ้ำได้หลายรอบ ตรงกับขั้น Prototype และ Test',
+   keys:[['V1 เล่นได้ก่อนสวย','ใช้กระดาษหรือสไลด์ทำต้นแบบเร็ว ๆ'],['ให้คนนอกกลุ่มทดสอบ','คนที่ไม่รู้กติกามาก่อนจะเห็นจุดที่เรามองข้าม'],['ปรับแล้วจดเหตุผล','Change Log บอกว่าเปลี่ยนอะไร เพราะ Feedback ข้อไหน']],
+   ex:'V1: เพื่อนงงว่าต้องตอบก่อนหรือเดินก่อน → V2: เขียนลำดับการเล่นเป็นขั้น 1–2–3 พร้อมตัวอย่างบนกล่องเกม',
+   game:'เกมจำลอง: ทดลองเล่นแล้วปรับเกม',gameIntro:'ผู้ทดสอบส่ง Feedback มา 3 รอบ เลือกวิธีปรับในแต่ละรอบ เป้าหมายคือทำให้ทุกมาตรวัดไปถึง 70 ขึ้นไปใน V4'}},
+ {k:'K',name:'Knowledge to Impact',th:'เปลี่ยนความรู้เป็นผลงาน',dt:'Impact / Scale',
+  desc:'นำผลงานไปใช้จริงหรือเผยแพร่ เก็บข้อมูลผลลัพธ์ อธิบายคุณค่า และแนวทางขยายผล',
+  game:'นำเสนอและเผยแพร่เกม อธิบายว่าเกมช่วยใครได้อย่างไรพร้อมหลักฐาน และสะท้อนสิ่งที่เรียนรู้',
+  todo:['เตรียมการนำเสนอ: ชื่อเกม สมาชิก วิธีเล่น จุดประสงค์ เนื้อหาคณิตศาสตร์','สรุปผลที่เกิดกับผู้เล่น พร้อมหลักฐาน','เขียน Reflection: เข้าใจคณิตศาสตร์อะไรมากขึ้น AI ช่วยและทำให้สับสนตรงไหน'],
+  ask:['ผลงานนี้ช่วยใครได้จริง?','มีหลักฐานอะไรยืนยัน?','จะขยายผลอย่างไร?'],
+  ev:['ชิ้นงานสุดท้าย','Impact Summary','Reflection'],
+  starters:['ช่วยดูโครงการนำเสนอเกมของเราว่าขาดอะไร: ','Reflection ของฉันมีหลักฐานพอไหม: '],
+  lesson:{what:'ขั้นสุดท้ายพาผลงานออกไปใช้จริง แล้วพิสูจน์ด้วยหลักฐานว่าเกมช่วยผู้เล่นได้ หลักฐานที่ดีมาจากผู้ใช้จริง วัดได้ และเปรียบเทียบก่อน–หลังได้ ไม่ใช่แค่ความรู้สึกของกลุ่มเอง ตรงกับ Impact และ Scale',
+   keys:[['ผลกระทบต้องมีหลักฐาน','เช่น คะแนนก่อน–หลัง หรือความเห็นของผู้เล่นจริง'],['แยกความพยายามออกจากผลลัพธ์','ทำนานไม่ได้แปลว่าช่วยผู้เล่นได้มาก'],['คิดเรื่องขยายผล','ห้องอื่นหรือครูคนอื่นนำไปใช้ต่อได้อย่างไร']],
+   ex:'กลุ่มให้เพื่อนห้องอื่นทำการ์ดรวมพจน์ 10 ข้อก่อนเล่นและหลังเล่น แล้วรายงานผลพร้อมความเห็นของผู้เล่น',
+   game:'เกมจำลอง: คัดหลักฐานผลกระทบ',gameIntro:'มีหลักฐาน 6 ชิ้นจากสถานการณ์สมมุติ เลือกชิ้นที่ยืนยันได้ว่าเกมช่วยผู้เล่นจริง'}}
+];
+const GAME_TYPES=['Adventure Board Game','Escape Room Board Game','Survival Game','Trading Game','Puzzle Game','Quiz Battle','Strategy Game','Mini RPG Board Game'];
+const FLOW=[['ศึกษาตัวอย่างบอร์ดเกม','S'],['วางแผนและกำหนดแนวคิดเกม','P'],['ออกแบบกติกาและระบบเกม','A'],['สร้าง Prototype','R'],['ทดลองเล่น','R'],['ปรับปรุงแก้ไข','R'],['นำเสนอผลงาน','K']];
+const CRIT=[['acc','ความถูกต้องทางคณิตศาสตร์',10,'เนื้อหาถูกต้อง สอดคล้องกับบทเรียน ใช้หลักการทางคณิตศาสตร์ได้เหมาะสม'],
+ ['cre','ความคิดสร้างสรรค์และความน่าสนใจ',5,'แปลกใหม่ สนุก น่าสนใจ มีเอกลักษณ์'],
+ ['des','การออกแบบและความสวยงาม',5,'รูปแบบเกม สีสัน องค์ประกอบ และความเรียบร้อย'],
+ ['rul','กติกาและระบบการเล่น',5,'กติกาชัดเจน เล่นได้จริง มีความสมดุลของเกม'],
+ ['pre','การนำเสนอและการทำงานเป็นทีม',5,'สมาชิกมีส่วนร่วม นำเสนอชัดเจน ตอบคำถามได้']];
+const PROC=[['pu','Problem Understanding'],['ai','Idea & AI Literacy'],['pi','Prototype & Iteration'],['ie','Impact Evidence']];
+const LEVELS_Q=[['ดีเยี่ยม',27],['ดี',22],['พอใช้',17],['ปรับปรุง',0]];
+const levelOf=t=>LEVELS_Q.find(([,m])=>t>=m)[0];
+const SLIDES=[
+ ['img/s01-ai-thinking.jpg','เมื่อ AI ตอบได้ทุกอย่าง นักเรียนยังต้องคิดอยู่ไหม?'],['img/s09-root.jpg','รากของปัญหา'],['img/s04-innovation.jpg','นวัตกรรมของเรา MATH-SPARK'],
+ ['img/s08-model.jpg','MATH-SPARK Model'],['img/s05-ai-partner.jpg','AI ทำงานอย่างไรใน MATH-SPARK'],['img/s02-pathways.jpg','2 เส้นทางการเรียนรู้'],
+ ['img/s06-target.jpg','กลุ่มเป้าหมายและบริบท'],['img/s07-upgrade.jpg','การอัปเกรดนวัตกรรม'],['img/s10-uprise.jpg','UPRISE Meaningful Learning'],['img/s03-impact.jpg','ผลลัพธ์และทิศทางในอนาคต']];
+const LEVELS=['ง่าย','ปานกลาง','ท้าทาย'];
+const STATUS_TH={pending:'รอครูตรวจ',approved:'ผ่าน',revise:'ให้แก้ไข'};
+const DRIVE_F='https://drive.google.com/drive/folders/', DRIVE_D='https://drive.google.com/file/d/';
+const RES_DOCS=[
+ [DRIVE_D+'1tz9ucGDrATc5b12C5EhIEbNzxl8SkzCw/view','ใบกิจกรรมโครงร่างบอร์ดเกม','PDF · ค22222'],
+ [DRIVE_D+'1QcB4S2a6QZSxyJTsEfUbl-R0SDG1J-vp/view','ใบกิจกรรมโครงร่างบอร์ดเกม','Word · กรอกในเครื่อง'],
+ [DRIVE_D+'14TlJrcep38ypPiSEcjFaYXVHmbpMwj9a/view','รายละเอียดโปรเจค','ภาพสรุปภารกิจและเกณฑ์'],
+ [DRIVE_F+'1u8-OPGG4drrDs0yDfHNRkWY9F7STFCB2','ตัวอย่างชิ้นงาน','โฟลเดอร์ภาพผลงาน']];
+const ROOM_FOLDERS={'ม.2/2':'1o1LvQsNxcvcV05VMnsdyHLPWlzKMwtf1','ม.2/3':'1kkf8DQCOAInF0EwOyr05PzTd9GiWSGLx'};
+
+/* ---------- original step illustrations (inline SVG, theme-aware) ---------- */
+const ILL={
+S:`<svg class="illus" viewBox="0 0 440 280" role="img" aria-label="กระดานเกม ลูกเต๋า และตัวเดิน">
+ <rect x="30" y="40" width="300" height="200" rx="26" style="fill:var(--bg);stroke:var(--line)" stroke-width="2"/>
+ ${[0,1,2,3,4,5].map(i=>`<rect x="${52+i*44}" y="62" width="36" height="36" rx="9" style="fill:${i%2?'var(--surface2)':'color-mix(in srgb,var(--c) 30%,var(--surface))'}"/>`).join('')}
+ ${[0,1,2].map(i=>`<rect x="272" y="${106+i*44}" width="36" height="36" rx="9" style="fill:${i%2?'color-mix(in srgb,var(--c) 30%,var(--surface))':'var(--surface2)'}"/>`).join('')}
+ ${[0,1,2,3,4].map(i=>`<rect x="${228-i*44}" y="194" width="36" height="36" rx="9" style="fill:${i%2?'var(--surface2)':'color-mix(in srgb,var(--c) 30%,var(--surface))'}"/>`).join('')}
+ <text x="70" y="86" text-anchor="middle" style="fill:var(--fg);font:600 13px var(--f-display)">x²</text>
+ <text x="158" y="86" text-anchor="middle" style="fill:var(--fg);font:600 13px var(--f-display)">3x</text>
+ <text x="290" y="174" text-anchor="middle" style="fill:var(--fg);font:600 13px var(--f-display)">?</text>
+ <text x="70" y="218" text-anchor="middle" style="fill:var(--gold);font:700 13px var(--f-display)">GOAL</text>
+ <circle cx="202" cy="80" r="13" style="fill:var(--c)"/><circle cx="198" cy="76" r="4" fill="#fff" opacity=".6"/>
+ <rect x="110" y="122" width="120" height="58" rx="12" style="fill:var(--surface);stroke:var(--c)" stroke-width="2"/>
+ <text x="170" y="146" text-anchor="middle" style="fill:var(--muted);font:500 11px var(--f-body)">การ์ดคำถาม</text>
+ <text x="170" y="168" text-anchor="middle" style="fill:var(--fg);font:600 15px var(--f-display)">3x + 5x = ?</text>
+ <g transform="rotate(-12 372 112)"><rect x="338" y="78" width="68" height="68" rx="14" style="fill:var(--fg)"/>
+ <circle cx="356" cy="96" r="6" style="fill:var(--bg)"/><circle cx="388" cy="96" r="6" style="fill:var(--bg)"/><circle cx="372" cy="112" r="6" style="fill:var(--bg)"/><circle cx="356" cy="128" r="6" style="fill:var(--bg)"/><circle cx="388" cy="128" r="6" style="fill:var(--bg)"/></g>
+ <path d="M372 190 l6 14 14 2 -10 10 3 14 -13 -7 -13 7 3 -14 -10 -10 14 -2z" style="fill:var(--gold)"/>
+ <path d="M405 30 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" style="fill:var(--gold)"/>
+</svg>`,
+P:`<svg class="illus" viewBox="0 0 440 280" role="img" aria-label="เป้าหมาย แว่นขยาย และโน้ตปัญหา">
+ <circle cx="150" cy="140" r="96" style="fill:color-mix(in srgb,var(--c) 18%,var(--surface))"/>
+ <circle cx="150" cy="140" r="66" style="fill:var(--surface)"/>
+ <circle cx="150" cy="140" r="38" style="fill:color-mix(in srgb,var(--c) 45%,var(--surface))"/>
+ <circle cx="150" cy="140" r="12" style="fill:var(--c)"/>
+ <path d="M150 140 L238 70" style="stroke:var(--fg)" stroke-width="4" stroke-linecap="round"/>
+ <path d="M238 70 l18 -6 -6 18z" style="fill:var(--fg)"/>
+ ${[['ใคร?',290,40,-4],['ปัญหาอะไร?',300,112,3],['เพราะอะไร?',284,184,-3]].map(([t,x,y,r])=>`<g transform="rotate(${r} ${x+60} ${y+28})"><rect x="${x}" y="${y}" width="124" height="56" rx="8" style="fill:color-mix(in srgb,var(--gold) 85%,#fff)"/><text x="${x+62}" y="${y+34}" text-anchor="middle" style="fill:#1A1200;font:600 15px var(--f-display)">${t}</text></g>`).join('')}
+ <circle cx="96" cy="218" r="26" style="fill:none;stroke:var(--a)" stroke-width="6"/><path d="M114 236 l22 22" style="stroke:var(--a)" stroke-width="8" stroke-linecap="round"/>
+</svg>`,
+A:`<svg class="illus" viewBox="0 0 440 280" role="img" aria-label="นักเรียนกับ AI ช่วยกันตรวจคำตอบ">
+ <rect x="268" y="70" width="120" height="96" rx="30" style="fill:var(--fg)"/>
+ <rect x="284" y="92" width="88" height="48" rx="20" style="fill:var(--bg)"/>
+ <ellipse cx="310" cy="116" rx="9" ry="11" style="fill:var(--c)"/><ellipse cx="346" cy="116" rx="9" ry="11" style="fill:var(--c)"/>
+ <path d="M328 70 v-18" style="stroke:var(--fg)" stroke-width="4"/><circle cx="328" cy="48" r="7" style="fill:var(--c)"/>
+ <rect x="292" y="170" width="72" height="56" rx="18" style="fill:var(--fg)"/>
+ <circle cx="96" cy="120" r="44" style="fill:color-mix(in srgb,var(--p) 55%,var(--surface))"/>
+ <path d="M52 112 q44 -60 88 0 q-10 -44 -44 -46 q-34 2 -44 46z" style="fill:var(--fg)" opacity=".85"/>
+ <path d="M40 250 q56 -90 112 0z" style="fill:var(--s)"/>
+ <rect x="140" y="34" width="120" height="50" rx="14" style="fill:var(--surface);stroke:var(--line)" stroke-width="2"/>
+ <text x="200" y="64" text-anchor="middle" style="fill:var(--fg);font:600 14px var(--f-display)">(x+3)² = x²+9 ?</text>
+ <rect x="150" y="190" width="116" height="54" rx="14" style="fill:color-mix(in srgb,var(--bad) 18%,var(--surface));stroke:var(--bad)" stroke-width="2"/>
+ <text x="208" y="214" text-anchor="middle" style="fill:var(--fg);font:500 12px var(--f-body)">แทน x = 1</text>
+ <text x="208" y="234" text-anchor="middle" style="fill:var(--fg);font:600 13px var(--f-display)">16 ≠ 10</text>
+ <circle cx="200" cy="132" r="22" style="fill:none;stroke:var(--c)" stroke-width="5"/><path d="M216 148 l18 18" style="stroke:var(--c)" stroke-width="7" stroke-linecap="round"/>
+</svg>`,
+R:`<svg class="illus" viewBox="0 0 440 280" role="img" aria-label="วงจรต้นแบบ V1 V2 V3 และ Feedback">
+ <path d="M220 40 a110 100 0 1 1 -96 52" style="fill:none;stroke:var(--c)" stroke-width="6" stroke-dasharray="2 12" stroke-linecap="round"/>
+ <path d="M112 80 l20 4 -6 20z" style="fill:var(--c)"/>
+ ${[['V1',120,120,'var(--surface2)'],['V2',190,96,'color-mix(in srgb,var(--c) 30%,var(--surface))'],['V3',260,120,'color-mix(in srgb,var(--c) 55%,var(--surface))']].map(([t,x,y,f])=>`<rect x="${x}" y="${y}" width="66" height="84" rx="10" style="fill:${f};stroke:var(--line)" stroke-width="2"/><text x="${x+33}" y="${y+48}" text-anchor="middle" style="fill:var(--fg);font:700 20px var(--f-display)">${t}</text>`).join('')}
+ <rect x="300" y="26" width="128" height="52" rx="14" style="fill:var(--surface);stroke:var(--line)" stroke-width="2"/><path d="M320 78 l-8 16 22 -16z" style="fill:var(--surface)"/>
+ <text x="364" y="58" text-anchor="middle" style="fill:var(--fg);font:500 13px var(--f-body)">กติกายังงง!</text>
+ <rect x="18" y="200" width="132" height="52" rx="14" style="fill:var(--surface);stroke:var(--line)" stroke-width="2"/>
+ <text x="84" y="232" text-anchor="middle" style="fill:var(--fg);font:500 13px var(--f-body)">สนุกขึ้นมาก 👍</text>
+</svg>`,
+K:`<svg class="illus" viewBox="0 0 440 280" role="img" aria-label="กราฟผลลัพธ์ จรวด และโลก">
+ <circle cx="340" cy="190" r="70" style="fill:color-mix(in srgb,var(--a) 30%,var(--surface))"/>
+ <path d="M290 160 q30 -20 50 0 t50 10 M285 205 q40 10 70 -8 t50 4" style="fill:none;stroke:var(--a)" stroke-width="5" stroke-linecap="round"/>
+ <path d="M40 240 H260" style="stroke:var(--line)" stroke-width="2"/>
+ ${[[60,60],[110,95],[160,130],[210,175]].map(([x,h],i)=>`<rect x="${x}" y="${240-h}" width="34" height="${h}" rx="5" style="fill:${i===3?'var(--c)':'color-mix(in srgb,var(--c) '+(30+i*15)+'%,var(--surface))'}"/>`).join('')}
+ <text x="77" y="172" text-anchor="middle" style="fill:var(--muted);font:500 12px var(--f-body)">ก่อน</text>
+ <text x="227" y="58" text-anchor="middle" style="fill:var(--fg);font:600 12px var(--f-body)">หลัง</text>
+ <g transform="rotate(35 330 70)"><path d="M330 20 q22 30 14 76 h-28 q-8 -46 14 -76z" style="fill:var(--fg)"/><circle cx="330" cy="56" r="8" style="fill:var(--c)"/><path d="M316 96 l-12 18 18 -6z M344 96 l12 18 -18 -6z" style="fill:var(--r)"/><path d="M322 98 q8 26 16 0z" style="fill:var(--gold)"/></g>
+</svg>`};
+
+/* ============================== helpers ============================== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mathy=s=>esc(s).replace(/\^\(?(-?\d+)\)?/g,'<sup>$1</sup>');
+function md(s){
+  const lines=esc(s).split(/\n/); let out='',inList=false;
+  for(const raw of lines){const l=raw.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\^\(?(-?\d+)\)?/g,'<sup>$1</sup>');
+    if(/^\s*[-•*]\s+/.test(l)){if(!inList){out+='<ul>';inList=true}out+='<li>'+l.replace(/^\s*[-•*]\s+/,'')+'</li>'}
+    else{if(inList){out+='</ul>';inList=false} if(l.trim())out+='<p>'+l+'</p>'}}
+  if(inList)out+='</ul>'; return out;
+}
+const fmtTime=t=>t?new Date(t).toLocaleString('th-TH',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'';
+const uid8=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(()=>t.hidden=true,2600)}
+const stepOf=k=>STEPS.find(s=>s.k===k)||STEPS[0];
+function cardStatus(card,reviews){const r=reviews&&reviews[card.id];return r&&r.at>=card.submittedAt?r.status:'pending'}
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function lsSet(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function ssGet(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
+function ssSet(k,v){try{v==null?sessionStorage.removeItem(k):sessionStorage.setItem(k,v)}catch(e){}}
+const groupKey=(room,group)=>room+'|'+String(group||'').trim();
+function hashId(s){let h=2166136261;for(const ch of s){h^=ch.codePointAt(0);h=Math.imul(h,16777619)}return 'g'+(h>>>0).toString(36)}
+const resLink=([href,t,s])=>`<a href="${href}" target="_blank" rel="noopener"><b>${esc(t)}</b><span>${esc(s)}</span></a>`;
+
+/* ============================== state ============================== */
+const st={view:'home',step:'S',lstep:'S',tab:'ai',be:null,
+  mine:{profile:null,evidence:{},cards:{},reviews:{},ailog:{}},
+  t:{students:{},reviews:{},scores:{},logs:null,room:'all',status:'pending'},
+  report:{src:null,published:null},q:{step:'all',room:'all',text:''},
+  editing:null,sending:false};
+
+/* ============================== backends ============================== */
+function serial(){let p=Promise.resolve();return fn=>(p=p.then(fn,fn))}
+
+async function claudeBackend(){
+  if(!window.claude||!window.claude.use) return null;
+  const [db,user,sample]=await Promise.all([claude.use('db'),claude.use('user'),claude.use('sample')]);
+  if(!db&&!sample) return null;
+  const id=user?await user.id().catch(()=>null):null;
+  const isTeacher=user?await user.canEdit().catch(()=>false):false;
+  const q=serial();
+  return {mode:'claude',label:'เชื่อมต่อ claude.ai',isTeacher,canAI:!!sample,signedIn:!!(db&&id),
+    async loadMine(){ if(!db||!id) return null;
+      const [a,b,c]=await Promise.all([db.doc('students/'+id).get(),db.doc('reviews/'+id).get(),db.doc('ailogs/'+id).get()]);
+      const s=a.exists?a.data():{}; return {profile:s.profile||null,evidence:s.evidence||{},cards:s.cards||{},reviews:(b.exists&&b.data().items)||{},ailog:(c.exists&&c.data().steps)||{}} },
+    saveStudent(doc){ if(!db||!id) return Promise.reject({code:'signed_out'}); const body=JSON.parse(JSON.stringify(doc)); return q(()=>db.doc('students/'+id).set({...body,updatedAt:Date.now()})) },
+    saveLog(steps){ if(!db||!id) return Promise.resolve(); const body=JSON.parse(JSON.stringify(steps)); return q(()=>db.doc('ailogs/'+id).set({steps:body,updatedAt:Date.now()})) },
+    async ask(msgs,onText){ const r=await sample(msgs,{onText,cache:false,modelTier:'default'}); return r.text },
+    async askJSON(prompt){ return sample.json(prompt,{cache:false,modelTier:'default'}) },
+    watchMine(cb){ if(!db||!id) return; db.doc('reviews/'+id).onSnapshot(s=>cb(s.exists?(s.data().items||{}):{}),()=>{}) },
+    watchAll(cb){ if(!db||!isTeacher) return;
+      db.collection('students').onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());cb('students',o)},()=>{});
+      db.collection('reviews').onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data().items||{});cb('reviews',o)},()=>{});
+      db.collection('scores').onSnapshot(s=>{const o={};s.docs.forEach(d=>{const v=d.data();o[groupKey(v.room,v.group)]=v});cb('scores',o)},()=>{}) },
+    async review(sid,cardId,status,note){ const ref=db.doc('reviews/'+sid); const item={status,note,at:Date.now()};
+      try{ await ref.update({items:{[cardId]:item}}) }catch(e){ const g=await ref.get(); const items=g.exists?{...(g.data().items||{})}:{}; items[cardId]=item; await ref.set({items}) } },
+    async loadLog(sid){ const g=await db.doc('ailogs/'+sid).get(); return g.exists?(g.data().steps||{}):{} },
+    async loadAllLogs(){ const s=await db.collection('ailogs').get(); const o={}; s.docs.forEach(d=>o[d.id]=d.data().steps||{}); return o },
+    saveScore(sc){ return q(()=>db.doc('scores/'+hashId(groupKey(sc.room,sc.group))).set(sc)) },
+    publishReport(sum){ return db.doc('report/summary').set(JSON.parse(JSON.stringify(sum))) },
+    async getReport(){ if(!db) return null; try{const g=await db.doc('report/summary').get(); return g.exists?g.data():null}catch(e){return null} }
+  };
+}
+
+function gasCall(fn,...args){return new Promise((res,rej)=>google.script.run.withSuccessHandler(res).withFailureHandler(rej)[fn](...args))}
+let be_gasPull=null;
+async function gasBackend(){
+  if(!(window.google&&google.script&&google.script.run)) return null;
+  const info=await gasCall('api_init');
+  let cred=lsGet('msh-cred',null), tpin=ssGet('msh-tpin');
+  const C=()=>JSON.stringify(cred);
+  const be={mode:'gas',label:'เชื่อมต่อ Google Sheets ของครู',needsPin:true,
+    isTeacher:!!info.isTeacher,teacherPin:!!info.teacherPin,canAI:!!info.aiEnabled,
+    get signedIn(){return !!cred},
+    async register(profile,pin){const r=await gasCall('api_register',JSON.stringify(profile),pin);cred={key:r.key,pin};lsSet('msh-cred',cred);return r.mine},
+    async login(room,no,pin){const r=await gasCall('api_login',room,String(no),pin);cred={key:r.key,pin};lsSet('msh-cred',cred);return r.mine},
+    logout(){cred=null;lsSet('msh-cred',null)},
+    async loadMine(){if(!cred)return null;try{return await gasCall('api_getMine',C())}catch(e){cred=null;lsSet('msh-cred',null);return null}},
+    saveStudent(doc){if(!cred)return Promise.reject({code:'signed_out'});return gasCall('api_saveStudent',C(),JSON.stringify(doc))},
+    saveLog(steps,step){if(!cred)return Promise.resolve();return gasCall('api_saveLog',C(),step,JSON.stringify(steps[step]||[]))},
+    async ask(msgs,onText){const t=await gasCall('api_ask',C(),JSON.stringify(msgs));onText&&onText({text:t,delta:t});return t},
+    async askJSON(prompt){const t=await gasCall('api_ask',C(),JSON.stringify([{role:'user',content:prompt}]));const m=t.match(/\{[\s\S]*\}/);return JSON.parse(m?m[0]:t)},
+    watchMine(cb){setInterval(async()=>{if(!cred)return;try{cb(await gasCall('api_getReviews',C())||{})}catch(e){}},60000)},
+    async teacherLogin(pin){const ok=await gasCall('api_teacherCheck',pin);if(ok){tpin=pin;ssSet('msh-tpin',pin);be.isTeacher=true}return ok},
+    watchAll(cb){const pull=async()=>{try{const d=await gasCall('api_teacherData',tpin||'');cb('students',d.students||{});cb('reviews',d.reviews||{});cb('scores',d.scores||{})}catch(e){}};pull();be_gasPull=pull;if(!be._poll)be._poll=setInterval(pull,60000)},
+    review(sid,cardId,status,note){return gasCall('api_review',tpin||'',sid,cardId,status,note)},
+    loadLog(sid){return gasCall('api_loadLog',tpin||'',sid)},
+    loadAllLogs(){return gasCall('api_allLogs',tpin||'')},
+    saveScore(sc){return gasCall('api_saveScore',tpin||'',JSON.stringify(sc))},
+    publishReport(sum){return gasCall('api_publishReport',tpin||'',JSON.stringify(sum))},
+    async getReport(){try{return await gasCall('api_getReport')}catch(e){return null}}
+  };
+  if(tpin&&!be.isTeacher){try{be.isTeacher=!!(await gasCall('api_teacherCheck',tpin))}catch(e){}}
+  return be;
+}
+
+function localBackend(){
+  return {mode:'local',label:'โหมดสาธิต (บันทึกในเครื่องนี้เท่านั้น)',isTeacher:false,canAI:false,signedIn:true,
+    async loadMine(){ return lsGet('msh-mine',null) },
+    async saveStudent(doc){ const m=lsGet('msh-mine',{}); lsSet('msh-mine',{...m,...doc}) },
+    async saveLog(steps){ const m=lsGet('msh-mine',{}); lsSet('msh-mine',{...m,ailog:steps}) },
+    async ask(){ throw {code:'no_ai'} }, async askJSON(){ throw {code:'no_ai'} },
+    watchMine(){}, watchAll(){}, async review(){}, async loadLog(){ return {} }, async loadAllLogs(){ return {} },
+    async saveScore(){}, async publishReport(){}, async getReport(){ return null } };
+}
+
+function studentDoc(){const m=st.mine;return {profile:m.profile,evidence:m.evidence,cards:m.cards}}
+async function persist(msg){
+  try{ await st.be.saveStudent(studentDoc()); if(msg) toast(msg) }
+  catch(e){ toast(e&&e.code==='signed_out'?'ต้องลงชื่อเข้าใช้ก่อนจึงจะบันทึกได้':'บันทึกไม่สำเร็จ ลองอีกครั้ง'); throw e }
+}
+
+/* ============================== routing ============================== */
+const VIEWS=['home','learn','spark','game','questions','report','about','teacher'];
+function go(token,push=true){
+  token=(token||'home').toLowerCase();
+  const lm=token.match(/^learn-([sprak])$/); if(lm){st.lstep=lm[1].toUpperCase();token='learn'}
+  if(['s','p','a','r','k'].includes(token)){st.step=token.toUpperCase();token='spark'}
+  if(!VIEWS.includes(token)) token='home';
+  if(token==='teacher'&&!(st.be&&st.be.isTeacher)) token='home';
+  st.view=token;
+  VIEWS.forEach(v=>{$('#v-'+v).hidden=v!==token});
+  document.querySelectorAll('.nav button').forEach(b=>b.setAttribute('aria-current',b.dataset.go===token?'page':'false'));
+  if(token==='learn') renderLearn();
+  if(token==='spark') renderSpark();
+  if(token==='teacher') renderTeacher();
+  if(token==='report') renderReport();
+  if(token==='questions') renderQuestions();
+  if(push){ const h=token==='spark'?st.step.toLowerCase():token==='learn'?'learn-'+st.lstep.toLowerCase():token; try{history.replaceState(null,'','#'+h)}catch(e){} window.scrollTo({top:0,behavior:'auto'}) }
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;e.preventDefault();go(b.dataset.go)});
+
+/* ============================== static pages ============================== */
+function renderStatic(){
+  $('#sparkCards').innerHTML=STEPS.map(s=>`<button class="sc c-${s.k}" data-go="learn-${s.k.toLowerCase()}"><span class="L">${s.k}</span><h3>${s.name}</h3><span class="muted small">${s.desc}</span><span class="dt">${s.lesson.game}</span></button>`).join('');
+  $('#gameTypes').innerHTML=GAME_TYPES.map(g=>`<span class="tag">${g}</span>`).join('');
+  $('#flow').innerHTML=FLOW.map(([t,k])=>`<div class="c-${k}"><span>${t}</span><b>${k} · ${stepOf(k).th}</b></div>`).join('');
+  $('#rubricTable').innerHTML=`<thead><tr><th>รายการประเมิน</th><th>รายละเอียด</th><th class="num">คะแนน</th></tr></thead><tbody>${CRIT.map(([,n,m,d])=>`<tr><td>${n}</td><td>${d}</td><td class="num">${m}</td></tr>`).join('')}<tr><th colspan="2">รวม</th><th class="num">30</th></tr></tbody>`;
+  $('#dtRows').innerHTML=STEPS.map(s=>`<tr class="c-${s.k}"><td><b style="color:var(--c)">${s.k}</b> – ${s.name}</td><td>${s.dt}</td><td>${s.ev.join(', ')}</td></tr>`).join('');
+  $('#gallery').innerHTML=SLIDES.map(([src,cap],i)=>`<button data-slide="${i}"><img src="${src}" alt="${esc(cap)}" loading="lazy"><span>${esc(cap)}</span></button>`).join('');
+  $('#resDocs').innerHTML=RES_DOCS.map(resLink).join('');
+  $('#resRooms').innerHTML=Object.entries(ROOM_FOLDERS).map(([r,id])=>resLink([DRIVE_F+id,'ส่งงาน '+r,'โฟลเดอร์กลุ่มของห้อง'])).join('');
+  $('#qStep').innerHTML='<option value="all">ทุกขั้น</option>'+STEPS.map(s=>`<option value="${s.k}">${s.k} · ${s.th}</option>`).join('');
+  $('#sCrit').innerHTML=CRIT.map(([k,n,m])=>`<label class="f">${n}<span class="h">เต็ม ${m}</span><input type="number" id="sc-${k}" min="0" max="${m}" step="0.5" required></label>`).join('');
+  $('#sProc').innerHTML=PROC.map(([k,n])=>`<label class="f">${n}<select id="sp-${k}"><option value="">—</option><option>4</option><option>3</option><option>2</option><option>1</option></select></label>`).join('');
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-slide]');if(!b)return;const [src,cap]=SLIDES[+b.dataset.slide];$('#lbImg').src=src;$('#lbImg').alt=cap;$('#lightbox').showModal()});
+$('#posterBtn').onclick=()=>{$('#lbImg').src=$('#posterBtn img').src;$('#lbImg').alt='โปสเตอร์ MATH-SPARK Model';$('#lightbox').showModal()};
+$('#lbClose').onclick=()=>$('#lightbox').close();
+$('#lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')$('#lightbox').close()});
+
+/* ============================== profile / login ============================== */
+function renderWho(){
+  const p=st.mine.profile;
+  $('#whoChip').textContent=p?`${p.name} · ${p.room}`:(st.be&&st.be.needsPin?'เข้าสู่ระบบ':'ยังไม่ลงทะเบียน');
+  $('#sparkWho').textContent=p?`${p.group} · ${p.room}`:'';
+}
+let pfMode='new';
+const pfGas=()=>!!(st.be&&st.be.needsPin), pfLogged=()=>!!(st.be&&st.be.signedIn&&st.mine.profile);
+function setPfMode(m){pfMode=m;
+  document.querySelectorAll('#pfModes button').forEach(b=>b.setAttribute('aria-selected',b.dataset.m===m));
+  document.querySelectorAll('#profileForm [data-only="new"]').forEach(el=>el.hidden=m!=='new');
+  $('#pfTitle').textContent=m==='login'?'เข้าสู่ระบบ':'ข้อมูลผู้เรียน / กลุ่ม';
+  $('#pfHelp').textContent=pfGas()&&!pfLogged()?(m==='login'?'กรอกห้อง เลขที่ และ PIN ที่ตั้งไว้ตอนลงทะเบียน':'ลงทะเบียนครั้งเดียว แล้วใช้ห้อง + เลขที่ + PIN เข้าระบบจากเครื่องไหนก็ได้'):'ใช้ระบุงานของกลุ่มเมื่อครูตรวจ กรอกเฉพาะข้อมูลที่จำเป็น';
+  $('#pfSave').textContent=m==='login'?'เข้าสู่ระบบ':'บันทึก'}
+function openProfile(){
+  const p=st.mine.profile||{}, gas=pfGas(), logged=pfLogged();
+  $('#pfName').value=p.name||'';$('#pfRoom').value=p.room||'';$('#pfNo').value=p.no||'';$('#pfGroup').value=p.group||'';$('#pfPin').value='';
+  $('#pfModes').hidden=!(gas&&!logged); $('#pfPinWrap').hidden=!(gas&&!logged); $('#pfLogout').hidden=!(gas&&logged);
+  $('#pfRoom').disabled=$('#pfNo').disabled=gas&&logged; $('#pfErr').hidden=true;
+  setPfMode(gas&&!logged?pfMode:'new');
+  $('#profileDlg').showModal();
+}
+$('#pfModes').onclick=e=>{const b=e.target.closest('[data-m]');if(b){setPfMode(b.dataset.m);$('#pfErr').hidden=true}};
+$('#whoChip').onclick=openProfile; $('#openProfile2').onclick=openProfile; $('#pfCancel').onclick=()=>$('#profileDlg').close();
+$('#pfLogout').onclick=()=>{st.be.logout();applyMine(null);$('#profileDlg').close();renderWho();go(st.view==='spark'?st.step.toLowerCase():st.view,false);toast('ออกจากระบบแล้ว')};
+function pfError(m){const e=$('#pfErr');e.textContent=m;e.hidden=false}
+$('#profileForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=$('#pfName').value.trim(),room=$('#pfRoom').value,group=$('#pfGroup').value.trim(),no=$('#pfNo').value.trim(),pin=$('#pfPin').value.trim();
+  if(pfGas()&&!pfLogged()){
+    if(!room||!no) return pfError('เลือกห้องและกรอกเลขที่');
+    if(!/^\d{4,6}$/.test(pin)) return pfError('PIN ต้องเป็นตัวเลข 4–6 หลัก');
+    if(pfMode==='new'&&(!name||!group)) return pfError('กรอกชื่อและชื่อกลุ่มให้ครบ');
+    $('#pfSave').disabled=true;
+    try{const m=pfMode==='new'?await st.be.register({name,room,group,no},pin):await st.be.login(room,no,pin);
+      applyMine(m); $('#profileDlg').close(); await afterAuth(); toast(pfMode==='new'?'ลงทะเบียนแล้ว':'เข้าสู่ระบบแล้ว')}
+    catch(err){pfError((err&&err.message)||'ทำรายการไม่สำเร็จ ลองอีกครั้ง')}
+    finally{$('#pfSave').disabled=false}
+    return;
+  }
+  if(!name||!room||!group) return pfError('กรอกชื่อ ห้อง และชื่อกลุ่มให้ครบ');
+  const old=st.mine.profile||{};
+  st.mine.profile={name,room:pfGas()?old.room:room,group,no:pfGas()?old.no:no};
+  $('#profileDlg').close(); renderWho(); if(st.view==='spark')renderSpark();
+  try{await persist('บันทึกข้อมูลผู้เรียนแล้ว')}catch(e){}
+});
+function needProfile(){ if(st.mine.profile) return false; openProfile(); toast(pfGas()?'เข้าสู่ระบบก่อนเริ่มใช้งาน':'ลงทะเบียนกลุ่มก่อนเริ่มใช้งาน'); return true }
+
+/* ============================== workspace ============================== */
+function renderSpark(){
+  renderWho();
+  const ev=st.mine.evidence||{};
+  $('#stepTabs').innerHTML=STEPS.map(s=>{const on=ev[s.k]&&(ev[s.k].text||ev[s.k].link);return `<button role="tab" class="c-${s.k}" data-step="${s.k}" aria-selected="${s.k===st.step}"><span class="L">${s.k}</span><span><span class="n">${s.th}</span><br><span class="st"><i class="dot ${on?'on':''}"></i> ${on?'บันทึกหลักฐานแล้ว':'ยังไม่บันทึก'}</span></span></button>`}).join('');
+  renderLesson(); renderChat();
+}
+$('#stepTabs').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(!b)return;st.step=b.dataset.step;st.editing=null;go(st.step.toLowerCase())});
+
+function renderLesson(){
+  const s=stepOf(st.step), e=(st.mine.evidence||{})[s.k]||{};
+  const el=$('#lesson'); el.className='panel c-'+s.k;
+  const rf=st.mine.profile&&ROOM_FOLDERS[st.mine.profile.room];
+  el.innerHTML=`
+    <div class="step-head"><span class="L">${s.k}</span><div><p class="eyebrow">ขั้น ${STEPS.indexOf(s)+1} จาก 5 · ${s.dt}</p><h2>${s.name}</h2><p class="muted">${s.th}</p></div></div>
+    <p>${s.desc} <button class="linkbtn" data-go="learn-${s.k.toLowerCase()}">เปิดบทเรียนและเกมจำลองของขั้นนี้</button></p>
+    <div class="ingame"><b>ในภารกิจบอร์ดเกม:</b> ${s.game}</div>
+    <div class="blk"><h4>สิ่งที่ต้องทำ</h4><ul>${s.todo.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>
+    <div class="blk"><h4>คำถามนำ</h4><ul>${s.ask.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></div>
+    <div class="blk"><h4>หลักฐานที่ต้องส่ง</h4><div class="chips">${s.ev.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></div>
+    <form class="blk" id="evForm" style="display:grid;gap:10px;border-top:1px solid var(--line);padding-top:14px">
+      <h4>บันทึกหลักฐานขั้น ${s.k}</h4>
+      <label class="f">สรุปสิ่งที่กลุ่มทำ / ค้นพบ<span class="h">เขียนด้วยคำของกลุ่มเอง ระบุหลักฐานที่มี</span><textarea id="evText" maxlength="3000">${esc(e.text||'')}</textarea></label>
+      ${rf?`<p class="small">อัปโหลดไฟล์ไว้ที่ <a href="${DRIVE_F+rf}" target="_blank" rel="noopener">โฟลเดอร์ส่งงาน ${esc(st.mine.profile.room)}</a> ในโฟลเดอร์กลุ่มของตนเอง แล้วคัดลอกลิงก์ไฟล์มาวางด้านล่าง</p>`:''}
+      <label class="f">ลิงก์ชิ้นงาน (ถ้ามี)<span class="h">เช่น ลิงก์ Canva, Google Drive, ภาพถ่ายต้นแบบ</span><input type="url" id="evLink" value="${esc(e.link||'')}" placeholder="https://"></label>
+      <div class="row"><button class="btn btn-gold btn-sm">บันทึกหลักฐาน</button><span class="saved">${e.at?'บันทึกล่าสุด '+fmtTime(e.at):''}</span></div>
+    </form>`;
+  $('#evForm').onsubmit=async ev=>{ev.preventDefault(); if(needProfile())return;
+    const text=$('#evText').value.trim(),link=$('#evLink').value.trim();
+    if(link&&!/^https?:\/\//i.test(link)){toast('ลิงก์ต้องขึ้นต้นด้วย https://');return}
+    st.mine.evidence={...st.mine.evidence,[s.k]:{text,link,at:Date.now()}};
+    try{await persist('บันทึกหลักฐานขั้น '+s.k+' แล้ว')}catch(e){} renderSpark()};
+}
+
+$('#tabAI').onclick=()=>{st.tab='ai';renderChat()};
+$('#tabTeacher').onclick=()=>{st.tab='teacher';renderChat()};
+function renderChat(){
+  $('#tabAI').setAttribute('aria-selected',st.tab==='ai');$('#tabTeacher').setAttribute('aria-selected',st.tab==='teacher');
+  $('#paneAI').hidden=st.tab!=='ai';$('#paneTeacher').hidden=st.tab!=='teacher';
+  st.tab==='ai'?renderAIPane():renderTeacherPane();
+}
+function coachInstructions(step){
+  const s=stepOf(step), p=st.mine.profile||{}, ev=st.mine.evidence||{};
+  const brief=(ev.P&&ev.P.text||'').slice(0,700), cur=(ev[step]&&ev[step].text||'').slice(0,700);
+  return `คุณคือ "AI Thinking Coach" ของ MATH-SPARK Learning Hub โรงเรียนมัธยมวัดธาตุทอง ผู้เรียนเป็นนักเรียนชั้นมัธยมศึกษาปีที่ 2 (อายุประมาณ 13–14 ปี) รายวิชา ค22222 คณิตศาสตร์เสริมศักยภาพ 2 กำลังทำโครงงานบอร์ดเกมคณิตศาสตร์ Polynomial Adventure เนื้อหา: เอกนาม พหุนาม การดำเนินการของพหุนาม การแยกตัวประกอบพหุนาม และการประยุกต์ใช้
+
+ขณะนี้นักเรียนอยู่ขั้น ${s.k} – ${s.name} (${s.th}): ${s.desc}
+ภารกิจของขั้นนี้: ${s.game}
+${p.group?`กลุ่ม/เกมของนักเรียน: ${p.group} (${p.room})`:''}
+${brief?`Problem Statement/Project Brief ที่กลุ่มบันทึกไว้: ${brief}`:''}
+${cur&&step!=='P'?`หลักฐานขั้นนี้ที่กลุ่มบันทึกไว้: ${cur}`:''}
+
+บทบาทของคุณ (AI = Thinking Partner, not an Answer Machine):
+1. เป็นคู่คิดแบบโสเครตีส: ถามกลับว่านักเรียนลองคิดอะไรมาแล้ว ให้คำใบ้ทีละขั้น ชวนเปรียบเทียบทางเลือก และขอเหตุผล
+2. เมื่อนักเรียนขอให้ "ตรวจ" คำตอบ โจทย์ หรือเฉลย ให้ตรวจความถูกต้องทางคณิตศาสตร์อย่างรอบคอบทีละขั้น บอกชัดว่าถูกหรือผิด ชี้จุดที่ผิดพร้อมเหตุผล และแนะวิธีตรวจซ้ำเอง (เช่น กระจายกลับ หรือแทนค่า x) ถ้าไม่แน่ใจให้บอกว่าไม่แน่ใจ
+3. เมื่อนักเรียนขอให้ทำแทน (เช่น เขียนกติกาเกมทั้งชุด สร้างการ์ดครบทุกใบ หรือขอเฉลยโดยยังไม่ลองคิด) อย่าทำให้ทั้งหมด ให้ถามข้อมูลที่จำเป็น เสนอโครงหรือตัวอย่างเพียง 1 ตัวอย่าง แล้วให้นักเรียนทำต่อเอง
+4. ย้ำว่าโจทย์การ์ดที่จะใช้จริงในบอร์ดเกมต้องส่งให้ครูตรวจในแท็บ "ส่งโจทย์ให้ครู"
+5. ตอบเป็นภาษาไทยที่เป็นกันเองแต่สุภาพ สั้น กระชับ (ไม่เกินราว 120 คำ) เขียนเลขชี้กำลังแบบ x^2 ปิดท้ายด้วยคำถามชวนคิด 1 ข้อ
+6. เนื้อหาต้องเหมาะกับนักเรียนวัยนี้ ไม่ขอและไม่บันทึกข้อมูลส่วนตัว หากถามนอกเรื่องการเรียน ให้ชวนกลับสู่ภารกิจอย่างนุ่มนวล`;
+}
+function renderAIPane(){
+  const pane=$('#paneAI'), s=stepOf(st.step), log=(st.mine.ailog||{})[s.k]||[];
+  let head='';
+  if(!st.be) head=`<div class="notice">กำลังเชื่อมต่อ…</div>`;
+  else if(st.be.mode==='claude'&&!st.be.signedIn) head=`<div class="notice warn">ลงชื่อเข้าใช้ claude.ai เพื่อคุยกับ AI Coach และบันทึกงาน</div>`;
+  else if(st.be.needsPin&&!st.be.signedIn) head=`<div class="notice warn">เข้าสู่ระบบด้วยห้อง เลขที่ และ PIN ก่อนใช้งาน <button class="btn btn-line btn-sm" data-open-profile>เข้าสู่ระบบ</button></div>`;
+  else if(!st.be.canAI) head=`<div class="notice warn"><b>ยังไม่ได้เปิดใช้ AI Coach ในเว็บนี้</b> ใช้เครื่องมือ AI ที่โรงเรียนอนุญาตแทน โดยคัดลอกคำสั่งตั้งต้นด้านล่างไปวาง แล้วกลับมาบันทึก AI Log ที่นี่ <div class="row" style="margin-top:8px"><button class="btn btn-line btn-sm" id="copyCoach">คัดลอกคำสั่ง AI Coach ของขั้น ${s.k}</button></div></div>`;
+  const thread=log.length?log.map(m=>m.role==='user'?`<div class="msg u">${mathy(m.text)}<span class="meta">${fmtTime(m.at)}</span></div>`
+     :m.role==='log'?`<div class="msg log"><b>AI Log</b> · ${fmtTime(m.at)}${md(m.text)}</div>`
+     :`<div class="msg b"><div class="coach-av">AI Thinking Coach</div>${md(m.text)}</div>`).join('')
+     :`<div class="empty">เริ่มคุยกับ AI Thinking Coach ของขั้น ${s.k}<br>เล่าสิ่งที่กลุ่มคิดไว้ก่อน แล้วขอให้ AI ตรวจหรือถามกลับ</div>`;
+  const signed=st.be&&st.be.signedIn;
+  const composer=st.be&&st.be.canAI&&signed?`
+    <div class="starters">${s.starters.map(t=>`<button type="button" data-starter="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    <form class="composer" id="aiForm"><textarea id="aiInput" placeholder="พิมพ์คำถามหรือสิ่งที่อยากให้ AI ตรวจ…" maxlength="1500" aria-label="ข้อความถึง AI"></textarea><button class="btn btn-gold" id="aiSend">ส่ง</button></form>
+    <p class="muted small">บทสนทนาจะถูกบันทึกเป็น AI Log ของขั้นนี้ ครูเปิดดูได้</p>`
+   :signed?`
+    <form id="logForm" style="display:grid;gap:8px">
+      <label class="f">Prompt ที่ใช้<textarea id="lgPrompt" maxlength="1500" style="min-height:60px"></textarea></label>
+      <label class="f">AI ตอบว่าอะไร (สรุป)<textarea id="lgAns" maxlength="1500" style="min-height:60px"></textarea></label>
+      <label class="f">เราตรวจสอบอย่างไร / เชื่อหรือไม่เชื่อส่วนใด<textarea id="lgCheck" maxlength="1500" style="min-height:60px"></textarea></label>
+      <button class="btn btn-gold btn-sm" style="justify-self:start">บันทึก AI Log</button></form>`:'';
+  pane.innerHTML=`<div style="display:grid;gap:12px">${head}<div class="thread" id="thread" aria-live="polite">${thread}</div>${composer}</div>`;
+  const th=$('#thread'); th.scrollTop=th.scrollHeight;
+  const cc=$('#copyCoach'); if(cc) cc.onclick=()=>copyText(coachInstructions(s.k));
+  pane.querySelectorAll('[data-open-profile]').forEach(b=>b.onclick=openProfile);
+  pane.querySelectorAll('[data-starter]').forEach(b=>b.onclick=()=>{const i=$('#aiInput');i.value=b.dataset.starter;i.focus()});
+  const f=$('#aiForm'); if(f){ f.onsubmit=e=>{e.preventDefault();sendAI()}; $('#aiInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();sendAI()}}) }
+  const lf=$('#logForm'); if(lf) lf.onsubmit=async e=>{e.preventDefault(); if(needProfile())return;
+    const a=$('#lgPrompt').value.trim(),b=$('#lgAns').value.trim(),c=$('#lgCheck').value.trim(); if(!a||!c){toast('กรอก Prompt และวิธีตรวจสอบ');return}
+    pushLog(s.k,{role:'user',text:a,at:Date.now()}); pushLog(s.k,{role:'log',text:`**AI ตอบ:** ${b||'-'}\n**การตรวจสอบของเรา:** ${c}`,at:Date.now()}); await saveLog(s.k); renderAIPane(); toast('บันทึก AI Log แล้ว')};
+}
+function copyText(t){ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(()=>toast('คัดลอกแล้ว'),()=>showCopy(t))} else showCopy(t) }
+function showCopy(t){ const d=document.createElement('textarea'); d.value=t; d.style.minHeight='200px'; $('#paneAI').prepend(d); d.select(); toast('เลือกข้อความแล้ว กด Ctrl+C เพื่อคัดลอก') }
+function pushLog(k,m){ const l=[...((st.mine.ailog||{})[k]||[]),m].slice(-40); st.mine.ailog={...st.mine.ailog,[k]:l} }
+async function saveLog(k){ try{await st.be.saveLog(st.mine.ailog,k)}catch(e){} }
+async function sendAI(){
+  if(st.sending) return; if(needProfile()) return;
+  const inp=$('#aiInput'), text=inp.value.trim(); if(!text) return;
+  const k=st.step; st.sending=true;
+  pushLog(k,{role:'user',text,at:Date.now()}); renderAIPane();
+  const th=$('#thread'); const bub=document.createElement('div'); bub.className='msg b'; bub.innerHTML='<div class="coach-av">AI Thinking Coach</div><span class="typing"><i></i><i></i><i></i></span>'; th.append(bub); th.scrollTop=th.scrollHeight;
+  $('#aiSend').disabled=true;
+  const hist=((st.mine.ailog||{})[k]||[]).filter(m=>m.role!=='log').slice(-14).map(m=>({role:m.role==='user'?'user':'assistant',content:m.text}));
+  const msgs=[{role:'user',content:coachInstructions(k)+'\n\n--- บทสนทนากับนักเรียนเริ่มด้านล่าง ---'},...hist];
+  try{
+    const out=await st.be.ask(msgs,({text})=>{bub.innerHTML='<div class="coach-av">AI Thinking Coach</div>'+md(text);th.scrollTop=th.scrollHeight});
+    pushLog(k,{role:'assistant',text:out,at:Date.now()}); await saveLog(k);
+  }catch(e){
+    const m=e&&e.code==='not_granted'?'ยังไม่ได้อนุญาตให้หน้านี้ใช้ AI':e&&e.code==='rate_limited'?'มีการใช้งานถี่เกินไป รอสักครู่แล้วลองใหม่':(e&&e.message&&!e.code)?e.message:'AI ตอบไม่สำเร็จ ลองส่งอีกครั้ง';
+    bub.innerHTML='<div class="coach-av">AI Thinking Coach</div><p>'+esc(m)+'</p>';
+    st.sending=false; $('#aiSend')&&($('#aiSend').disabled=false); return;
+  }
+  st.sending=false; if(st.view==='spark'&&st.step===k&&st.tab==='ai') renderAIPane();
+}
+
+/* ---------- send cards to teacher ---------- */
+function renderTeacherPane(){
+  const pane=$('#paneTeacher'), cards=Object.values(st.mine.cards||{}).sort((a,b)=>b.submittedAt-a.submittedAt);
+  const ed=st.editing?st.mine.cards[st.editing]:null;
+  const signed=st.be&&st.be.signedIn&&st.mine.profile;
+  const counts={pending:0,approved:0,revise:0}; cards.forEach(c=>counts[cardStatus(c,st.mine.reviews)]++);
+  pane.innerHTML=`<div style="display:grid;gap:14px">
+    <p class="small muted">โจทย์ที่จะนำไปใช้ในการ์ดบอร์ดเกมต้องให้ <b>ครู</b> เป็นผู้ตรวจ กด “ให้ AI ตรวจเบื้องต้น” เพื่อเช็กก่อนส่งได้ แต่ผลตัดสินสุดท้ายเป็นของครู</p>
+    ${signed?'':'<div class="notice warn">ลงทะเบียน/เข้าสู่ระบบก่อนจึงจะส่งโจทย์ให้ครูได้ <button class="btn btn-line btn-sm" data-open-profile>เข้าสู่ระบบ</button></div>'}
+    <form id="cardForm" style="display:grid;gap:10px">
+      <h4>${ed?'แก้ไขโจทย์และส่งใหม่':'ส่งโจทย์การ์ดใหม่'}</h4>
+      <div class="grid2">
+        <label class="f">ชื่อการ์ด / ภารกิจ<input type="text" id="cTitle" maxlength="80" value="${esc(ed?.title||'')}" placeholder="เช่น ประตูแยกตัวประกอบ"></label>
+        <label class="f">ระดับความยาก<select id="cLevel">${LEVELS.map(l=>`<option ${ed?.level===l?'selected':''}>${l}</option>`).join('')}</select></label>
+      </div>
+      <label class="f">โจทย์บนการ์ด<span class="h">พิมพ์เลขชี้กำลังแบบ x^2</span><textarea id="cQ" maxlength="800" required style="min-height:64px">${esc(ed?.question||'')}</textarea></label>
+      <label class="f">เฉลย<textarea id="cA" maxlength="800" required style="min-height:56px">${esc(ed?.answer||'')}</textarea></label>
+      <label class="f">วิธีคิด / เหตุผลของเฉลย<textarea id="cM" maxlength="1200" style="min-height:56px">${esc(ed?.method||'')}</textarea></label>
+      <label class="f">ผลเมื่อผู้เล่นตอบถูก / ตอบผิด<input type="text" id="cE" maxlength="200" value="${esc(ed?.effect||'')}" placeholder="เช่น ถูก เดินหน้า 2 ช่อง · ผิด หยุด 1 ตา"></label>
+      <div id="aiCheckOut"></div>
+      <div class="row">
+        <button type="button" class="btn btn-line btn-sm" id="cAI" ${st.be&&st.be.canAI&&signed?'':'hidden'}>ให้ AI ตรวจเบื้องต้น</button>
+        <button class="btn btn-gold btn-sm" ${signed?'':'disabled'}>${ed?'ส่งใหม่ให้ครูตรวจ':'ส่งให้ครูตรวจ'}</button>
+        ${ed?'<button type="button" class="btn btn-line btn-sm" id="cCancel">ยกเลิกการแก้ไข</button>':''}
+      </div>
+    </form>
+    <div style="display:grid;gap:8px">
+      <div class="row" style="justify-content:space-between"><h4>โจทย์ของกลุ่ม (${cards.length})</h4><span class="small muted">รอตรวจ ${counts.pending} · ผ่าน ${counts.approved} · ให้แก้ไข ${counts.revise}</span></div>
+      ${cards.length?cards.map(c=>cardHTML(c)).join(''):'<div class="empty">ยังไม่มีโจทย์ที่ส่ง เริ่มจากโจทย์ระดับง่ายก่อนก็ได้</div>'}
+    </div></div>`;
+  if(ed&&ed.aiCheck) $('#aiCheckOut').innerHTML=aiCheckHTML(ed.aiCheck);
+  $('#cardForm').onsubmit=submitCard;
+  pane.querySelectorAll('[data-open-profile]').forEach(b=>b.onclick=openProfile);
+  const cc=$('#cCancel'); if(cc) cc.onclick=()=>{st.editing=null;renderTeacherPane()};
+  const ca=$('#cAI'); if(ca) ca.onclick=aiPrecheck;
+  pane.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{st.editing=b.dataset.edit;renderTeacherPane();$('#cTitle').focus()});
+  pane.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{const id=b.dataset.del; if(b.dataset.armed!=='1'){b.dataset.armed='1';b.textContent='กดอีกครั้งเพื่อลบ';return}
+    const cs={...st.mine.cards}; delete cs[id]; st.mine.cards=cs; if(st.editing===id)st.editing=null; try{await persist('ลบโจทย์แล้ว')}catch(e){} renderTeacherPane()});
+}
+function cardHTML(c){
+  const s=cardStatus(c,st.mine.reviews), r=st.mine.reviews[c.id];
+  return `<div class="qcard"><div class="hd"><span class="pill ${s}">${STATUS_TH[s]}</span><b>${esc(c.title||'การ์ดไม่มีชื่อ')}</b><span class="lv">${esc(c.level)} · ขั้น ${c.step}</span></div>
+    <div><b>โจทย์:</b> ${mathy(c.question)}</div><div><b>เฉลย:</b> ${mathy(c.answer)}</div>
+    ${r&&r.note&&r.at>=c.submittedAt?`<div class="tnote"><b>ครู:</b> ${esc(r.note)}</div>`:''}
+    <div class="row small muted">ส่งเมื่อ ${fmtTime(c.submittedAt)}
+      <button class="btn btn-line btn-sm" data-edit="${c.id}">${s==='revise'?'แก้ไขตามคำแนะนำ':'แก้ไข'}</button>
+      ${s!=='approved'?`<button class="btn btn-bad btn-sm" data-del="${c.id}">ลบ</button>`:''}</div></div>`;
+}
+function readCardForm(){return {title:$('#cTitle').value.trim(),level:$('#cLevel').value,question:$('#cQ').value.trim(),answer:$('#cA').value.trim(),method:$('#cM').value.trim(),effect:$('#cE').value.trim()}}
+async function submitCard(e){
+  e.preventDefault(); if(needProfile())return;
+  const f=readCardForm(); if(!f.question||!f.answer){toast('ต้องมีทั้งโจทย์และเฉลย');return}
+  const id=st.editing||uid8(), prev=st.mine.cards[id]||{};
+  const card={...prev,...f,id,step:prev.step||st.step,submittedAt:Date.now()};
+  if(st._lastCheck&&st._lastCheck.forId===(st.editing||'new')) card.aiCheck=st._lastCheck.res;
+  st.mine.cards={...st.mine.cards,[id]:card}; st.editing=null; st._lastCheck=null;
+  try{await persist('ส่งโจทย์ให้ครูแล้ว')}catch(e){} renderTeacherPane();
+}
+function aiCheckHTML(r){return `<div class="aicheck"><b>AI ตรวจเบื้องต้น: ${esc(r.verdict||'-')}</b>${(r.notes||[]).length?'<ul style="margin:4px 0;padding-left:1.2em">'+r.notes.map(n=>`<li>${mathy(n)}</li>`).join('')+'</ul>':''}${r.level?`<div class="small">ระดับความยาก: ${esc(r.level)}</div>`:''}<div class="small muted">ผลนี้เป็นความเห็นของ AI ครูเป็นผู้ตัดสินสุดท้าย</div></div>`}
+async function aiPrecheck(){
+  const f=readCardForm(); if(!f.question||!f.answer){toast('กรอกโจทย์และเฉลยก่อน');return}
+  const out=$('#aiCheckOut'); out.innerHTML='<div class="aicheck">AI กำลังตรวจ… <span class="typing"><i></i><i></i><i></i></span></div>';
+  const prompt=`คุณเป็นผู้ช่วยครูคณิตศาสตร์ ตรวจโจทย์การ์ดบอร์ดเกมของนักเรียน ม.2 (เรื่องเอกนาม พหุนาม การดำเนินการ การแยกตัวประกอบพหุนาม) อย่างรอบคอบ คำนวณตรวจทุกขั้น
+โจทย์: ${f.question}
+เฉลยของนักเรียน: ${f.answer}
+วิธีคิดของนักเรียน: ${f.method||'-'}
+ระดับที่นักเรียนตั้งไว้: ${f.level}
+ตอบเป็น JSON เท่านั้น รูปแบบ {"verdict":"เฉลยถูกต้อง" หรือ "เฉลยไม่ถูกต้อง" หรือ "โจทย์ไม่ชัดเจน" หรือ "ไม่แน่ใจ","notes":["ข้อสังเกตภาษาไทย สั้น ๆ 1–3 ข้อ ชี้จุดผิดหรือจุดที่ควรปรับ โดยไม่เขียนเฉลยที่ถูกให้ทั้งหมด แต่บอกว่าควรตรวจตรงไหน"],"level":"ความเห็นสั้น ๆ ว่าระดับความยากเหมาะสมกับ ม.2 หรือไม่"} เขียนเลขชี้กำลังแบบ x^2`;
+  try{ const r=await st.be.askJSON(prompt); const res={verdict:String(r.verdict||''),notes:Array.isArray(r.notes)?r.notes.map(String).slice(0,4):[],level:String(r.level||''),at:Date.now()};
+    st._lastCheck={forId:st.editing||'new',res}; out.innerHTML=aiCheckHTML(res) }
+  catch(e){ out.innerHTML='<div class="aicheck">AI ตรวจไม่สำเร็จ ลองอีกครั้ง หรือส่งให้ครูตรวจได้เลย</div>' }
+}
+
+/* ============================== lessons & simulation games ============================== */
+function renderLearn(){
+  $('#learnTabs').innerHTML=STEPS.map(s=>`<button role="tab" class="c-${s.k}" data-learn="${s.k}" aria-selected="${s.k===st.lstep}"><span class="L">${s.k}</span><span><span class="n">${s.th}</span><br><span class="st">${s.lesson.game.replace('เกมจำลอง: ','')}</span></span></button>`).join('');
+  const s=stepOf(st.lstep), L=s.lesson;
+  $('#lessonBody').className='c-'+s.k;
+  $('#lessonBody').innerHTML=`
+    <div class="lesson-hero">
+      <div style="display:grid;gap:12px">
+        <span class="big">ขั้น ${STEPS.indexOf(s)+1} · ${s.k} — ${s.name}</span>
+        <h2>${s.th}</h2>
+        <p>${L.what}</p>
+        <div class="chips"><span class="tag">Design Thinking: ${s.dt}</span>${s.ev.map(e=>`<span class="tag">${esc(e)}</span>`).join('')}</div>
+      </div>
+      ${ILL[s.k]}
+    </div>
+    <div class="keys">${L.keys.map(([t,d])=>`<div class="key"><b>${t}</b><span class="small muted">${d}</span></div>`).join('')}</div>
+    <div class="ex"><b>ตัวอย่างจากโครงงานบอร์ดเกม:</b> ${mathy(L.ex)}</div>
+    <div class="game" id="gameBox"></div>
+    <div class="row" style="justify-content:space-between">
+      <span class="small muted">เล่นจบแล้ว ลองทำจริงกับโครงงานของกลุ่ม</span>
+      <span class="row">${STEPS.indexOf(s)>0?`<button class="btn btn-line btn-sm" data-learn="${STEPS[STEPS.indexOf(s)-1].k}">← บทเรียนขั้น ${STEPS[STEPS.indexOf(s)-1].k}</button>`:''}
+      <button class="btn btn-gold btn-sm" data-go="${s.k.toLowerCase()}">ไปพื้นที่ทำงานขั้น ${s.k}</button>
+      ${STEPS.indexOf(s)<4?`<button class="btn btn-line btn-sm" data-learn="${STEPS[STEPS.indexOf(s)+1].k}">บทเรียนขั้น ${STEPS[STEPS.indexOf(s)+1].k} →</button>`:''}</span>
+    </div>`;
+  GAMES[s.k]($('#gameBox'), s);
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-learn]');if(!b)return;st.lstep=b.dataset.learn;go('learn-'+st.lstep.toLowerCase())});
+const gameHead=(s,score)=>`<div class="game-h"><div><p class="eyebrow">${esc(s.lesson.game)}</p><p class="small muted" style="max-width:52em">${esc(s.lesson.gameIntro)}</p></div>${score!=null?`<span class="score">${score}</span>`:''}</div>`;
+const supTxt=t=>String(t).replace(/\^2/g,'²').replace(/\^3/g,'³');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+const GAMES={
+/* S — board game: roll, move, answer polynomial cards */
+S(box,s){
+  const BANK=[['3x + 5x = ?',['8x','8x^2','15x'],'รวมได้เพราะเป็นพจน์คล้าย บวกเฉพาะสัมประสิทธิ์'],
+   ['ดีกรีของ 4x^3y คือเท่าไร',['4','3','1'],'ดีกรีของเอกนาม = ผลบวกเลขชี้กำลังของตัวแปร 3 + 1'],
+   ['(2x)(3x) = ?',['6x^2','5x','6x'],'คูณสัมประสิทธิ์ 2×3 และ x·x = x^2'],
+   ['แยกตัวประกอบ x^2 − 9',['(x − 3)(x + 3)','(x − 9)(x + 1)','(x − 3)^2'],'ผลต่างกำลังสอง a^2 − b^2 = (a − b)(a + b)'],
+   ['5a^2b กับ −2a^2b เป็นพจน์คล้ายกันหรือไม่',['คล้ายกัน','ไม่คล้ายกัน'],'ตัวแปรและเลขชี้กำลังเหมือนกันทุกตัว'],
+   ['(x + 2)(x + 3) = ?',['x^2 + 5x + 6','x^2 + 6x + 5','x^2 + 6'],'กระจาย: x^2 + 3x + 2x + 6'],
+   ['7xy − 2xy = ?',['5xy','9xy','5x^2y^2'],'พจน์คล้าย ลบเฉพาะสัมประสิทธิ์'],
+   ['สัมประสิทธิ์ของ −6x^2y คือ',['−6','6','2'],'สัมประสิทธิ์รวมเครื่องหมายด้วย'],
+   ['แยกตัวประกอบ x^2 + 7x + 12',['(x + 3)(x + 4)','(x + 2)(x + 6)','(x + 1)(x + 12)'],'หาสองจำนวนที่คูณได้ 12 และบวกได้ 7'],
+   ['(3x^2)(−2x) = ?',['−6x^3','−6x^2','x^3'],'คูณสัมประสิทธิ์ และบวกเลขชี้กำลัง 2 + 1']];
+  const g={pos:0,score:0,turns:0,q:null,missed:[],deck:shuffle(BANK),di:0,die:'🎲',over:false};
+  const N=10;
+  function draw(){
+    box.innerHTML=gameHead(s,`คะแนน ${g.score} · ตา ${g.turns}`)+`
+      <div class="track">${Array.from({length:N},(_,i)=>`<div class="cell ${i<g.pos?'done':''} ${i===N-1?'goal':''}">${i===N-1?'GOAL':i+1}${i===g.pos?'<span class="pawn"></span>':''}</div>`).join('')}</div>
+      <div class="row"><div class="die" id="die">${g.die}</div>
+        ${g.over?`<button class="btn btn-gold" id="again">เล่นอีกครั้ง</button>`:`<button class="btn btn-gold" id="roll" ${g.q?'disabled':''}>ทอยลูกเต๋า</button>`}
+        <span class="small muted">${g.over?'ถึงเส้นชัยแล้ว':'ทอยแล้วเดิน ช่องที่ตกต้องตอบการ์ด ตอบถูก +10 ตอบผิดถอย 1 ช่อง'}</span></div>
+      <div id="qArea">${g.q?qHTML():''}</div>
+      ${g.over?summary():''}`;
+    const r=box.querySelector('#roll'); if(r) r.onclick=roll;
+    const a=box.querySelector('#again'); if(a) a.onclick=()=>{Object.assign(g,{pos:0,score:0,turns:0,q:null,missed:[],deck:shuffle(BANK),di:0,die:'🎲',over:false});draw()};
+    box.querySelectorAll('[data-opt]').forEach(b=>b.onclick=()=>answer(+b.dataset.opt));
+  }
+  function qHTML(){const [q,opts]=g.q;return `<div class="qbox"><span class="small muted">การ์ดคำถามช่อง ${g.pos+1}</span><span class="qt">${mathy(q)}</span><div class="opts">${g.qopts.map((o,i)=>`<button class="opt" data-opt="${i}">${mathy(o)}</button>`).join('')}</div></div>`}
+  function roll(){
+    const n=1+Math.floor(Math.random()*3); g.die=n; g.turns++;
+    g.pos=Math.min(N-1,g.pos+n);
+    if(g.pos===N-1){g.over=true;g.q=null;draw();return}
+    g.q=g.deck[g.di++%g.deck.length]; g.qopts=shuffle(g.q[1]); draw();
+    const d=box.querySelector('#die'); d&&d.classList.add('roll');
+  }
+  function answer(i){
+    const [q,opts,why]=g.q, right=g.qopts[i]===opts[0];
+    box.querySelectorAll('[data-opt]').forEach((b,j)=>{b.disabled=true; if(g.qopts[j]===opts[0])b.classList.add('right'); else if(j===i)b.classList.add('wrong')});
+    if(right) g.score+=10; else {g.missed.push(q); g.pos=Math.max(0,g.pos-1)}
+    const fb=document.createElement('div'); fb.className='fb '+(right?'ok':'no'); fb.innerHTML=(right?'<b>ถูกต้อง</b> · ':'<b>ยังไม่ถูก</b> · ')+mathy(why);
+    box.querySelector('.qbox').append(fb);
+    setTimeout(()=>{g.q=null;draw()},right?1400:2600);
+  }
+  function summary(){
+    return `<div class="qbox"><span class="qt">สรุปการเล่น: ${g.score} คะแนน ใน ${g.turns} ตา</span>
+      ${g.missed.length?`<p>ข้อที่พลาด ${g.missed.length} ข้อ: ${g.missed.map(m=>`<span class="tag">${mathy(m)}</span>`).join(' ')}</p><p class="small muted">ถ้าเพื่อนหลายคนพลาดข้อแบบเดียวกัน นั่นคือ “ปัญหาจริงของผู้เล่น” ที่ควรจดเป็น Curiosity Note แล้วนำไปตั้งปัญหาในขั้น P</p>`:'<p>ไม่พลาดเลย ลองสังเกตเพื่อนเล่นแทน แล้วจดว่าเพื่อนติดตรงไหน</p>'}</div>`;
+  }
+  draw();
+},
+/* P — assemble a problem statement */
+P(box,s){
+  const SLOTS=[['who','ผู้เล่นคือ',[['นักเรียน ม.2 ที่เพิ่งเรียนพหุนาม',1,'เจาะจงกลุ่มผู้เล่นที่ทดสอบได้จริง'],['ทุกคนที่เรียนคณิตศาสตร์',0,'กว้างเกินไป ออกแบบเกมให้ทุกคนพร้อมกันไม่ได้'],['นักเรียนที่ไม่ชอบคณิต',0,'บอกความรู้สึก แต่ไม่บอกว่าเรียนเรื่องอะไร']]],
+   ['prob','มีปัญหา',[['รวมพจน์ที่ไม่คล้ายกันผิด เช่น 3x + 2x^2 = 5x^3',1,'ระบุปัญหาทางคณิตศาสตร์ชัด เห็นตัวอย่างข้อผิด'],['ไม่ตั้งใจเรียน',0,'เป็นพฤติกรรม ไม่ได้บอกว่าติดเนื้อหาส่วนใด'],['คณิตศาสตร์ยาก',0,'กว้างเกินกว่าเกมเดียวจะแก้ได้']]],
+   ['why','เพราะ',[['มองไม่ออกว่าพจน์ใดมีตัวแปรและเลขชี้กำลังเหมือนกัน',1,'เป็นสาเหตุที่เกมฝึกได้โดยตรง'],['ครูสอนเร็ว',0,'โทษคนอื่น และเกมของเราแก้ไม่ได้'],['ไม่มีเวลาทบทวน',0,'อาจจริง แต่ยังไม่ชี้ว่าความเข้าใจผิดอยู่ตรงไหน']]],
+   ['ok','เกมสำเร็จเมื่อ',[['ผู้เล่นตอบการ์ดรวมพจน์ถูกอย่างน้อย 8 ใน 10 หลังเล่น 2 รอบ',1,'วัดได้เป็นตัวเลขและมีช่วงเวลาชัด'],['ผู้เล่นรู้สึกสนุก',0,'ดีแต่ยังไม่บอกว่าเรียนรู้เพิ่มขึ้นหรือไม่'],['เกมสวยงาม',0,'เป็นเกณฑ์ของชิ้นงาน ไม่ใช่การแก้ปัญหาการเรียนรู้']]]];
+  const pick={}; const order={}; SLOTS.forEach(([k,,o])=>order[k]=shuffle(o));
+  function draw(checked){
+    const score=Object.entries(pick).reduce((a,[k,v])=>a+(SLOTS.find(x=>x[0]===k)[2].find(o=>o[0]===v)?.[1]||0),0);
+    box.innerHTML=gameHead(s,checked?`เจาะจง ${score}/4`:null)+`
+      <div class="stmt">${SLOTS.map(([k,lab])=>`<span class="muted">${lab}</span> <select data-slot="${k}" aria-label="${lab}"><option value="">— เลือก —</option>${order[k].map(([t])=>`<option value="${esc(t)}" ${pick[k]===t?'selected':''}>${esc(supTxt(t))}</option>`).join('')}</select>`).join('<br>')}</div>
+      <div class="row"><button class="btn btn-gold" id="pchk">ตรวจ Problem Statement</button><button class="btn btn-line btn-sm" id="preset">เริ่มใหม่</button></div>
+      <div id="pfb" style="display:grid;gap:8px">${checked?SLOTS.map(([k,lab,opts])=>{const o=opts.find(x=>x[0]===pick[k]);return o?`<div class="fb ${o[1]?'ok':'no'}"><b>${lab}:</b> ${esc(o[2])}</div>`:`<div class="fb no"><b>${lab}:</b> ยังไม่ได้เลือก</div>`}).join('')+(score===4?`<div class="qbox"><span class="qt">Problem Statement ของคุณ</span><p>${mathy(SLOTS.map(([k,lab])=>lab+' '+pick[k]).join(' '))}</p><p class="small muted">นำโครงนี้ไปเขียนปัญหาของกลุ่มเองในพื้นที่ทำงานขั้น P</p></div>`:''):''}</div>`;
+    box.querySelectorAll('[data-slot]').forEach(sel=>sel.onchange=()=>{pick[sel.dataset.slot]=sel.value;});
+    box.querySelector('#pchk').onclick=()=>draw(true);
+    box.querySelector('#preset').onclick=()=>{for(const k in pick)delete pick[k];draw(false)};
+  }
+  draw(false);
+},
+/* A — spot the AI mistake with a substitution checker */
+A(box,s){
+  const ITEMS=[
+   {c:'(x + 3)^2 = x^2 + 9',L:x=>(x+3)**2,R:x=>x*x+9,ok:false,why:'ขาดพจน์กลาง 2·3·x = 6x ที่ถูกคือ x^2 + 6x + 9'},
+   {c:'x^2 − 16 = (x − 4)(x + 4)',L:x=>x*x-16,R:x=>(x-4)*(x+4),ok:true,why:'ผลต่างกำลังสอง ถูกต้อง'},
+   {c:'2x(x − 5) = 2x^2 − 10x',L:x=>2*x*(x-5),R:x=>2*x*x-10*x,ok:true,why:'แจกแจง 2x เข้าไปทุกพจน์ ถูกต้อง'},
+   {c:'x^2 + 5x + 6 = (x + 1)(x + 6)',L:x=>x*x+5*x+6,R:x=>(x+1)*(x+6),ok:false,why:'(x + 1)(x + 6) = x^2 + 7x + 6 ที่ถูกคือ (x + 2)(x + 3)'}];
+  const ans={};
+  function draw(){
+    const done=Object.keys(ans).length, score=Object.entries(ans).filter(([i,v])=>ITEMS[i].ok===v).length;
+    box.innerHTML=gameHead(s,`ตัดสินถูก ${score}/${done}`)+`
+      <div class="qbox"><span class="small muted">เครื่องแทนค่า: เลือกข้อแล้วใส่ค่า x เพื่อเทียบซ้ายกับขวา</span>
+        <div class="row"><select id="aSel" style="width:auto">${ITEMS.map((it,i)=>`<option value="${i}">ข้อ ${i+1}</option>`).join('')}</select>
+        <label class="row small">x = <input type="number" id="aX" value="1" style="width:90px"></label><button class="btn btn-line btn-sm" id="aTest">แทนค่า</button></div>
+        <div id="aOut" class="small"></div></div>
+      <div style="display:grid;gap:10px">${ITEMS.map((it,i)=>`<div class="qbox"><div class="row" style="justify-content:space-between"><span><span class="small muted">AI บอกว่า (ข้อ ${i+1})</span><br><span class="qt">${mathy(it.c)}</span></span>
+        <span class="opts"><button class="opt ${i in ans?(it.ok===true?'right':ans[i]===true?'wrong':''):''}" data-ai="${i}" data-v="1" ${i in ans?'disabled':''}>ถูก</button><button class="opt ${i in ans?(it.ok===false?'right':ans[i]===false?'wrong':''):''}" data-ai="${i}" data-v="0" ${i in ans?'disabled':''}>ผิด</button></span></div>
+        ${i in ans?`<div class="fb ${ans[i]===it.ok?'ok':'no'}">${ans[i]===it.ok?'<b>ตัดสินถูก</b>':'<b>ยังไม่ถูก</b>'} · ${mathy(it.why)}</div>`:''}</div>`).join('')}</div>
+      ${done===ITEMS.length?`<div class="qbox"><span class="qt">ตัดสินถูก ${score} จาก ${ITEMS.length} ข้อ</span><p class="small muted">AI ตอบผิด 2 ใน 4 ข้อ ทุกครั้งที่ใช้ AI ให้ตรวจด้วยการแทนค่าหรือกระจายกลับ แล้วบันทึกลง AI Log ว่าเชื่อหรือไม่เพราะอะไร</p><button class="btn btn-line btn-sm" id="aAgain">เล่นอีกครั้ง</button></div>`:''}`;
+    box.querySelectorAll('[data-ai]').forEach(b=>b.onclick=()=>{ans[b.dataset.ai]=b.dataset.v==='1';draw()});
+    box.querySelector('#aTest').onclick=()=>{const it=ITEMS[+box.querySelector('#aSel').value],x=Number(box.querySelector('#aX').value);
+      if(!isFinite(x)){box.querySelector('#aOut').textContent='ใส่ตัวเลข';return}
+      const l=it.L(x),r=it.R(x);box.querySelector('#aOut').innerHTML=`ซ้ายมือ = <b>${l}</b> · ขวามือ = <b>${r}</b> → ${l===r?'<span style="color:var(--ok)">เท่ากันที่ค่านี้ (ลองค่าอื่นด้วย)</span>':'<span style="color:var(--bad)">ไม่เท่ากัน แปลว่าข้อนี้ผิด</span>'}`};
+    const ag=box.querySelector('#aAgain'); if(ag) ag.onclick=()=>{for(const k in ans)delete ans[k];draw()};
+  }
+  draw();
+},
+/* R — playtest feedback rounds and balance meters */
+R(box,s){
+  const M=[['fun','ความสนุก'],['bal','ความสมดุลของความยาก'],['acc','ความถูกต้องทางคณิต'],['cla','ความชัดเจนของกติกา']];
+  const START={fun:60,bal:40,acc:55,cla:35};
+  const ROUNDS=[
+   {fb:'“อ่านกติกาแล้วงง ไม่รู้ว่าต้องตอบการ์ดก่อนหรือเดินก่อน”',opts:[['เขียนลำดับการเล่นเป็นขั้น 1–2–3 พร้อมตัวอย่างหนึ่งตา',{cla:+35}],['เพิ่มการ์ดพลังอีก 10 ใบให้เกมคึกคัก',{fun:+10,cla:-10}],['ให้ครูอธิบายกติกาทุกครั้งก่อนเล่น',{cla:+10,fun:-5}]]},
+   {fb:'“การ์ดระดับท้าทายยากจนไม่มีใครตอบได้ เกมจบช้า”',opts:[['แบ่งการ์ด 3 ระดับ ให้ผู้เล่นเลือกระดับและได้คะแนนต่างกัน',{bal:+35,fun:+10}],['ตัดการ์ดระดับท้าทายทิ้งทั้งหมด',{bal:+10,fun:-10}],['เพิ่มเวลาตอบเป็น 3 นาที',{bal:+5,fun:-10}]]},
+   {fb:'“การ์ด 2 ใบเฉลยไม่ตรงกับที่คำนวณได้”',opts:[['ส่งโจทย์ให้ครูตรวจ และแทนค่าตรวจเฉลยทุกใบ',{acc:+40}],['ตัดสองใบนั้นทิ้ง',{acc:+15,bal:-5}],['ให้ผู้เล่นโหวตว่าเฉลยไหนถูก',{fun:+5,acc:-10}]]}];
+  const g={v:{...START},r:0,log:[]};
+  function draw(){
+    const ok=M.every(([k])=>g.v[k]>=70);
+    box.innerHTML=gameHead(s,`V${g.r+1}`)+`
+      <div style="display:grid;gap:8px">${M.map(([k,t])=>`<div class="meter"><span>${t}</span><span class="bar"><i class="${g.v[k]<70?'low':''}" style="width:${g.v[k]}%"></i></span><b>${g.v[k]}</b></div>`).join('')}</div>
+      ${g.r<ROUNDS.length?`<div class="qbox"><span class="small muted">Feedback จากผู้ทดลองเล่น รอบที่ ${g.r+1}</span><span class="qt">${esc(ROUNDS[g.r].fb)}</span>
+        <div class="choice-grid">${ROUNDS[g.r].opts.map(([t,eff],i)=>`<button class="choice" data-ro="${i}"><b>${esc(t)}</b></button>`).join('')}</div></div>`
+       :`<div class="qbox"><span class="qt">${ok?'สำเร็จ ทุกมาตรวัดถึง 70 แล้ว':'ยังมีมาตรวัดต่ำกว่า 70'}</span><p class="small muted">${ok?'การปรับที่ได้ผลคือการแก้ตรงสาเหตุของ Feedback แต่ละข้อ':'ลองใหม่ แล้วเลือกวิธีที่แก้ตรงสาเหตุของ Feedback'}</p><button class="btn btn-line btn-sm" id="rAgain">เล่นอีกครั้ง</button></div>`}
+      ${g.log.length?`<div class="qbox"><span class="small muted">Change Log</span>${g.log.map((l,i)=>`<div class="small"><b>V${i+1} → V${i+2}:</b> ${esc(l)}</div>`).join('')}</div>`:''}`;
+    box.querySelectorAll('[data-ro]').forEach(b=>b.onclick=()=>{const [t,eff]=ROUNDS[g.r].opts[+b.dataset.ro];for(const k in eff)g.v[k]=Math.max(0,Math.min(100,g.v[k]+eff[k]));g.log.push(t);g.r++;draw()});
+    const ag=box.querySelector('#rAgain'); if(ag) ag.onclick=()=>{g.v={...START};g.r=0;g.log=[];draw()};
+  }
+  draw();
+},
+/* K — pick strong impact evidence */
+K(box,s){
+  const EV=[['คะแนนการ์ดรวมพจน์ของผู้เล่น 12 คน ก่อนเล่นเฉลี่ย 4/10 หลังเล่น 2 รอบเฉลี่ย 7/10',1,'เปรียบเทียบก่อน–หลังกับผู้เล่นจริง วัดได้'],
+   ['แบบสอบถามผู้เล่น 12 คน พร้อมความเห็นว่าเข้าใจพจน์คล้ายขึ้นตรงไหน',1,'มาจากผู้ใช้จริง และบอกว่าเรียนรู้อะไร'],
+   ['ห้องอื่นขอยืมเกมไปใช้ทบทวน 2 ครั้ง',1,'มีการนำไปใช้ซ้ำ เป็นหลักฐานการขยายผล'],
+   ['สมาชิกในกลุ่มบอกว่า “เกมเราสนุกมาก”',0,'ผู้ประเมินเป็นคนทำเกมเอง จึงมีอคติ'],
+   ['ภาพถ่ายตอนเล่น 1 ภาพ',0,'ใช้ประกอบได้ แต่ไม่บอกว่าผู้เล่นเรียนรู้เพิ่มขึ้น'],
+   ['กลุ่มใช้เวลาทำเกม 3 สัปดาห์',0,'บอกความพยายาม ไม่ใช่ผลต่อผู้เล่น']];
+  const order=shuffle(EV.map((_,i)=>i)); const sel=new Set(); let checked=false;
+  function draw(){
+    const right=order.filter(i=>sel.has(i)===!!EV[i][1]).length;
+    box.innerHTML=gameHead(s,checked?`ถูก ${right}/6`:null)+`<p class="small muted">ตัวเลขในเกมนี้เป็นสถานการณ์สมมุติเพื่อฝึกคัดหลักฐาน</p>
+      <div class="choice-grid">${order.map(i=>`<button class="choice" data-ev="${i}" aria-pressed="${sel.has(i)}" ${checked?'disabled':''}><b>${esc(EV[i][0])}</b>${checked?`<span class="small" style="color:${EV[i][1]?'var(--ok)':'var(--bad)'}">${EV[i][1]?'หลักฐานแข็งแรง':'หลักฐานอ่อน'} · ${esc(EV[i][2])}</span>`:''}</button>`).join('')}</div>
+      <div class="row">${checked?`<button class="btn btn-line btn-sm" id="kAgain">เล่นอีกครั้ง</button>`:`<button class="btn btn-gold" id="kChk">ตรวจหลักฐานที่เลือก (${sel.size})</button>`}</div>
+      ${checked?`<div class="fb ${right===6?'ok':''}">${right===6?'<b>ยอดเยี่ยม</b> เลือกได้ครบทุกชิ้น':'หลักฐานที่ดีมาจากผู้ใช้จริง วัดได้ และเปรียบเทียบก่อน–หลังได้'}</div>`:''}`;
+    box.querySelectorAll('[data-ev]').forEach(b=>b.onclick=()=>{const i=+b.dataset.ev;sel.has(i)?sel.delete(i):sel.add(i);draw()});
+    const c=box.querySelector('#kChk'); if(c) c.onclick=()=>{checked=true;draw()};
+    const a=box.querySelector('#kAgain'); if(a) a.onclick=()=>{sel.clear();checked=false;draw()};
+  }
+  draw();
+}};
+
+/* ============================== demo dataset (clearly labelled, never presented as real) ============================== */
+function rng(seed){return ()=>{seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const DEMO_GROUPS={'ม.2/2':['Poly Quest','Factor Escape','Monomial Market','Algebra Adventure'],'ม.2/3':['Poly Racer','X-Cave Escape','Term Trader','Factor Kingdom']};
+const DEMO_Q={
+ S:[['เกมตัวอย่างที่ครูให้เล่น ใช้คณิตศาสตร์ตรงไหนบ้าง','ลองสังเกตว่าตอนเดินหมากต้องคิดอะไร การ์ดใบไหนทำให้เธอต้องคิดนานที่สุด?'],['ควรถามเพื่อนอย่างไรให้รู้ว่าเขาติดเรื่องพหุนามตรงไหน','ลองให้เพื่อนทำโจทย์สั้น ๆ 2–3 ข้อแล้วสังเกตข้อที่ผิด เธอจะถามต่ออะไรหลังเห็นคำตอบเขา?'],['ทำไม 3x + 2x² ถึงรวมกันไม่ได้','ลองดูเลขชี้กำลังของ x ในแต่ละพจน์ เหมือนกันไหม? ถ้าไม่เหมือน พจน์ทั้งสองคล้ายกันหรือเปล่า?']],
+ P:[['ช่วยตรวจ Problem Statement ว่า “เพื่อน ม.2 แยกตัวประกอบไม่เป็น” ชัดพอไหม','ยังกว้างไป แยกตัวประกอบแบบไหนที่เพื่อนติด และเธอเห็นหลักฐานอะไร?'],['เป้าหมาย “เล่นแล้วเก่งขึ้น” วัดผลได้ไหม','ยังวัดยาก ถ้าจะบอกว่าเก่งขึ้น เธอจะใช้ตัวเลขหรือพฤติกรรมอะไรเป็นตัวบอก?'],['ผู้เล่นเป้าหมายควรเป็นใคร ม.1 หรือ ม.2','ขึ้นกับว่าเกมใช้เนื้อหาเรื่องไหน เรื่องพหุนามเรียนชั้นไหน?']],
+ A:[['x^2 - 9 แยกได้ (x - 3)(x + 3) ถูกไหม','ถูกต้อง เป็นผลต่างกำลังสอง ลองกระจายกลับดูเองว่าได้ x^2 − 9 จริงไหม แล้วลองแต่งโจทย์ทำนองนี้อีก 1 ข้อ'],['การ์ด (x + 2)^2 เฉลย x^2 + 4 ถูกไหม','ยังไม่ถูก ลองแทน x = 1 ทั้งสองข้าง ได้ 9 กับ 5 ต่างกัน พจน์ไหนหายไป?'],['ช่วยคิดกลไกเกมแบบ Escape Room ให้หน่อย','ก่อนอื่น ผู้เล่นต้องใช้ความรู้อะไรเพื่อ “ปลดล็อก” ประตู? ลองเสนอมา 2 แบบแล้วเราจะเทียบกัน'],['การ์ดระดับท้าทายควรยากแค่ไหน','ลองดูว่าโจทย์ต้องใช้กี่ขั้นตอน ถ้า 3 ขั้นขึ้นไปอาจเป็นระดับท้าทาย เธอมีโจทย์ตัวอย่างไหม?'],['2x(x − 5) = 2x^2 − 10x ใช่ไหม','ใช่ แจกแจง 2x เข้าไปทุกพจน์ ลองตรวจซ้ำด้วยการแทน x = 2 ดูไหม?']],
+ R:[['เพื่อนบอกว่ากติกายาวเกินไป ควรตัดตรงไหน','ลองถามผู้เล่นว่าข้อไหนทำให้งงที่สุด แล้วปรับข้อนั้นก่อน เธอได้ Feedback อะไรมาอีก?'],['เกมจบเร็วเกินไป ควรเพิ่มช่องบนกระดานไหม','อาจช่วย แต่ลองดูสาเหตุก่อน ผู้เล่นตอบถูกง่ายเกินไปหรือเดินได้ไกลเกินไป?']],
+ K:[['ควรใช้หลักฐานอะไรบอกว่าเกมช่วยเพื่อนได้','หลักฐานที่ดีคือผลก่อน–หลังของผู้เล่นจริง หรือความเห็นที่บอกว่าเข้าใจอะไรมากขึ้น กลุ่มเก็บอะไรไว้บ้าง?'],['Reflection ควรเขียนอะไรบ้าง','ลองตอบว่าเข้าใจคณิตศาสตร์อะไรมากขึ้น AI ช่วยตรงไหน และตรงไหนต้องตรวจสอบเอง']]};
+const DEMO_EV={
+ S:['ทดลองเล่นบอร์ดเกมตัวอย่าง 2 รอบ เพื่อน 4 ใน 6 คนรวมพจน์ที่ไม่คล้ายกันผิด','สอบถามเพื่อน 5 คน ส่วนใหญ่บอกว่าการแยกตัวประกอบยากที่สุด','สังเกตว่าเพื่อนสับสนเครื่องหมายลบเมื่อลบพหุนาม'],
+ P:['ผู้เล่นคือนักเรียน ม.2 ที่รวมพจน์ผิด เกมสำเร็จเมื่อตอบการ์ดรวมพจน์ถูก 8 ใน 10','ปัญหา: แยกตัวประกอบผลต่างกำลังสองไม่ได้ เพราะมองไม่ออกว่าเป็นกำลังสอง','เป้าหมาย: ผู้เล่นกระจายพหุนามดีกรีสองถูกอย่างน้อย 7 ใน 10'],
+ A:['เทียบกลไก Quiz Battle กับ Escape Room แล้วเลือก Escape Room เพราะบังคับให้ใช้ความรู้ปลดล็อก','ใช้ AI ตรวจเฉลย 12 ข้อ พบ AI ผิด 1 ข้อ ตรวจด้วยการแทน x = 2','เขียน Prompt ให้ AI ช่วยออกแบบภาพการ์ด แล้วแก้ข้อความให้ตรงเนื้อหา'],
+ R:['V1 → V2: เขียนลำดับการเล่นใหม่ และแบ่งการ์ดเป็น 3 ระดับตาม Feedback','ทดลองเล่นกับกลุ่ม 3 พบว่าเกมยาวเกินไป จึงลดช่องบนกระดานจาก 40 เหลือ 30','ปรับเฉลยการ์ด 2 ใบตามคำแนะนำครู'],
+ K:['นำเสนอหน้าชั้น และให้เพื่อนต่างกลุ่มทดลองเล่น พร้อมเก็บแบบสอบถาม','Reflection: เข้าใจการแยกตัวประกอบมากขึ้น AI ช่วยตรวจเฉลยแต่ต้องตรวจซ้ำเอง','สรุปผลก่อน–หลังการเล่นของผู้ทดลองเล่น 8 คน']};
+const DEMO_CARDS=[['ประตูพจน์คล้าย','ง่าย','5x + 3x = ?','8x'],['เอกนามคูณกัน','ง่าย','(4x)(2x^2) = ?','8x^3'],['ดีกรีลับ','ง่าย','ดีกรีของ 3x^2y^3','5'],['ทางแยกพหุนาม','ปานกลาง','(x + 4)(x − 1) = ?','x^2 + 3x − 4'],['กุญแจผลต่าง','ปานกลาง','แยกตัวประกอบ x^2 − 25','(x − 5)(x + 5)'],['สะพานรวมพจน์','ปานกลาง','(3x^2 + 2x) + (x^2 − 5x)','4x^2 − 3x'],['ห้องลบพหุนาม','ปานกลาง','(5x^2 − x) − (2x^2 + 3x)','3x^2 − 4x'],['ปราสาทตัวประกอบ','ท้าทาย','แยกตัวประกอบ x^2 + 9x + 20','(x + 4)(x + 5)'],['ด่านกำลังสองสมบูรณ์','ท้าทาย','แยกตัวประกอบ x^2 − 10x + 25','(x − 5)^2'],['บอสพื้นที่','ท้าทาย','สี่เหลี่ยมพื้นที่ x^2 + 5x + 6 ด้านหนึ่งยาว x + 2 อีกด้านยาวเท่าไร','x + 3'],['การ์ดโบนัส','ปานกลาง','(2x + 1)(x + 3) = ?','2x^2 + 7x + 3'],['หลุมพราง','ท้าทาย','แยกตัวประกอบ 2x^2 − 8','2(x − 2)(x + 2)']];
+const DEMO_PROC=[{pu:[4,3,4,3],ai:[3,4,3,3],pi:[3,4,4,3],ie:[3,3,4,3]},{pu:[3,4,3,4],ai:[4,3,4,3],pi:[4,3,3,3],ie:[3,4,3,4]}];
+let DEMO=null;
+function makeDemo(){
+  if(DEMO) return DEMO;
+  const r=rng(2569), students={}, reviews={}, scores={}, logs={};
+  const T0=Date.parse('2026-08-24T09:00:00+07:00'), day=864e5;
+  const half=x=>Math.round(x*2)/2, pick=a=>a[Math.floor(r()*a.length)];
+  ROOMS.forEach((room,ri)=>{
+    DEMO_GROUPS[room].forEach((gname,gi)=>{
+      const group=`กลุ่ม ${gi+1} · ${gname}`;
+      const strength=0.55+r()*0.45; // group-level tendency for the simulated scores
+      scores[groupKey(room,group)]={room,group,demo:true,at:T0+40*day,
+        acc:half(8+strength*2*(0.75+r()*0.25)),cre:half(3.5+strength*1.5*(0.7+r()*0.3)),des:half(3.5+strength*1.5*(0.7+r()*0.3)),rul:half(3.5+strength*1.5*(0.7+r()*0.3)),pre:half(3.5+strength*1.5*(0.7+r()*0.3)),
+        pu:DEMO_PROC[ri].pu[gi],ai:DEMO_PROC[ri].ai[gi],pi:DEMO_PROC[ri].pi[gi],ie:DEMO_PROC[ri].ie[gi]};
+    });
+    for(let i=1;i<=37;i++){
+      const gi=i<=9?0:i<=18?1:i<=27?2:3, group=`กลุ่ม ${gi+1} · ${DEMO_GROUPS[room][gi]}`, key=`demo-${ri+2}-${i}`;
+      const ev={}, P=[1,1,0.99,0.97,0.95];
+      STEPS.forEach((s,si)=>{ if(r()<P[si]) ev[s.k]={text:(window.PREVIEW_REAL?'':'(ข้อมูลจำลอง) ')+pick(DEMO_EV[s.k]),link:'',at:T0+(si*14+Math.floor(r()*10))*day+r()*6*36e5} });
+      const steps={};
+      STEPS.forEach((s,si)=>{const n=[r()<.45?1:0,r()<.5?1:0,Math.floor(r()*3.2),r()<.4?1:0,r()<.3?1:0][si];
+        if(!n) return; steps[s.k]=[];
+        for(let q=0;q<n;q++){const [qq,aa]=pick(DEMO_Q[s.k]); const at=T0+(si*14+Math.floor(r()*10))*day+r()*7*36e5; steps[s.k].push({role:'user',text:qq,at},{role:'assistant',text:aa,at:at+60e3})}});
+      if(Object.keys(steps).length) logs[key]=steps;
+      students[key]={profile:{name:window.PREVIEW_REAL?`นักเรียน ${room} เลขที่ ${i}`:'นักเรียนจำลอง',room,group,no:String(i)},evidence:ev,cards:{}};
+    }
+    // cards: kept on the first student of each group
+    DEMO_GROUPS[room].forEach((g,gi)=>{
+      const key=`demo-${ri+2}-${gi*9+1}`, n=10+Math.floor(r()*3), rv={};
+      for(let c=0;c<n;c++){const [title,level,q,a]=DEMO_CARDS[c]; const id=`d${ri}${gi}${c}`, at=T0+(16+Math.floor(r()*12))*day+r()*6*36e5;
+        students[key].cards[id]={id,title,level,question:q,answer:a,step:'A',submittedAt:at};
+        const x=r(); if(x<0.86) rv[id]={status:'approved',note:pick(['เฉลยถูกต้อง ระดับความยากเหมาะสม','ถูกต้อง ควรเพิ่มวิธีคิดสั้น ๆ ใต้เฉลย','ดีมาก ใช้เป็นการ์ดตัวอย่างได้','']),at:at+day}; else if(x<0.93) rv[id]={status:'revise',note:pick(['ตรวจเฉลยอีกครั้งด้วยการกระจายกลับ','โจทย์ยังกำกวม ระบุให้ชัดว่าต้องแยกตัวประกอบหรือกระจาย']),at:at+day};}
+      reviews[key]=rv;
+    });
+  });
+  DEMO={students,reviews,scores,logs,demo:!window.PREVIEW_REAL};
+  return DEMO;
+}
+
+/* ============================== compute (same function for real and demo) ============================== */
+function computeReport(ds){
+  const R={generatedAt:Date.now(),demo:!!ds.demo,rooms:{},groups:[]};
+  ROOMS.forEach(room=>R.rooms[room]={students:0,ev:{S:0,P:0,A:0,R:0,K:0},allFive:0,cards:{approved:0,revise:0,pending:0},ai:{S:0,P:0,A:0,R:0,K:0},aiStudents:0,crit:{},proc:{},levels:{},scored:0});
+  ROOMS.forEach(room=>{const m=R.rooms[room];CRIT.forEach(([k])=>m.crit[k]=[]);PROC.forEach(([k])=>m.proc[k]=[]);m.levels={};LEVELS_Q.forEach(([l])=>m.levels[l]=0)});
+  const gmap={}, roomOf={};
+  for(const [sid,d] of Object.entries(ds.students||{})){
+    const p=d.profile||{}; if(!R.rooms[p.room]) continue; const m=R.rooms[p.room]; roomOf[sid]=p.room; m.students++;
+    let n=0; STEPS.forEach(s=>{const e=(d.evidence||{})[s.k]; if(e&&(e.text||e.link)){m.ev[s.k]++;n++}}); if(n===5) m.allFive++;
+    const gk=groupKey(p.room,p.group); gmap[gk]=gmap[gk]||{room:p.room,group:String(p.group||'').trim(),members:0,cardsTotal:0,approved:0}; gmap[gk].members++;
+    for(const c of Object.values(d.cards||{})){const s=cardStatus(c,(ds.reviews||{})[sid]); m.cards[s]++; gmap[gk].cardsTotal++; if(s==='approved')gmap[gk].approved++}
+  }
+  for(const [sid,steps] of Object.entries(ds.logs||{})){const room=roomOf[sid]; if(!room) continue; const m=R.rooms[room]; let any=false;
+    STEPS.forEach(s=>{const n=((steps||{})[s.k]||[]).filter(x=>x.role==='user').length; m.ai[s.k]+=n; if(n)any=true}); if(any) m.aiStudents++}
+  for(const sc of Object.values(ds.scores||{})){
+    if(!R.rooms[sc.room]) continue; const m=R.rooms[sc.room]; const gk=groupKey(sc.room,sc.group);
+    const total=CRIT.reduce((a,[k])=>a+(+sc[k]||0),0), level=levelOf(total);
+    CRIT.forEach(([k])=>m.crit[k].push(+sc[k]||0)); PROC.forEach(([k])=>{if(sc[k])m.proc[k].push(+sc[k])}); m.levels[level]++; m.scored++;
+    const g=gmap[gk]||{room:sc.room,group:sc.group,members:0,cardsTotal:0,approved:0}; gmap[gk]=g;
+    Object.assign(g,{total,level,crit:Object.fromEntries(CRIT.map(([k])=>[k,+sc[k]||0])),proc:Object.fromEntries(PROC.map(([k])=>[k,+sc[k]||0]))});
+  }
+  const mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+  ROOMS.forEach(room=>{const m=R.rooms[room];m.critMean={};m.procMean={};CRIT.forEach(([k])=>m.critMean[k]=mean(m.crit[k]));PROC.forEach(([k])=>m.procMean[k]=mean(m.proc[k]));
+    const tots=Object.values(gmap).filter(g=>g.room===room&&g.total!=null).map(g=>g.total); m.totalMean=mean(tots); delete m.crit; delete m.proc});
+  R.groups=Object.values(gmap).sort((a,b)=>a.room.localeCompare(b.room)||String(a.group).localeCompare(String(b.group),'th'));
+  return R;
+}
+
+/* ============================== charts ============================== */
+const ROOMC={'ม.2/2':'var(--room1)','ม.2/3':'var(--room2)'};
+const f1=v=>v==null?'–':(Math.round(v*10)/10).toLocaleString('th-TH',{minimumFractionDigits:1,maximumFractionDigits:1});
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+const legendRooms=()=>`<div class="legend">${ROOMS.map(r=>`<span><i style="background:${ROOMC[r]}"></i>${r}</span>`).join('')}</div>`;
+function barPath(x0,y,x,h){const w=x-x0;if(w<=0)return '';const r=Math.min(4,w,h/2);return `M${x0} ${y}H${x-r}Q${x} ${y} ${x} ${y+r}V${y+h-r}Q${x} ${y+h} ${x-r} ${y+h}H${x0}Z`}
+function hbars({cats,series,max,fmt,ticks,labelW=190,unit=''}){
+  const bh=13,gap=3,rowH=series.length*(bh+gap)+14,W=600,top=8,H=cats.length*rowH+top+22,x0=labelW,x1=W-74;
+  const X=v=>x0+(x1-x0)*Math.max(0,Math.min(v,max))/max;
+  let g=(ticks||[0,max/2,max]).map(t=>`<line class="gridl" x1="${X(t)}" x2="${X(t)}" y1="${top-4}" y2="${H-18}"/><text x="${X(t)}" y="${H-4}" text-anchor="middle">${t}${unit}</text>`).join('');
+  cats.forEach((c,i)=>{const y0=top+i*rowH; g+=`<text x="${x0-10}" y="${y0+(series.length*(bh+gap))/2+4}" text-anchor="end">${esc(c)}</text>`;
+    series.forEach((s,j)=>{const v=s.values[i],y=y0+j*(bh+gap); if(v==null){g+=`<text x="${x0+4}" y="${y+bh-2}">ไม่มีข้อมูล</text>`;return}
+      g+=`<path d="${barPath(x0,y,X(v),bh)}" style="fill:${s.color}" data-tip="${esc(s.name+' · '+c+': '+fmt(v,i,s))}"/><rect x="${x0}" y="${y-1}" width="${x1-x0}" height="${bh+2}" fill="transparent" data-tip="${esc(s.name+' · '+c+': '+fmt(v,i,s))}"/><text class="v" x="${X(v)+6}" y="${y+bh-2}">${esc(fmt(v,i,s))}</text>`})});
+  return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}</svg>`;
+}
+let tipEl=null;
+document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');tipEl=tipEl||$('#tip');if(!t){tipEl.hidden=true;return}tipEl.textContent=t.dataset.tip;tipEl.hidden=false;tipEl.style.left=Math.min(e.clientX+14,innerWidth-270)+'px';tipEl.style.top=(e.clientY+14)+'px'});
+
+/* ============================== report view ============================== */
+function realReport(){
+  if(st.be&&st.be.isTeacher){const hasData=Object.keys(st.t.students).length||Object.keys(st.t.scores).length;
+    return hasData?computeReport({students:st.t.students,reviews:st.t.reviews,scores:st.t.scores,logs:st.t.logs||{}}):null}
+  return st.report.published||null;
+}
+$('#rSource').onclick=e=>{const b=e.target.closest('[data-src]');if(!b)return;st.report.src=b.dataset.src;renderReport()};
+async function renderReport(){
+  if(st.be&&st.be.isTeacher&&!st.t.logs&&st.be.loadAllLogs){st.t.logs={};st.be.loadAllLogs().then(l=>{st.t.logs=l||{};if(st.view==='report')renderReport()}).catch(()=>{})}
+  const real=realReport();
+  const src=st.report.src||(real?'real':'demo');
+  const demo=src==='demo';
+  document.querySelectorAll('#rSource button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.src===src));
+  const R=demo?computeReport(makeDemo()):real;
+  $('#rBanner').innerHTML=demo?`<div class="demo-banner"><b>ข้อมูลจำลองเพื่อสาธิตหน้ารายงาน</b><span class="small">ตัวเลขทั้งหมดในหน้านี้สร้างขึ้นสำหรับ 2 ห้อง ห้องละ 37 คน เพื่อแสดงรูปแบบรายงานเท่านั้น ไม่ใช่ผลการทดลองจริง จึงไม่ควรนำไปอ้างในเล่มรายงานหรือการนำเสนอ</span></div>`
+    :R?`<div class="notice">ข้อมูลจริงจากระบบ · ${st.be&&st.be.isTeacher?'คำนวณสดจากงานนักเรียนและคะแนนที่ครูบันทึก':'สรุปที่ครูเผยแพร่เมื่อ '+fmtTime(R.generatedAt)}</div>`
+    :`<div class="notice warn">ยังไม่มีข้อมูลจริง ${st.be&&st.be.isTeacher?'เมื่อมีนักเรียนบันทึกงานหรือครูให้คะแนนในห้องครู รายงานจะคำนวณให้อัตโนมัติ':'ครูยังไม่ได้เผยแพร่สรุปผล'} · เลือก “ข้อมูลจำลอง (สาธิต)” เพื่อดูตัวอย่างหน้ารายงาน</div>`;
+  const ids=['rKpis','cRubric','cLevels','cCreative','cFunnel','cCards','cProcess','cAI','cGroups'];
+  if(!R){ids.forEach(i=>$('#'+i).innerHTML='');$('#rFoot').textContent='';return}
+  const tag=demo?' <span class="tag" style="color:var(--warn)">จำลอง</span>':'';
+  const RM=R.rooms, tot=k=>ROOMS.reduce((a,r)=>a+(RM[r][k]||0),0);
+  const nStu=tot('students'), scored=R.groups.filter(g=>g.total!=null), good=scored.filter(g=>g.total>=22).length;
+  const allFive=tot('allFive'), cardsAll=ROOMS.reduce((a,r)=>a+RM[r].cards.approved+RM[r].cards.revise+RM[r].cards.pending,0), appr=ROOMS.reduce((a,r)=>a+RM[r].cards.approved,0);
+  const meanTotal=scored.length?scored.reduce((a,g)=>a+g.total,0)/scored.length:null;
+  $('#rKpis').innerHTML=`
+    <div class="kpi"><span>ผู้เรียนในระบบ</span><b>${nStu}</b><small>${ROOMS.map(r=>`${r} ${RM[r].students} คน`).join(' · ')}</small></div>
+    <div class="kpi"><span>คะแนนชิ้นงานเฉลี่ย</span><b>${f1(meanTotal)}<span class="small muted"> /30</span></b><small>ประเมินแล้ว ${scored.length} กลุ่ม</small></div>
+    <div class="kpi"><span>กลุ่มระดับ “ดี” ขึ้นไป</span><b>${good}<span class="small muted"> / ${scored.length}</span></b><small>คะแนน 22 ขึ้นไป</small></div>
+    <div class="kpi"><span>บันทึกหลักฐานครบ 5 ขั้น</span><b>${pct(allFive,nStu)}%</b><small>${allFive} จาก ${nStu} คน</small></div>
+    <div class="kpi"><span>โจทย์การ์ดผ่านการตรวจ</span><b>${pct(appr,cardsAll)}%</b><small>${appr} จาก ${cardsAll} ข้อ</small></div>`;
+  // rubric by criterion (% of max)
+  $('#cRubric').innerHTML=`<h3>คะแนนเฉลี่ยรายเกณฑ์ชิ้นงาน${tag}</h3><p class="sub">ร้อยละของคะแนนเต็มแต่ละเกณฑ์ · ป้ายแสดงคะแนนเฉลี่ยจริง</p>${legendRooms()}`+
+    hbars({cats:CRIT.map(c=>c[1]),max:100,unit:'%',ticks:[0,25,50,75,100],series:ROOMS.map(r=>({name:r,color:ROOMC[r],values:CRIT.map(([k,,m])=>RM[r].critMean[k]==null?null:RM[r].critMean[k]/m*100)})),
+      fmt:(v,i,s)=>`${f1(RM[s.name].critMean[CRIT[i][0]])}/${CRIT[i][2]}`});
+  $('#cLevels').innerHTML=`<h3>จำนวนกลุ่มตามระดับคุณภาพ${tag}</h3><p class="sub">เกณฑ์ 30 คะแนน: ดีเยี่ยม 27–30 · ดี 22–26 · พอใช้ 17–21 · ปรับปรุง ต่ำกว่า 17</p>${legendRooms()}`+
+    hbars({cats:LEVELS_Q.map(l=>l[0]),max:Math.max(4,...ROOMS.flatMap(r=>Object.values(RM[r].levels))),labelW:110,series:ROOMS.map(r=>({name:r,color:ROOMC[r],values:LEVELS_Q.map(([l])=>RM[r].levels[l])})),fmt:v=>v+' กลุ่ม'});
+  // creativity
+  const creG=scored.slice().sort((a,b)=>b.crit.cre-a.crit.cre);
+  $('#cCreative').innerHTML=`<div class="section-h"><div><p class="eyebrow">ความคิดสร้างสรรค์${demo?' · ข้อมูลจำลอง':''}</p><h3>ความคิดสร้างสรรค์ของชิ้นงาน</h3></div></div>
+    <div class="crea"><div style="display:grid;gap:10px;align-content:start">
+      <p class="small">ตามเกณฑ์ประเมินชิ้นงานบอร์ดเกม ความคิดสร้างสรรค์และความน่าสนใจมีคะแนนเต็ม 5 คะแนน พิจารณาจาก <b>ความแปลกใหม่ ความสนุก ความน่าสนใจ และความมีเอกลักษณ์</b> ของเกม และเป็นจุดประสงค์ข้อ “พัฒนาความคิดสร้างสรรค์และการคิดวิเคราะห์” ของกิจกรรม ส่วน Rubric กระบวนการ SPARK ด้าน Idea & AI Literacy ดูว่ากลุ่มสร้างทางเลือกหลายแบบและเลือกด้วยเหตุผลหรือไม่</p>
+      <div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr))">${ROOMS.map(r=>`<div class="kpi"><span>${r} · คะแนนเฉลี่ย</span><b style="color:${ROOMC[r]}">${f1(RM[r].critMean.cre)}<span class="small muted"> /5</span></b><small>Idea & AI Literacy เฉลี่ย ${f1(RM[r].procMean.ai)} /4</small></div>`).join('')}</div>
+    </div><div class="chart" style="border:0;padding:0">${legendRooms()}${creG.length?hbars({cats:creG.map(g=>g.group),max:5,ticks:[0,1,2,3,4,5],labelW:210,series:[{name:'ความคิดสร้างสรรค์',color:'var(--a)',values:creG.map(g=>g.crit.cre)}],fmt:v=>f1(v)+'/5'}):'<div class="empty">ยังไม่มีคะแนน</div>'}</div></div>`;
+  // colour creativity bars by room
+  if(creG.length){const paths=$('#cCreative svg').querySelectorAll('path');paths.forEach((p,i)=>p.style.fill=ROOMC[creG[i].room])}
+  $('#cFunnel').innerHTML=`<h3>ร้อยละผู้เรียนที่บันทึกหลักฐานแต่ละขั้น${tag}</h3><p class="sub">หลักฐานของขั้น S → K ในพื้นที่ทำงานกลุ่ม</p>${legendRooms()}`+
+    hbars({cats:STEPS.map(s=>s.k+' · '+s.th),max:100,unit:'%',ticks:[0,25,50,75,100],labelW:210,series:ROOMS.map(r=>({name:r,color:ROOMC[r],values:STEPS.map(s=>RM[r].students?RM[r].ev[s.k]/RM[r].students*100:null)})),fmt:(v,i,s)=>`${Math.round(v)}% (${RM[s.name].ev[STEPS[i].k]} คน)`});
+  const ST=[['approved','ผ่าน','var(--ok)'],['revise','ให้แก้ไข','var(--bad)'],['pending','รอตรวจ','var(--warn)']];
+  $('#cCards').innerHTML=`<h3>ผลการตรวจโจทย์การ์ดของครู${tag}</h3><p class="sub">สถานะล่าสุดของโจทย์ทุกข้อที่นักเรียนส่ง</p><div class="legend">${ST.map(([,t,c])=>`<span><i style="background:${c}"></i>${t}</span>`).join('')}</div>`+
+    `<svg viewBox="0 0 600 ${ROOMS.length*56+10}" role="img">${ROOMS.map((r,i)=>{const c=RM[r].cards,n=c.approved+c.revise+c.pending,y=i*56+6;let x=90;
+      return `<text x="80" y="${y+22}" text-anchor="end">${r}</text>`+(n?ST.map(([k,t,col])=>{const w=c[k]/n*490;const out=w>0?`<rect x="${x}" y="${y+6}" width="${Math.max(0,w-2)}" height="24" rx="4" style="fill:${col}" data-tip="${esc(r+' · '+t+': '+c[k]+' ข้อ ('+pct(c[k],n)+'%)')}"/>`+(w>46?`<text class="v" x="${x+w/2-1}" y="${y+22}" text-anchor="middle" style="fill:#03140B">${pct(c[k],n)}%</text>`:''):'';x+=w;return out}).join('')+`<text x="90" y="${y+48}">${n} ข้อ · ผ่าน ${c.approved} · ให้แก้ไข ${c.revise} · รอตรวจ ${c.pending}</text>`:`<text x="90" y="${y+22}">ยังไม่มีโจทย์</text>`)}).join('')}</svg>`;
+  $('#cProcess').innerHTML=`<h3>Rubric กระบวนการ SPARK รายกลุ่ม${tag}</h3><p class="sub">4 ดีเยี่ยม · 3 ดี · 2 พัฒนา · 1 เริ่มต้น</p>
+    <div class="tbl-wrap"><table class="heat"><colgroup><col style="width:32%">${PROC.map(()=>'<col style="width:17%">').join('')}</colgroup><thead><tr><th>กลุ่ม</th>${PROC.map(([,n])=>`<th style="white-space:normal;text-align:center">${n}</th>`).join('')}</tr></thead><tbody>${scored.map(g=>`<tr><td><span style="color:${ROOMC[g.room]}">●</span> ${esc(g.group)} <span class="small muted">${g.room}</span></td>${PROC.map(([k])=>{const v=g.proc[k];return `<td class="h" style="background:rgba(var(--heat),${v?0.06+v*0.1:0})">${v||'–'}</td>`}).join('')}</tr>`).join('')||`<tr><td colspan="5" class="empty">ยังไม่มีคะแนน</td></tr>`}
+    ${ROOMS.map(r=>`<tr><th>เฉลี่ย ${r}</th>${PROC.map(([k])=>`<th class="num" style="text-align:center">${f1(RM[r].procMean[k])}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  $('#cAI').innerHTML=`<h3>คำถามถึง AI Thinking Coach แยกตามขั้น${tag}</h3><p class="sub">ผู้เรียนที่ใช้ AI Coach อย่างน้อย 1 ครั้ง: ${ROOMS.map(r=>`${r} ${RM[r].aiStudents} คน`).join(' · ')}</p>${legendRooms()}`+
+    hbars({cats:STEPS.map(s=>s.k+' · '+s.th),max:Math.max(5,...ROOMS.flatMap(r=>Object.values(RM[r].ai))),labelW:210,series:ROOMS.map(r=>({name:r,color:ROOMC[r],values:STEPS.map(s=>RM[r].ai[s.k])})),fmt:v=>v+' คำถาม'});
+  $('#cGroups').innerHTML=`<h3>คะแนนรายกลุ่ม${tag}</h3><div class="tbl-wrap"><table><thead><tr><th>ห้อง</th><th>กลุ่ม</th>${CRIT.map(([,n,m])=>`<th class="num" title="${n}">${n.split(/และ| /)[0]} /${m}</th>`).join('')}<th class="num">รวม /30</th><th>ระดับ</th><th class="num">โจทย์ผ่าน</th></tr></thead>
+    <tbody>${R.groups.map(g=>`<tr><td class="nowrap"><span style="color:${ROOMC[g.room]}">●</span> ${g.room}</td><td class="nowrap">${esc(g.group)}</td>${CRIT.map(([k])=>`<td class="num">${g.crit?f1(g.crit[k]):'–'}</td>`).join('')}<td class="num"><b>${g.total!=null?f1(g.total):'–'}</b></td><td class="nowrap">${g.level||'ยังไม่ประเมิน'}</td><td class="num">${g.approved}/${g.cardsTotal}</td></tr>`).join('')||'<tr><td colspan="10" class="empty">ยังไม่มีข้อมูล</td></tr>'}</tbody></table></div>`;
+  $('#rFoot').textContent=demo?'ข้อมูลจำลองสร้างด้วยตัวสุ่มแบบกำหนดค่าเริ่มต้น จึงแสดงตัวเลขชุดเดิมทุกครั้งที่เปิด':'รายงานคำนวณจากข้อมูลในระบบเท่านั้น ไม่รวมผลที่ไม่ได้บันทึก';
+}
+
+/* ============================== questions view ============================== */
+['qStep','qRoom'].forEach(id=>$('#'+id).onchange=e=>{st.q[id==='qStep'?'step':'room']=e.target.value;renderQuestions()});
+$('#qSearch').oninput=e=>{st.q.text=e.target.value.trim();renderQuestions()};
+function collectQuestions(students,logs){
+  const out=[];
+  for(const [sid,steps] of Object.entries(logs||{})){const p=((students||{})[sid]||{}).profile||{};
+    for(const s of STEPS){const arr=(steps||{})[s.k]||[];arr.forEach((m,i)=>{if(m.role!=='user')return;const nx=arr[i+1];out.push({sid,room:p.room||'',group:p.group||'',name:p.name||'',step:s.k,text:m.text,at:m.at,reply:nx&&nx.role!=='user'?nx.text:''})})}}
+  return out.sort((a,b)=>(b.at||0)-(a.at||0));
+}
+async function renderQuestions(){
+  const teacher=st.be&&st.be.isTeacher;
+  if(teacher&&!st.t.logs&&st.be.loadAllLogs){st.t.logs={};st.be.loadAllLogs().then(l=>{st.t.logs=l||{};if(st.view==='questions')renderQuestions()}).catch(()=>{})}
+  let items=teacher&&!tDemo()?collectQuestions(st.t.students,st.t.logs):collectQuestions({me:{profile:st.mine.profile}},{me:st.mine.ailog});
+  let demo=false;
+  if(!items.length){const D=makeDemo();items=collectQuestions(D.students,D.logs);demo=true}
+  $('#qScope').textContent=demo?'':teacher?'มุมมองครู: คำถามของนักเรียนทุกคน':'คำถามของคุณเอง';
+  $('#qBanner').innerHTML=demo?`<div class="demo-banner"><b>ตัวอย่างคำถามจำลอง</b><span class="small">ยังไม่มีคำถามจริงในระบบ รายการด้านล่างเป็นตัวอย่างที่แต่งขึ้นเพื่อแสดงหน้าตาของคลังคำถาม เมื่อนักเรียนถาม AI Coach คำถามจริงจะแสดงแทน</span></div>`:'';
+  const counts={}; STEPS.forEach(s=>counts[s.k]=items.filter(q=>q.step===s.k).length);
+  $('#qSummary').innerHTML=STEPS.map(s=>`<span class="tag c-${s.k}" style="color:var(--c);border-color:var(--c)">${s.k} · ${s.th}: ${counts[s.k]}</span>`).join('');
+  const t=st.q.text.toLowerCase();
+  const list=items.filter(q=>(st.q.step==='all'||q.step===st.q.step)&&(st.q.room==='all'||q.room===st.q.room)&&(!t||q.text.toLowerCase().includes(t)));
+  // de-duplicate demo repeats so the page reads as a bank of distinct questions
+  const seen=new Set(), shown=[]; for(const q of list){const k=q.step+'|'+q.text; if(demo&&seen.has(k)) continue; seen.add(k); shown.push(q)}
+  $('#qList').innerHTML=shown.length?shown.slice(0,120).map(q=>`<article class="qitem c-${q.step}"><div class="meta"><span class="tag" style="color:var(--c)">${q.step} · ${stepOf(q.step).th}</span>${teacher||demo?`<span>${esc(q.room)} · ${esc(q.group)}</span>`:''}${q.at&&!demo?`<span>${fmtTime(q.at)}</span>`:''}</div>
+     <p class="q">${mathy(q.text)}</p>${q.reply?`<details><summary>ดูคำตอบของ AI Thinking Coach</summary><div class="ans">${md(q.reply)}</div></details>`:''}</article>`).join('')
+    :'<div class="empty">ไม่พบคำถามตามตัวกรองนี้</div>';
+}
+
+/* ============================== teacher ============================== */
+const tDemo=()=>st.t.demo===true||(st.t.demo==null&&!Object.keys(st.t.students).length);
+const TD=()=>tDemo()?makeDemo():st.t;
+$('#tSource').onclick=e=>{const b=e.target.closest('[data-tsrc]');if(!b)return;st.t.demo=b.dataset.tsrc==='demo';renderTeacher()};
+function allCards(){
+  const out=[]; const T=TD(); for(const [sid,doc] of Object.entries(T.students)){const p=doc.profile||{}; for(const c of Object.values(doc.cards||{})){out.push({sid,p,c,status:cardStatus(c,T.reviews[sid])})}}
+  return out.sort((a,b)=>a.c.submittedAt-b.c.submittedAt);
+}
+function renderTeacher(){
+  if(st.view!=='teacher') return;
+  const T=TD(), demo=tDemo();
+  document.querySelectorAll('#tSource button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.tsrc==='demo')===demo));
+  $('#tBanner').innerHTML=demo?`<div class="demo-banner"><b>โหมดสาธิต: ข้อมูลจำลองเมื่อจบภาคเรียน</b><span class="small">ม.2/2 และ ม.2/3 ห้องละ 37 คน ข้อมูลทั้งหมดสร้างขึ้นเพื่อสาธิตการทำงานของห้องครู การตรวจหรือให้คะแนนในโหมดนี้ไม่บันทึกลงระบบ</span></div>`:'';
+  const studs=Object.entries(T.students), cards=allCards();
+  const n={pending:0,approved:0,revise:0}; cards.forEach(x=>n[x.status]++);
+  $('#tStats').innerHTML=`<div class="stat"><b>${studs.length}</b><span>ผู้เรียนที่ลงทะเบียน</span></div><div class="stat ${n.pending?'hot':''}"><b>${n.pending}</b><span>โจทย์รอตรวจ</span></div><div class="stat"><b>${n.revise}</b><span>ให้แก้ไข</span></div><div class="stat"><b>${n.approved}</b><span>ผ่านแล้ว</span></div>`;
+  $('#fRoom').value=st.t.room;
+  document.querySelectorAll('#fStatus button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===st.t.status));
+  const list=cards.filter(x=>(st.t.room==='all'||x.p.room===st.t.room)&&(st.t.status==='all'||x.status===st.t.status));
+  $('#tQueue').innerHTML=list.length?list.map(({sid,p,c,status})=>{const r=(T.reviews[sid]||{})[c.id];return `<div class="rv" data-sid="${esc(sid)}" data-cid="${esc(c.id)}">
+      <div class="row" style="justify-content:space-between"><div class="row"><span class="pill ${status}">${STATUS_TH[status]}</span><b style="font-family:var(--f-display);font-weight:500">${esc(c.title||'การ์ดไม่มีชื่อ')}</b><span class="lv">${esc(c.level)} · ขั้น ${c.step}</span></div><span class="who2">${esc(p.group||'-')} · ${esc(p.room||'')} · ${esc(p.name||'')}${p.no?' เลขที่ '+esc(p.no):''}</span></div>
+      <dl class="kv"><dt>โจทย์</dt><dd>${mathy(c.question)}</dd><dt>เฉลย</dt><dd>${mathy(c.answer)}</dd>${c.method?`<dt>วิธีคิด</dt><dd>${mathy(c.method)}</dd>`:''}${c.effect?`<dt>ผลในเกม</dt><dd>${esc(c.effect)}</dd>`:''}<dt>ส่งเมื่อ</dt><dd>${fmtTime(c.submittedAt)}</dd></dl>
+      ${c.aiCheck?aiCheckHTML(c.aiCheck):''}
+      ${r&&r.at>=c.submittedAt&&r.note?`<div class="tnote"><b>ความเห็นครู (${fmtTime(r.at)}):</b> ${esc(r.note)}</div>`:''}
+      <label class="f">ความเห็นถึงนักเรียน<textarea class="rvNote" maxlength="800" style="min-height:56px" placeholder="เช่น เฉลยถูก แต่ควรระบุว่าเป็นการแยกตัวประกอบผลต่างกำลังสอง">${esc(r&&r.at>=c.submittedAt?r.note:'')}</textarea></label>
+      <div class="row"><button class="btn btn-ok btn-sm" data-rv="approved">ผ่าน</button><button class="btn btn-bad btn-sm" data-rv="revise">ให้แก้ไข</button></div></div>`}).join('')
+    :`<div class="empty">${cards.length?'ไม่มีโจทย์ในตัวกรองนี้':'ยังไม่มีนักเรียนส่งโจทย์ เมื่อมีการส่ง โจทย์จะขึ้นที่นี่'}</div>`;
+  const groups=[...new Set(studs.map(([,d])=>(d.profile||{}).room+'|'+(d.profile||{}).group))].filter(x=>!x.includes('undefined'));
+  $('#groupList').innerHTML=groups.map(g=>`<option value="${esc(g.split('|')[1])}">${esc(g.split('|')[0])}</option>`).join('');
+  const sc=Object.values(T.scores).sort((a,b)=>a.room.localeCompare(b.room)||a.group.localeCompare(b.group,'th'));
+  $('#sList').innerHTML=sc.length?sc.map(s=>{const t=CRIT.reduce((a,[k])=>a+(+s[k]||0),0);return `<tr><td>${esc(s.room)}</td><td>${esc(s.group)}</td><td class="num">${f1(t)}</td><td>${levelOf(t)}</td><td class="num">${f1(+s.cre)}</td><td><button class="btn btn-line btn-sm" data-editscore="${esc(groupKey(s.room,s.group))}">แก้ไข</button></td></tr>`}).join(''):'<tr><td colspan="6" class="empty">ยังไม่ได้ให้คะแนนกลุ่มใด</td></tr>';
+  $('#tProgress').innerHTML=studs.length?studs.sort((a,b)=>String((a[1].profile||{}).room).localeCompare(String((b[1].profile||{}).room))||(+(a[1].profile||{}).no||0)-(+(b[1].profile||{}).no||0)).map(([sid,d])=>{const p=d.profile||{},ev=d.evidence||{};
+    return `<tr><td>${esc(p.group||'-')}<br><span class="small muted">${esc(p.name||'')}${p.no?' · เลขที่ '+esc(p.no):''}</span></td><td>${esc(p.room||'')}</td>${STEPS.map(s=>`<td><i class="dot ${ev[s.k]&&(ev[s.k].text||ev[s.k].link)?'on':''}" title="${s.k}"></i></td>`).join('')}<td class="num">${Object.keys(d.cards||{}).length}</td><td><button class="btn btn-line btn-sm" data-open="${esc(sid)}">ดูบันทึก</button></td></tr>`}).join('')
+    :'<tr><td colspan="9" class="empty">ยังไม่มีผู้เรียนลงทะเบียน</td></tr>';
+}
+$('#fRoom').onchange=e=>{st.t.room=e.target.value;renderTeacher()};
+$('#fStatus').onclick=e=>{const b=e.target.closest('[data-s]');if(!b)return;st.t.status=b.dataset.s;renderTeacher()};
+$('#tRefresh').onclick=()=>{if(be_gasPull)be_gasPull();st.t.logs=null;renderTeacher();toast('อัปเดตแล้ว')};
+$('#tQueue').addEventListener('click',async e=>{const b=e.target.closest('[data-rv]');if(!b)return;const box=b.closest('.rv');
+  const sid=box.dataset.sid,cid=box.dataset.cid,status=b.dataset.rv,note=box.querySelector('.rvNote').value.trim();
+  if(status==='revise'&&!note){toast('เขียนคำแนะนำให้นักเรียนก่อนกด “ให้แก้ไข”');box.querySelector('.rvNote').focus();return}
+  if(tDemo()){const D=makeDemo();D.reviews[sid]={...(D.reviews[sid]||{}),[cid]:{status,note,at:Date.now()}};toast('โหมดสาธิต: เปลี่ยนสถานะแล้ว (ไม่บันทึกลงระบบ)');renderTeacher();return}
+  b.disabled=true;
+  try{await st.be.review(sid,cid,status,note);
+    st.t.reviews={...st.t.reviews,[sid]:{...(st.t.reviews[sid]||{}),[cid]:{status,note,at:Date.now()}}};
+    toast(status==='approved'?'บันทึกผล: ผ่าน':'ส่งกลับให้แก้ไขแล้ว'); renderTeacher()}
+  catch(err){toast('บันทึกผลไม่สำเร็จ ลองอีกครั้ง');b.disabled=false}});
+$('#scoreForm').addEventListener('submit',async e=>{e.preventDefault();
+  const room=$('#sRoom').value, group=$('#sGroup').value.trim(); if(!group){toast('ใส่ชื่อกลุ่ม');return}
+  const sc={room,group,note:$('#sNote').value.trim(),at:Date.now()};
+  for(const [k,n,m] of CRIT){const v=Number($('#sc-'+k).value); if(!(v>=0&&v<=m)){toast(`${n} ต้องอยู่ระหว่าง 0–${m}`);return} sc[k]=v}
+  for(const [k] of PROC){const v=$('#sp-'+k).value; sc[k]=v?Number(v):null}
+  if(tDemo()){makeDemo().scores[groupKey(room,group)]=sc;$('#sSaved').textContent='โหมดสาธิต: ไม่บันทึกลงระบบ';renderTeacher();return}
+  try{await st.be.saveScore(sc); st.t.scores={...st.t.scores,[groupKey(room,group)]:sc}; $('#sSaved').textContent='บันทึกคะแนน '+group+' แล้ว'; renderTeacher(); st.report.src=null}
+  catch(err){toast('บันทึกคะแนนไม่สำเร็จ')}});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-editscore]');if(!b)return;const s=TD().scores[b.dataset.editscore];if(!s)return;
+  $('#sRoom').value=s.room;$('#sGroup').value=s.group;CRIT.forEach(([k])=>$('#sc-'+k).value=s[k]??'');PROC.forEach(([k])=>$('#sp-'+k).value=s[k]??'');$('#sNote').value=s.note||'';$('#scoreForm').scrollIntoView({behavior:'smooth',block:'center'})});
+$('#publishBtn').onclick=async()=>{
+  if(tDemo()){toast('เผยแพร่ได้เฉพาะข้อมูลจริง สลับเป็น “ข้อมูลจริง” ก่อน');return}
+  const b=$('#publishBtn'); b.disabled=true;
+  try{ if(!st.t.logs||!Object.keys(st.t.logs).length){try{st.t.logs=await st.be.loadAllLogs()}catch(e){}}
+    const R=computeReport({students:st.t.students,reviews:st.t.reviews,scores:st.t.scores,logs:st.t.logs||{}});
+    await st.be.publishReport(R); st.report.published=R; toast('เผยแพร่สรุปผลแล้ว ผู้เข้าชมเห็นในหน้ารายงานผล') }
+  catch(e){toast('เผยแพร่ไม่สำเร็จ')} finally{b.disabled=false}};
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-open]');if(!b)return;openDrawer(b.dataset.open)});
+async function openDrawer(sid){
+  const demo=tDemo(), d=TD().students[sid]||{},p=d.profile||{},ev=d.evidence||{};
+  const host=$('#drawerHost');
+  const render=log=>{host.innerHTML=`<div class="scrim" id="scrim"></div><aside class="drawer" role="dialog" aria-label="บันทึกของ ${esc(p.group||'')}">
+    <div class="row" style="justify-content:space-between"><div><h3>${esc(p.group||'-')}</h3><p class="small muted">${esc(p.name||'')} · ${esc(p.room||'')}</p></div><button class="btn btn-line btn-sm" id="dClose">ปิด</button></div>
+    ${STEPS.map(s=>{const e=ev[s.k]||{},l=(log&&log[s.k])||[];return `<div class="panel c-${s.k}" style="gap:8px"><h4><span style="color:var(--c)">${s.k}</span> · ${s.th}</h4>
+      ${e.text||e.link?`<div class="small">${esc(e.text||'')}</div>${e.link?`<a class="small" href="${esc(e.link)}" target="_blank" rel="noopener">${esc(e.link)}</a>`:''}<div class="small muted">บันทึก ${fmtTime(e.at)}</div>`:'<div class="small muted">ยังไม่บันทึกหลักฐาน</div>'}
+      <details><summary class="small">AI Log (${l.length} ข้อความ)</summary><div class="thread" style="max-height:320px;min-height:0">${l.map(m=>m.role==='user'?`<div class="msg u">${mathy(m.text)}</div>`:`<div class="msg ${m.role==='log'?'log':'b'}">${md(m.text)}</div>`).join('')||'<div class="empty">ไม่มี</div>'}</div></details></div>`}).join('')}
+  </aside>`; $('#dClose').onclick=()=>host.innerHTML=''; $('#scrim').onclick=()=>host.innerHTML=''};
+  render(null); if(demo){render(makeDemo().logs[sid]||{});return} try{render(await st.be.loadLog(sid))}catch(e){}
+}
+
+/* ============================== preview (local file only: shows the real-data views) ============================== */
+function previewBackend(){
+  if(!window.PREVIEW_REAL) return null;
+  const D=makeDemo(), me=Object.keys(D.students).find(k=>Object.keys(D.students[k].cards).length);
+  const replies=Object.values(DEMO_Q).flat().map(x=>x[1]);
+  return {mode:'preview',label:'เชื่อมต่อ Google Sheets ของครู',isTeacher:true,canAI:true,signedIn:true,
+    async loadMine(){const d=D.students[me];return {profile:d.profile,evidence:d.evidence,cards:d.cards,reviews:D.reviews[me]||{},ailog:D.logs[me]||{}}},
+    async saveStudent(doc){Object.assign(D.students[me],JSON.parse(JSON.stringify(doc)))}, async saveLog(steps){D.logs[me]=JSON.parse(JSON.stringify(steps))},
+    async ask(msgs,onText){await new Promise(r=>setTimeout(r,700));const t=replies[Math.floor(Math.random()*replies.length)];onText&&onText({text:t,delta:t});return t},
+    async askJSON(){await new Promise(r=>setTimeout(r,700));return {verdict:'เฉลยถูกต้อง',notes:['ลองตรวจซ้ำด้วยการแทนค่า x = 2'],level:'เหมาะสมกับ ม.2'}},
+    watchMine(){}, watchAll(cb){cb('students',D.students);cb('reviews',D.reviews);cb('scores',D.scores)},
+    async review(sid,cid,status,note){D.reviews[sid]={...(D.reviews[sid]||{}),[cid]:{status,note,at:Date.now()}}},
+    async loadLog(sid){return D.logs[sid]||{}}, async loadAllLogs(){return D.logs},
+    async saveScore(sc){D.scores[groupKey(sc.room,sc.group)]=sc}, async publishReport(){}, async getReport(){return null}};
+}
+
+/* ============================== boot ============================== */
+function applyMine(m){st.mine={profile:(m&&m.profile)||null,evidence:(m&&m.evidence)||{},cards:(m&&m.cards)||{},reviews:(m&&m.reviews)||{},ailog:(m&&m.ailog)||{}}}
+let watchingMine=false, watchingAll=false;
+async function afterAuth(){
+  try{const m=await st.be.loadMine(); if(m) applyMine(m)}catch(e){}
+  renderWho();
+  if(!watchingMine){watchingMine=true; st.be.watchMine(r=>{st.mine.reviews=r; if(st.view==='spark'&&st.tab==='teacher')renderTeacherPane()})}
+  go(st.view==='spark'?st.step.toLowerCase():st.view==='learn'?'learn-'+st.lstep.toLowerCase():st.view,false);
+}
+function enableTeacher(){
+  $('#navTeacher').hidden=false; $('#teacherLoginBtn').hidden=true;
+  if(!watchingAll){watchingAll=true; st.be.watchAll((kind,o)=>{st.t[kind]=o; if(st.view==='teacher')renderTeacher(); if(st.view==='report'&&kind!=='reviews')renderReport()})}
+}
+$('#teacherLoginBtn').onclick=()=>{$('#tpin').value='';$('#tpinErr').hidden=true;$('#tpinDlg').showModal()};
+$('#tpinCancel').onclick=()=>$('#tpinDlg').close();
+$('#tpinForm').addEventListener('submit',async e=>{e.preventDefault();
+  try{const ok=await st.be.teacherLogin($('#tpin').value.trim());
+    if(ok){$('#tpinDlg').close();enableTeacher();st.report.src=null;go('teacher')} else {$('#tpinErr').textContent='PIN ไม่ถูกต้อง';$('#tpinErr').hidden=false}}
+  catch(err){$('#tpinErr').textContent=(err&&err.message)||'ตรวจสอบไม่สำเร็จ';$('#tpinErr').hidden=false}});
+
+renderStatic();
+go((location.hash||'#home').slice(1),false);
+(async()=>{
+  let be=null;
+  be=previewBackend();
+  if(!be){try{be=await gasBackend()}catch(e){}}
+  if(!be){try{be=await claudeBackend()}catch(e){}}
+  if(!be) be=localBackend();
+  st.be=be;
+  $('#modeNote').textContent=be.label;
+  if(be.mode==='preview'){$('#rSource').hidden=true;$('#tSource').hidden=true}
+  if(!be.isTeacher){try{st.report.published=await be.getReport()}catch(e){}}
+  await afterAuth();
+  if(be.isTeacher) enableTeacher();
+  else if(be.mode==='gas'&&be.teacherPin) $('#teacherLoginBtn').hidden=false;
+  const h=(location.hash||'').slice(1); go(h||st.view,false);
+})();
+
+</script>
+
+</body>
+</html>
