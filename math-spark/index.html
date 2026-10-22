@@ -334,6 +334,111 @@ dialog .x{position:absolute;top:8px;right:8px}
 .vid:hover{border-color:var(--s)}
 .vid .play{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--room);color:#fff;flex:0 0 auto}
 
+
+/* real report */
+.report{display:grid;gap:34px;min-width:0}
+.rtools{display:flex;gap:12px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-bottom:-18px}
+.rsec{display:grid;gap:16px;min-width:0}
+.rhead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-radius:22px;padding:clamp(18px,3vw,30px);border:1px solid var(--line);background:radial-gradient(60% 90% at 0% 0%,color-mix(in srgb,var(--ok) 14%,transparent),transparent 70%),var(--surface)}
+.rhead h1{font-size:clamp(1.5rem,3.4vw,2.3rem)}
+.rhead .sub{color:var(--muted);font-family:var(--f-display);font-weight:500}
+.badge-live{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-display);font-weight:500;font-size:.86rem;color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 50%,transparent);background:color-mix(in srgb,var(--ok) 12%,transparent);border-radius:999px;padding:4px 12px}
+.kpi6{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:860px){.kpi6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.kpi6{grid-template-columns:1fr}}
+.kpi.big{display:grid;gap:2px;align-content:start;border-top:4px solid var(--brand)}
+.kpi.big b{font-size:clamp(1.9rem,4vw,2.6rem)}
+.kpi.big > span{font-family:var(--f-display);font-weight:500;color:var(--fg);font-size:.95rem}
+.kpi.big.ok{border-top-color:var(--ok)}.kpi.big.ok b{color:var(--ok)}
+.kpi b.pend{font-size:1.35rem;color:var(--warn);padding-block:6px}
+.pillars{display:grid;gap:8px;justify-items:center;text-align:center;border-radius:var(--radius);padding:18px;border:1px solid color-mix(in srgb,var(--gold) 45%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 12%,var(--surface)),var(--surface) 65%)}
+.eq{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 10px;align-items:center;font-family:var(--f-display);font-weight:600;font-size:clamp(1rem,2.4vw,1.35rem)}
+.eq span{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:4px 14px}
+.eq span:last-child{background:var(--gold);color:#1A1200;border-color:var(--gold)}
+.eq i{font-style:normal;color:var(--muted)}
+.motto2{font-family:var(--f-display);font-weight:500;font-size:clamp(1rem,2.2vw,1.2rem);color:var(--a)}
+.exec{display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--radius);padding:18px 22px;line-height:1.85}
+.exec p{margin:0;text-indent:2em}
+.lead-p{margin:0;line-height:1.85;max-width:72ch}
+.bsa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.bsa{grid-template-columns:1fr}}
+.bsa-col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:10px;align-content:start}
+.bsa-col.before{border-top:4px solid var(--bad)}.bsa-col.spark{border-top:4px solid var(--gold)}.bsa-col.after{border-top:4px solid var(--ok)}
+.tagline{font-family:var(--f-display);font-weight:600;font-size:.78rem;letter-spacing:.1em;color:var(--muted);margin:0}
+.bsa-col ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.vflow{list-style:none;margin:0;padding:0;display:grid;gap:4px;justify-items:center}
+.vflow li{width:100%;text-align:center;font-family:var(--f-display);font-weight:500;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:6px 10px}
+.vflow li + li::before{content:"↓";display:block;color:var(--muted);font-size:.8rem;line-height:1;margin:-2px 0 4px}
+.vflow li:last-child{background:var(--gold);color:#1A1200;border-color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.lo{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:stretch}
+@media (max-width:820px){.lo{grid-template-columns:1fr}}
+.lo-donut{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.donut{width:160px;height:160px;flex:0 0 auto}
+.donut .dn-big{fill:var(--fg);font-family:var(--f-display);font-weight:600;font-size:30px}
+.donut .dn-sm{fill:var(--muted);font-size:12px;font-family:var(--f-body)}
+.lo-legend{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.92rem}
+.lo-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-1px}
+.lo-legend b{font-family:var(--f-display);font-variant-numeric:tabular-nums;margin-left:4px}
+.lo-rooms{display:grid;gap:12px}
+.pending-box{display:grid;gap:4px;border-radius:12px;padding:12px 14px;border:1px dashed color-mix(in srgb,var(--muted) 60%,transparent);background:var(--surface2);color:var(--muted);font-size:.92rem}
+.pending-box b{font-family:var(--f-display);font-weight:500;color:var(--warn)}
+.two-cre{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.two-cre .panel{align-content:start}
+@media (max-width:900px){.two-cre{grid-template-columns:1fr}}
+.ca-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+.ca-grid div{background:var(--surface2);border-radius:10px;padding:8px 12px}
+.ca-grid dt{font-size:.8rem;color:var(--muted)}
+.ca-grid dd{margin:0;font-family:var(--f-display);font-weight:600;font-variant-numeric:tabular-nums}
+.kpis3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpis3 .kpi b{font-size:1.6rem}
+.psteps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+@media (max-width:1000px){.psteps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.psteps{grid-template-columns:1fr}}
+.pstep{background:linear-gradient(180deg,color-mix(in srgb,var(--c) 12%,var(--surface)),var(--surface) 55%);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:14px;padding:14px;display:grid;gap:8px;align-content:start;min-width:0}
+.pstep .L,.ucard .UL{font-family:var(--f-display);font-weight:700;font-size:1.7rem;line-height:1;color:var(--c,var(--gold))}
+.pstep .pv b{font-family:var(--f-display);font-size:1.5rem;margin-right:6px;font-variant-numeric:tabular-nums}
+.pstep .pv span{font-size:.82rem;color:var(--muted)}
+.ai-hero{border-radius:var(--radius);padding:20px 22px;border:1px solid color-mix(in srgb,var(--a) 50%,var(--line));background:radial-gradient(60% 100% at 0% 0%,color-mix(in srgb,var(--a) 18%,transparent),transparent 70%),var(--surface);display:grid;gap:8px}
+.ai-hero h3{font-size:clamp(1.1rem,2.4vw,1.45rem);color:var(--a)}
+.ai-hero p{margin:0;line-height:1.8}
+.uprise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.uprise{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.uprise{grid-template-columns:1fr}}
+.ucard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:8px;align-content:start}
+.ucard.u0{--c:var(--s)}.ucard.u1{--c:var(--p)}.ucard.u2{--c:var(--a)}.ucard.u3{--c:var(--r)}.ucard.u4{--c:var(--k)}.ucard.u5{--c:var(--gold)}
+.ucard{border-top:3px solid var(--c)}
+.ucard p{margin:0;font-size:.92rem}
+.ucard .uev{font-size:.86rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.ucard .uev b{color:var(--fg);margin-right:6px}
+.evg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.journey2{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;counter-reset:j}
+@media (max-width:860px){.journey2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.journey2 li{counter-increment:j;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:grid;gap:2px;font-family:var(--f-display)}
+.journey2 li::before{content:counter(j);font-size:.75rem;color:var(--muted)}
+.journey2 li b{font-weight:600}
+.journey2 li span{font-size:.8rem;color:var(--muted);font-family:var(--f-body)}
+.journey2 li.fact{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--surface))}
+.journey2 li:last-child{background:var(--gold);color:#1A1200;border-color:var(--gold)}
+.print-head{display:none}
+@media print{
+  :root{--bg:#fff;--bg2:#fff;--surface:#fff;--surface2:#F3F5FB;--line:#C9D1E6;--fg:#0C1940;--muted:#4A5782;--brand:#15307A;--ok:#128E55;--warn:#A86A00;--bad:#CC3445;--gold:#F2B000;--s:#2A6FE0;--p:#DE7A0B;--a:#0B9E90;--r:#DD3772;--k:#7148E0;--room1:#2F6FE0;--room2:#D9730D;--heat:42,111,224;color-scheme:light}
+  html,body{background:#fff!important;color:#0C1940}
+  body::before,.top,.foot,.no-print,.rtools,#rDemoWrap,.tip,#drawerHost,.toast{display:none!important}
+  main{padding:0}
+  .print-head{display:block;text-align:center;font-family:var(--f-display);border-bottom:2px solid #15307A;padding-bottom:8px;margin-bottom:8px;line-height:1.5}
+  .rhead,.pillars,.ai-hero,.exec{background:#fff!important}
+  .report{gap:18px}
+  .section-h{break-after:avoid;page-break-after:avoid}
+  .kpi,.chart,.panel,.bsa-col,.pstep,.ucard,.journey2 li,.lo-donut,.ai-hero,.exec,svg,tr{break-inside:avoid;page-break-inside:avoid}
+  .tbl-wrap{overflow:visible}
+  table{break-inside:auto}
+  thead{display:table-header-group}
+  .kpi6{grid-template-columns:repeat(3,1fr)}
+  .psteps{grid-template-columns:repeat(5,1fr)}
+  a{color:inherit;text-decoration:none}
+  @page{size:A4;margin:14mm 12mm}
+}
 .poster-row{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:22px;align-items:start}
 @media (max-width:860px){.poster-row{grid-template-columns:1fr}}
 .poster{padding:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff;cursor:zoom-in;display:grid;box-shadow:var(--shadow)}
@@ -545,30 +650,20 @@ dialog .x{position:absolute;top:8px;right:8px}
 
 <!-- REPORT -->
 <section class="view" id="v-report" hidden>
-  <div class="section-h">
-    <div><p class="eyebrow">รายงานผลการใช้ MATH-SPARK · ม.2/2 และ ม.2/3 · ปีการศึกษา 2569</p><h2>สรุปรายงานผล</h2></div>
-    <div class="seg" id="rSource" aria-label="แหล่งข้อมูล"><button data-src="real" aria-pressed="false">ข้อมูลจริง</button><button data-src="demo" aria-pressed="true">ข้อมูลจำลอง (สาธิต)</button></div>
+  <div class="rtools no-print" id="rTools" hidden><span class="small muted">มุมมองครู</span><button class="linkbtn" id="rDemoToggle">ดูตัวอย่างรูปแบบรายงาน (ข้อมูลสาธิต)</button></div>
+  <div id="rReal" class="report"></div>
+  <div id="rDemoWrap" class="report" hidden>
+    <div class="section-h"><div><p class="eyebrow">สำหรับครู · ตัวอย่างรูปแบบรายงาน</p><h2>รายงานตัวอย่าง (ข้อมูลสาธิต)</h2></div></div>
+    <div id="rBanner"></div>
+    <div class="kpis" id="rKpis"></div>
+    <div class="charts"><div class="chart" id="cRubric"></div><div class="chart" id="cLevels"></div></div>
+    <div class="panel" id="cCreative"></div>
+    <div class="charts"><div class="chart" id="cFunnel"></div><div class="chart" id="cAI"></div></div>
+    <div class="chart" id="cCards"></div>
+    <div class="chart" id="cProcess"></div>
+    <div class="chart" id="cGroups"></div>
+    <p class="muted small" id="rFoot"></p>
   </div>
-  <div id="rBanner"></div>
-  <div class="kpis" id="rKpis"></div>
-  <div class="charts">
-    <div class="chart" id="cRubric"></div>
-    <div class="chart" id="cLevels"></div>
-  </div>
-  <div class="panel" id="cCreative"></div>
-  <div class="charts">
-    <div class="chart" id="cFunnel"></div>
-    <div class="chart" id="cAI"></div>
-  </div>
-  <div class="chart" id="cCards"></div>
-  <div class="chart" id="cProcess"></div>
-  <div class="chart" id="cGroups"></div>
-  <div><h3 style="margin-bottom:10px">วิดีโอการนำเสนอผลงาน</h3>
-    <div class="vids">
-      <a class="vid" style="--room:var(--room1)" href="https://drive.google.com/file/d/18BwL_czWAZFKj9YiqXdkK0o9QIeXefAr/view" target="_blank" rel="noopener"><span class="play">▶</span><span><b>ม.2/2</b><br><span class="small muted">วิดีโอใน Google Drive</span></span></a>
-      <a class="vid" style="--room:var(--room2)" href="https://drive.google.com/file/d/1rIwbUDVp9-RFSrq4ntgpcQ9aLedgdobV/view" target="_blank" rel="noopener"><span class="play">▶</span><span><b>ม.2/3</b><br><span class="small muted">วิดีโอใน Google Drive</span></span></a>
-    </div></div>
-  <p class="muted small" id="rFoot"></p>
 </section>
 
 <!-- ABOUT -->
@@ -1400,6 +1495,235 @@ K(box,s){
   draw();
 }};
 
+/* ============================== REAL report (#report) ============================== */
+const REAL_CONTEXT = {
+  school: 'โรงเรียนมัธยมวัดธาตุทอง',
+  academicYear: '2569',
+  subject: 'คณิตศาสตร์เสริมศักยภาพ 2',
+  courseCode: 'ค22222',
+  updatedAt: '2026-10-22T00:00:00+07:00',
+  target: { grade: 'มัธยมศึกษาปีที่ 2', rooms: { 'ม.2/2': 37, 'ม.2/3': 37 }, totalStudents: 74 },
+  learningStatus: { totalStudents: 74, normalPass: 74, gradeZero: 0, incomplete: 0, passPercent: 100 },
+  project: {
+    title: 'โครงงานออกแบบและพัฒนาบอร์ดเกมคณิตศาสตร์',
+    content: ['เอกนาม','พหุนาม','การดำเนินการของพหุนาม','การแยกตัวประกอบพหุนาม','การประยุกต์ใช้'],
+    groupsPerRoom: 4, totalGroups: 8
+  }
+};
+const PRODUCT_RUBRIC = { mathAccuracy: 10, creativity: 5, design: 5, gameRules: 5, presentationTeamwork: 5, total: 30 };
+const VIDEOS = {'ม.2/2':'https://drive.google.com/file/d/18BwL_czWAZFKj9YiqXdkK0o9QIeXefAr/view','ม.2/3':'https://drive.google.com/file/d/1rIwbUDVp9-RFSrq4ntgpcQ9aLedgdobV/view'};
+const REPORT_EV = {
+  S:['Curiosity Note','Observation','Mini Survey'],
+  P:['Problem Statement','Project Brief','Success Criteria'],
+  A:['Idea Matrix','AI Log','Verification Note','Decision Reasoning'],
+  R:['Prototype V1','User Test','Feedback','Change Log','Prototype V2'],
+  K:['Final Product','User Feedback','Impact Summary','Reflection']};
+
+/* ---------- data integrity helpers ---------- */
+const hasValue = v => v !== null && v !== undefined && !Number.isNaN(v);
+const displayNumber = (v,d) => hasValue(v) ? (d!=null ? Number(v).toLocaleString('th-TH',{minimumFractionDigits:d,maximumFractionDigits:d}) : Number(v).toLocaleString('th-TH')) : '–';
+const safePercent = (a,b) => hasValue(a) && b > 0 ? (a/b*100) : null;
+const pctTxt = v => hasValue(v) ? Math.round(v)+'%' : '–';
+
+function creativityConfig(){
+  const c=window.MSH_CREATIVITY;
+  if(c&&c.status==='complete') return {status:'complete',n:c.n??null,mean:c.mean??null,sd:c.sd??null,criterion:c.criterion??null,passed:c.passed??null,passedPercent:c.passedPercent??safePercent(c.passed,c.n),rooms:c.rooms||{}};
+  return {status:'pending',n:null,mean:null,sd:null,criterion:null,passed:null,passedPercent:null,rooms:{}};
+}
+
+/* ---------- snapshot: aggregates only, no names / numbers / PIN / raw chats ---------- */
+function buildRealSnapshot(ds,generatedAt){
+  const C=REAL_CONTEXT, students=ds.students||{}, reviews=ds.reviews||{}, scores=ds.scores||{}, logs=ds.logs||{};
+  const z=()=>({S:0,P:0,A:0,R:0,K:0});
+  const rooms={}, process={registered:0,allFive:0,ev:z(),byRoom:{}}, cards={total:0,approved:0,revise:0,pending:0,byRoom:{}}, ai={students:0,interactions:0,byStep:z(),byRoom:{}};
+  ROOMS.forEach(r=>{rooms[r]={students:C.target.rooms[r],registered:0};process.byRoom[r]={registered:0,allFive:0,ev:z()};cards.byRoom[r]={total:0,approved:0,revise:0,pending:0};ai.byRoom[r]={students:0,interactions:0,byStep:z()}});
+  const gmap={};
+  for(const [sid,d] of Object.entries(students)){
+    const p=(d&&d.profile)||{}; if(!ROOMS.includes(p.room)) continue;
+    const pr=process.byRoom[p.room]; process.registered++; pr.registered++; rooms[p.room].registered++;
+    const gk=groupKey(p.room,p.group); const g=gmap[gk]=gmap[gk]||{room:p.room,group:String(p.group||'').trim(),steps:{},ai:false,cardsTotal:0,approved:0};
+    let n=0; STEPS.forEach(s=>{const e=(d.evidence||{})[s.k]; if(e&&(e.text||e.link)){process.ev[s.k]++;pr.ev[s.k]++;g.steps[s.k]=true;n++}});
+    if(n===5){process.allFive++;pr.allFive++}
+    for(const c of Object.values(d.cards||{})){const st_=cardStatus(c,reviews[sid]); cards[st_]++; cards.total++; cards.byRoom[p.room][st_]++; cards.byRoom[p.room].total++; g.cardsTotal++; if(st_==='approved')g.approved++}
+    const L=logs[sid]; let any=0;
+    if(L) STEPS.forEach(s=>{const k=(L[s.k]||[]).filter(m=>m.role==='user').length; ai.byStep[s.k]+=k; ai.byRoom[p.room].byStep[s.k]+=k; ai.interactions+=k; ai.byRoom[p.room].interactions+=k; any+=k});
+    if(any){ai.students++;ai.byRoom[p.room].students++;g.ai=true}
+  }
+  const groups=Object.values(scores).filter(sc=>sc&&ROOMS.includes(sc.room)).map(sc=>{
+    const crit={}; CRIT.forEach(([k])=>crit[k]=hasValue(+sc[k])&&sc[k]!==''&&sc[k]!=null?+sc[k]:null);
+    const total=CRIT.every(([k])=>hasValue(crit[k]))?CRIT.reduce((a,[k])=>a+crit[k],0):null;
+    const proc={}; PROC.forEach(([k])=>proc[k]=sc[k]?+sc[k]:null);
+    const g=gmap[groupKey(sc.room,sc.group)];
+    return {room:sc.room,group:String(sc.group).trim(),crit,total,level:hasValue(total)?levelOf(total):null,proc,cardsTotal:g?g.cardsTotal:null,approved:g?g.approved:null};
+  }).sort((a,b)=>a.room.localeCompare(b.room)||a.group.localeCompare(b.group,'th'));
+  const detected=Object.values(gmap), denom=Math.max(C.project.totalGroups,detected.length), has=process.registered>0;
+  const cnt=f=>has?detected.filter(f).length:null;
+  const upriseEvidence={denominator:denom,
+    U:cnt(g=>g.steps.K),P:cnt(g=>g.steps.P),R:cnt(g=>g.steps.A),I:cnt(g=>g.steps.R&&g.steps.K),S:cnt(g=>g.ai||g.steps.K),E:cnt(g=>g.steps.R)};
+  return {generatedAt:generatedAt||Date.now(),context:C,learningOutcome:{...C.learningStatus},creativityAssessment:creativityConfig(),
+    groups,rooms,cards,process,aiSummary:ai,upriseEvidence,hasSystemData:has};
+}
+
+/* ---------- which snapshot to show ---------- */
+function currentRealSnapshot(){
+  if(liveTeacher()) return buildRealSnapshot({students:st.t.students,reviews:st.t.reviews,scores:st.t.scores,logs:st.t.logs||{}},Date.now());
+  const pub=st.report.published;
+  if(pub&&pub.context&&pub.learningOutcome) return {...pub,creativityAssessment:pub.creativityAssessment&&pub.creativityAssessment.status==='complete'?pub.creativityAssessment:creativityConfig()};
+  return buildRealSnapshot({},REAL_CONTEXT.updatedAt);
+}
+
+/* ---------- render ---------- */
+function renderRealReport(){
+  const S=currentRealSnapshot(), C=S.context, L=S.learningOutcome, rooms=ROOMS;
+  const scored=(S.groups||[]).filter(g=>hasValue(g.total)), good=scored.filter(g=>g.total>=22).length;
+  const when=new Date(S.generatedAt).toLocaleString('th-TH',S.hasSystemData?{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}:{day:'numeric',month:'long',year:'numeric'});
+  const pr=S.process, has=S.hasSystemData;
+  const mean=a=>{const v=a.filter(hasValue);return v.length?v.reduce((x,y)=>x+y,0)/v.length:null};
+  const roomGroups=r=>scored.filter(g=>g.room===r);
+  const printable=!(window.claude&&window.claude.use);
+  const sec=(eyebrow,title,body,cls='')=>`<section class="rsec ${cls}"><div class="section-h"><div>${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}<h2>${title}</h2></div></div>${body}</section>`;
+  const empty=t=>`<div class="pending-box"><span>${t}</span></div>`;
+
+  // 1–2 header
+  let h=`<div class="print-head"><b>MATH-SPARK Model</b><br>${esc(C.school)}<br>รายงานผลการจัดการเรียนรู้ ปีการศึกษา ${C.academicYear}</div>
+  <header class="rhead">
+    <div style="display:grid;gap:8px;min-width:0">
+      <h1>รายงานผลการใช้ MATH-SPARK Model</h1>
+      <p class="sub">รายวิชา${esc(C.subject)} (${esc(C.courseCode)}) ชั้น${esc(C.target.grade)} ปีการศึกษา ${C.academicYear}</p>
+      <p class="sub">${esc(C.school)}</p>
+      <div class="row"><span class="badge-live">● ข้อมูลจริงจากการจัดการเรียนรู้</span><span class="small muted">อัปเดตล่าสุด: ${when}</span></div>
+    </div>
+    ${printable?`<button class="btn btn-line btn-sm no-print" id="printBtn">พิมพ์ / บันทึก PDF</button>`:''}
+  </header>`;
+
+  // 4 KPI
+  const k6=scored.length?`<b>${Math.round(safePercent(good,scored.length))}%</b><span>กลุ่มที่มีคุณภาพระดับ “ดี” ขึ้นไป</span><small>${good} จาก ${scored.length} กลุ่มที่ประเมินแล้ว</small>`
+    :`<b class="pend">อยู่ระหว่างประเมิน</b><span>กลุ่มที่มีคุณภาพระดับ “ดี” ขึ้นไป</span><small>ยังไม่มีคะแนนกลุ่มที่บันทึก</small>`;
+  h+=`<div class="kpi6">
+    <div class="kpi big"><b>${L.totalStudents} คน</b><span>ผู้เรียนกลุ่มเป้าหมาย</span><small>${rooms.map(r=>`${r} ${C.target.rooms[r]} คน`).join(' · ')}</small></div>
+    <div class="kpi big ok"><b>${L.passPercent}%</b><span>ผ่าน/มีผลการเรียนปกติ</span><small>${L.normalPass} จาก ${L.totalStudents} คน</small></div>
+    <div class="kpi big"><b>${L.gradeZero} คน</b><span>ผลการเรียน 0</span><small>ไม่พบนักเรียนที่มีผลการเรียน 0</small></div>
+    <div class="kpi big"><b>${L.incomplete} คน</b><span>ผลการเรียน ร</span><small>ไม่พบนักเรียนที่มีผลการเรียน ร</small></div>
+    <div class="kpi big"><b>${C.project.totalGroups} กลุ่ม</b><span>โครงงานนวัตกรรมผู้เรียน</span><small>${rooms.map(r=>`${r} จำนวน ${C.project.groupsPerRoom} กลุ่ม`).join(' · ')}</small></div>
+    <div class="kpi big">${k6}</div>
+  </div>
+  <div class="pillars"><div class="eq"><span>Game</span><i>+</i><span>Project</span><i>+</i><span>AI</span><i>+</i><span>Human Intelligence</span></div><p class="motto2">AI = Thinking Partner, not an Answer Machine</p></div>`;
+
+  // 3 executive summary
+  h+=sec('Executive Summary','สรุปผลการดำเนินงาน',`<div class="exec"><p>การจัดการเรียนรู้ด้วย MATH-SPARK Model ดำเนินการกับนักเรียนระดับชั้น${esc(C.target.grade)} ในรายวิชา${esc(C.subject)} จำนวน 2 ห้องเรียน ได้แก่ ม.2/2 จำนวน 37 คน และ ม.2/3 จำนวน 37 คน รวมทั้งสิ้น 74 คน โดยมุ่งพัฒนาผู้เรียนจากผู้รับความรู้ไปสู่ผู้คิด ผู้ออกแบบ และผู้สร้างนวัตกรรม ผ่านการบูรณาการ Game-Based Learning, Project-Based Learning และ AI ในฐานะ Thinking Partner ภายใต้กระบวนการ SPARK 5 ขั้น</p>
+    <p>ผลการเรียนเมื่อสิ้นสุดรายวิชา พบว่า นักเรียนทั้ง ${L.totalStudents} คนมีผลการเรียนปกติ คิดเป็นร้อยละ ${L.passPercent} และไม่มีนักเรียนที่มีผลการเรียน 0 หรือ ร</p></div>`);
+
+  // 5 before / spark / after
+  const flow=['Game','Problem & Project','AI as Thinking Partner','Prototype','Test & Feedback','Re-design','Impact'];
+  h+=sec('','จากปัญหาสู่การเปลี่ยนแปลง',`<div class="bsa">
+    <div class="bsa-col before"><p class="tagline">BEFORE</p><h3>ปัญหาที่พบ</h3><ul>${['ผู้เรียนใช้ AI เพื่อหาคำตอบสำเร็จรูป','บางกรณีใช้คำตอบโดยไม่ตรวจสอบ','วิธีทำและคำตอบของนักเรียนมีลักษณะคล้ายกัน','เมื่อ AI ให้คำตอบผิด ผู้เรียนมีแนวโน้มเชื่อตาม','ผู้เรียนยังขาดพื้นที่ในการคิดสร้างสรรค์ ทดลอง และตัดสินใจด้วยตนเอง'].map(t=>`<li>${t}</li>`).join('')}</ul></div>
+    <div class="bsa-col spark"><p class="tagline">MATH-SPARK</p><h3>กระบวนการแก้ปัญหา</h3><ol class="vflow">${flow.map(t=>`<li>${t}</li>`).join('')}</ol></div>
+    <div class="bsa-col after"><p class="tagline">AFTER / OUTCOME</p><h3>ผลลัพธ์ที่มุ่งพัฒนา</h3><p class="small muted">ตัวชี้วัดที่ใช้ติดตามผล</p><div class="chips">${['Mathematical Learning','Critical Thinking','Creativity','AI Literacy','Collaboration','Innovation','Reflection','Real-world Impact'].map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>
+  </div>`);
+
+  // 6 learning outcome
+  const donut=(()=>{const R=62,cx=80,cy=80,c=2*Math.PI*R,f=L.normalPass/L.totalStudents;
+    return `<svg viewBox="0 0 160 160" class="donut" role="img" aria-label="ผ่าน/ปกติ ${L.normalPass} จาก ${L.totalStudents} คน"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" style="stroke:var(--line)" stroke-width="20"/><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" style="stroke:var(--ok)" stroke-width="20" stroke-dasharray="${c*f} ${c}" transform="rotate(-90 ${cx} ${cy})" data-tip="ผ่าน/ปกติ ${L.normalPass} คน"/><text x="${cx}" y="${cy+2}" text-anchor="middle" class="dn-big">${L.passPercent}%</text><text x="${cx}" y="${cy+22}" text-anchor="middle" class="dn-sm">ผ่าน/ปกติ</text></svg>`})();
+  h+=sec('Learning Outcome','ผลการเรียนรู้ทางคณิตศาสตร์',`<div class="lo">
+    <div class="lo-donut">${donut}<ul class="lo-legend"><li><i style="background:var(--ok)"></i>ผ่าน/ปกติ <b>${L.normalPass} คน</b></li><li><i style="background:var(--bad)"></i>ผลการเรียน 0 <b>${L.gradeZero} คน</b></li><li><i style="background:var(--warn)"></i>ผลการเรียน ร <b>${L.incomplete} คน</b></li><li><i style="background:var(--line)"></i>ทั้งหมด <b>${L.totalStudents} คน</b></li></ul></div>
+    <div class="lo-rooms">${rooms.map(r=>`<div class="kpi" style="border-top:4px solid ${ROOMC[r]}"><span>${r}</span><b>${C.target.rooms[r]} คน</b>${L.normalPass===L.totalStudents?`<small>ผ่าน/มีผลการเรียนปกติ ${C.target.rooms[r]} คน (100%)</small>`:''}<small>คะแนนรายละเอียดรายห้องอยู่ระหว่างเชื่อมข้อมูล</small></div>`).join('')}</div>
+  </div><p class="lead-p">นักเรียนกลุ่มเป้าหมายจำนวน ${L.totalStudents} คนมีผลการเรียนปกติครบทุกคน คิดเป็นร้อยละ ${L.passPercent} โดยไม่พบผลการเรียน 0 และ ร สะท้อนว่าผู้เรียนสามารถดำเนินกิจกรรมและผ่านเกณฑ์การเรียนรู้ของรายวิชาได้ครบถ้วน</p>`);
+
+  // 7 creativity
+  const CA=S.creativityAssessment||creativityConfig();
+  const caCells=[['จำนวนผู้ประเมิน',displayNumber(CA.n)],['คะแนนเฉลี่ย',displayNumber(CA.mean,2)],['ส่วนเบี่ยงเบนมาตรฐาน',displayNumber(CA.sd,2)],['เกณฑ์ผ่าน',displayNumber(CA.criterion)],['จำนวนผ่านเกณฑ์',displayNumber(CA.passed)],['ร้อยละผ่านเกณฑ์',pctTxt(CA.passedPercent)],...rooms.map(r=>{const x=(CA.rooms||{})[r]||{};return [r,hasValue(x.mean)?`เฉลี่ย ${displayNumber(x.mean,2)} · ผ่าน ${displayNumber(x.passed)}/${displayNumber(x.n)}`:'–']})];
+  const crRooms=rooms.map(r=>({r,m:mean(roomGroups(r).map(g=>g.crit.cre))}));
+  const crG=scored.filter(g=>hasValue(g.crit.cre)).slice().sort((a,b)=>b.crit.cre-a.crit.cre);
+  h+=sec('Creativity','ความคิดสร้างสรรค์',`<div class="two-cre">
+    <div class="panel"><p class="eyebrow">7.1 ความคิดสร้างสรรค์ของผู้เรียน</p><h3>ผลจากแบบวัดความคิดสร้างสรรค์</h3>
+      ${CA.status==='complete'?'':`<div class="pending-box"><b>อยู่ระหว่างสรุปผลการประเมิน</b><span>ระบบเตรียมพื้นที่สำหรับแสดงผลแบบวัดความคิดสร้างสรรค์ของผู้เรียน โดยจะแสดงผลทันทีเมื่อมีการบันทึกคะแนนจริง</span></div>`}
+      <dl class="ca-grid">${caCells.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl></div>
+    <div class="panel"><p class="eyebrow">7.2 ความคิดสร้างสรรค์ของชิ้นงาน</p><h3>คะแนน Rubric ความคิดสร้างสรรค์ (เต็ม 5)</h3>
+      <p class="small muted">พิจารณาจากความแปลกใหม่ ความน่าสนใจ ความสนุก ความมีเอกลักษณ์ และการประยุกต์ความรู้คณิตศาสตร์</p>
+      ${crG.length?`<div class="row">${crRooms.map(x=>`<div class="kpi" style="flex:1;border-top:4px solid ${ROOMC[x.r]}"><span>${x.r} · ค่าเฉลี่ย</span><b>${displayNumber(x.m,1)}<span class="small muted"> /5</span></b></div>`).join('')}</div>${legendRooms()}<div class="chart" style="border:0;padding:0" id="crChart">${hbars({cats:crG.map(g=>g.group),max:5,ticks:[0,1,2,3,4,5],labelW:210,series:[{name:'ความคิดสร้างสรรค์',color:'var(--a)',values:crG.map(g=>g.crit.cre)}],fmt:v=>displayNumber(v,1)+'/5'})}</div>`
+        :empty('ยังไม่มีคะแนนชิ้นงานที่ได้รับการประเมิน')}</div>
+  </div>`);
+
+  // 8 SPARK process
+  const stepCard=s=>{const tot=pr.registered;const per=rooms.map(r=>{const b=pr.byRoom[r];return `${r}: ${b.registered?b.ev[s.k]+' คน':'–'}`}).join(' · ');
+    return `<div class="pstep c-${s.k}"><div class="row"><span class="L">${s.k}</span><b>${s.name}</b></div><div class="chips">${REPORT_EV[s.k].map(e=>`<span class="tag">${e}</span>`).join('')}</div>
+      <div class="pv"><b>${has?pr.ev[s.k]:'–'}</b><span>${has?`จาก ${tot} คน (${pctTxt(safePercent(pr.ev[s.k],tot))})`:'ผู้เรียนที่มีหลักฐาน'}</span></div><small class="muted">${per}</small></div>`};
+  const missing=has?STEPS.filter(s=>pr.ev[s.k]<pr.registered).map(s=>s.k):null;
+  h+=sec('SPARK Process','ผลการดำเนินงานตามกระบวนการ SPARK',`
+    <div class="kpis3"><div class="kpi"><span>ผู้เรียนที่บันทึกหลักฐานในระบบ</span><b>${has?pr.registered+' คน':'–'}</b></div><div class="kpi"><span>หลักฐานครบ 5 ขั้น</span><b>${has?pr.allFive+' คน':'–'}</b></div><div class="kpi"><span>Completion Rate</span><b>${pctTxt(has?safePercent(pr.allFive,pr.registered):null)}</b></div><div class="kpi"><span>ขั้นที่ยังมีหลักฐานไม่ครบ</span><b>${missing==null?'–':missing.length?missing.join(' · '):'ครบทุกขั้น'}</b></div></div>
+    ${has?'':'<p class="small muted">ยังไม่มีหลักฐานที่บันทึกในระบบ ค่าจะแสดงอัตโนมัติเมื่อนักเรียนบันทึกหลักฐานในพื้นที่ทำงานกลุ่ม</p>'}
+    <div class="psteps">${STEPS.map(stepCard).join('')}</div>
+    ${has?`<div class="chart"><h3>ร้อยละผู้เรียนที่มีหลักฐานแต่ละขั้น</h3>${legendRooms()}${hbars({cats:STEPS.map(s=>s.k+' · '+s.th),max:100,unit:'%',ticks:[0,25,50,75,100],labelW:210,series:rooms.map(r=>({name:r,color:ROOMC[r],values:STEPS.map(s=>pr.byRoom[r].registered?safePercent(pr.byRoom[r].ev[s.k],pr.byRoom[r].registered):null)})),fmt:(v,i,s)=>`${Math.round(v)}% (${pr.byRoom[s.name].ev[STEPS[i].k]} คน)`})}</div>`:''}`);
+
+  // 9 AI
+  const ai=S.aiSummary, aiAvg=mean(scored.map(g=>g.proc.ai));
+  h+=sec('AI Literacy','การใช้ AI อย่างมีวิจารณญาณ',`<div class="ai-hero"><h3>AI = Thinking Partner, not an Answer Machine</h3><p>ผู้เรียนได้รับการออกแบบให้ใช้ AI เพื่อช่วยตั้งคำถาม ค้นหาทางเลือก เปรียบเทียบแนวคิด ตรวจสอบความถูกต้อง และต่อยอดความคิด โดยผู้เรียนยังคงเป็นผู้ตรวจสอบ ตัดสินใจ และรับผิดชอบต่อผลงานของตนเอง</p></div>
+    ${ai.interactions?`<div class="kpis3"><div class="kpi"><span>ผู้เรียนที่มี AI Log</span><b>${ai.students} คน</b></div><div class="kpi"><span>จำนวน Interaction</span><b>${ai.interactions}</b></div>${STEPS.map(s=>`<div class="kpi c-${s.k}"><span>คำถามในขั้น ${s.k}</span><b style="color:var(--c)">${ai.byStep[s.k]}</b></div>`).join('')}</div>
+      <div class="chart">${legendRooms()}${hbars({cats:STEPS.map(s=>s.k+' · '+s.th),max:Math.max(5,...rooms.flatMap(r=>Object.values(ai.byRoom[r].byStep))),labelW:210,series:rooms.map(r=>({name:r,color:ROOMC[r],values:STEPS.map(s=>ai.byRoom[r].byStep[s.k])})),fmt:v=>v+' คำถาม'})}</div>`
+      :empty('ยังไม่มี AI Log ที่บันทึกในระบบ')}
+    <div class="kpi" style="max-width:340px"><span>Rubric Idea & AI Literacy</span><b>${displayNumber(aiAvg,2)}<span class="small muted"> /4</span></b><small>${scored.length?`ค่าเฉลี่ยจาก ${scored.filter(g=>hasValue(g.proc.ai)).length} กลุ่ม`:'ยังไม่มีคะแนน Rubric'}</small></div>`);
+
+  // 10 gatekeeper
+  const cd=S.cards, ST=[['approved','ผ่าน','var(--ok)'],['revise','ให้แก้ไข','var(--bad)'],['pending','รอตรวจ','var(--warn)']];
+  h+=sec('Quality Gatekeeper','ครูในฐานะ Quality Gatekeeper',`<p class="lead-p">โจทย์และเฉลยที่นักเรียนสร้างขึ้นต้องผ่านการตรวจสอบความถูกต้องทางคณิตศาสตร์จากครูก่อนนำไปใช้ในบอร์ดเกมจริง</p>
+    ${has||cd.total?`<div class="tbl-wrap"><table><thead><tr><th>ห้อง</th><th class="num">ส่งทั้งหมด</th><th class="num">ผ่าน</th><th class="num">ให้แก้ไข</th><th class="num">รอตรวจ</th><th class="num">Approval Rate</th></tr></thead><tbody>
+      ${[...rooms.map(r=>[r,cd.byRoom[r]]),['รวม',cd]].map(([n,c])=>`<tr><td>${n}</td><td class="num">${c.total}</td><td class="num">${c.approved}</td><td class="num">${c.revise}</td><td class="num">${c.pending}</td><td class="num"><b>${pctTxt(safePercent(c.approved,c.total))}</b></td></tr>`).join('')}</tbody></table></div>
+      ${cd.total?`<div class="chart"><div class="legend">${ST.map(([,t,c])=>`<span><i style="background:${c}"></i>${t}</span>`).join('')}</div><svg viewBox="0 0 600 ${rooms.length*56+10}" role="img">${rooms.map((r,i)=>{const c=cd.byRoom[r],n=c.total,y=i*56+6;let x=90;
+        return `<text x="80" y="${y+22}" text-anchor="end">${r}</text>`+(n?ST.map(([k,t,col])=>{const w=c[k]/n*490;const o=w>0?`<rect x="${x}" y="${y+6}" width="${Math.max(0,w-2)}" height="24" rx="4" style="fill:${col}" data-tip="${esc(r+' · '+t+': '+c[k]+' ข้อ')}"/>`+(w>46?`<text class="v" x="${x+w/2-1}" y="${y+22}" text-anchor="middle" style="fill:#03140B">${Math.round(c[k]/n*100)}%</text>`:''):'';x+=w;return o}).join(''):`<text x="90" y="${y+22}">–</text>`)}).join('')}</svg></div>`:''}`
+    :empty('ยังไม่มีโจทย์การ์ดที่ส่งเข้าระบบ')}`);
+
+  // 11 innovation
+  h+=sec('Student Innovation','จากความรู้คณิตศาสตร์สู่นวัตกรรม',`<div class="kpis3"><div class="kpi big"><b>${C.project.totalGroups} กลุ่ม</b><span>นักเรียนพัฒนาชิ้นงานบอร์ดเกมคณิตศาสตร์</span></div><div class="kpi big"><b>2 ห้องเรียน</b><span>ม.2/2 และ ม.2/3</span></div><div class="kpi big"><b>${C.project.content.length} กลุ่มเนื้อหา</b><span>${C.project.content.join(' · ')}</span></div></div>
+    <p class="lead-p">ผู้เรียนไม่ได้จบกระบวนการด้วยการทำแบบฝึกหัด แต่ต้องนำองค์ความรู้ทางคณิตศาสตร์ไปออกแบบกติกา สร้างโจทย์ พัฒนาการ์ด ทดลองเล่น รับ Feedback และปรับปรุงจนเกิดเป็นชิ้นงานที่ผู้อื่นสามารถนำไปใช้เรียนรู้ได้จริง</p>`);
+
+  // 12 product scores
+  const critMean=(r,k)=>mean(roomGroups(r).map(g=>g.crit[k]));
+  h+=sec('Product Rubric · 30 คะแนน','คะแนนชิ้นงาน',scored.length?`<div class="chart">${legendRooms()}${hbars({cats:CRIT.map(c=>c[1]),max:100,unit:'%',ticks:[0,25,50,75,100],series:rooms.map(r=>({name:r,color:ROOMC[r],values:CRIT.map(([k,,m])=>{const v=critMean(r,k);return hasValue(v)?v/m*100:null})})),fmt:(v,i,s)=>`${displayNumber(critMean(s.name,CRIT[i][0]),1)}/${CRIT[i][2]}`})}</div>
+    <div class="tbl-wrap"><table class="scores"><thead><tr><th>ห้อง</th><th>กลุ่ม</th><th class="num">คณิตศาสตร์ /10</th><th class="num">ความคิดสร้างสรรค์ /5</th><th class="num">การออกแบบ /5</th><th class="num">กติกา /5</th><th class="num">นำเสนอ/ทีม /5</th><th class="num">รวม /30</th><th>ระดับ</th></tr></thead><tbody>
+    ${(S.groups||[]).map(g=>`<tr><td class="nowrap"><span style="color:${ROOMC[g.room]}">●</span> ${g.room}</td><td>${esc(g.group)}</td>${CRIT.map(([k])=>`<td class="num">${displayNumber(g.crit[k],1)}</td>`).join('')}<td class="num"><b>${displayNumber(g.total,1)}</b></td><td class="nowrap">${g.level||'–'}</td></tr>`).join('')}</tbody></table></div>
+    <p class="small muted">ระดับคุณภาพ: 27–30 ดีเยี่ยม · 22–26 ดี · 17–21 พอใช้ · ต่ำกว่า 17 ปรับปรุง</p>`:empty('ยังไม่มีคะแนนชิ้นงานที่ได้รับการประเมิน'));
+
+  // 13 process rubric heatmap
+  const procGroups=(S.groups||[]).filter(g=>PROC.some(([k])=>hasValue(g.proc[k])));
+  h+=sec('SPARK Process Rubric','Rubric กระบวนการ SPARK',`<div class="chips">${[['Problem Understanding','ความเข้าใจปัญหาและผู้ใช้'],['Idea & AI Literacy','สร้างทางเลือก ใช้ AI และตัดสินใจด้วยเหตุผล'],['Prototype & Iteration','สร้างต้นแบบ ทดลอง และปรับปรุง'],['Impact Evidence','แสดงหลักฐานคุณค่าหรือผลจากการใช้งาน']].map(([a,b])=>`<span class="tag"><b>${a}</b> · ${b}</span>`).join('')}</div>
+    <p class="small muted">4 ดีเยี่ยม · 3 ดี · 2 พัฒนา · 1 เริ่มต้น</p>
+    ${procGroups.length?`<div class="tbl-wrap"><table class="heat"><colgroup><col style="width:32%">${PROC.map(()=>'<col style="width:17%">').join('')}</colgroup><thead><tr><th>กลุ่ม</th>${PROC.map(([,n])=>`<th style="white-space:normal;text-align:center">${n}</th>`).join('')}</tr></thead><tbody>
+      ${procGroups.map(g=>`<tr><td><span style="color:${ROOMC[g.room]}">●</span> ${esc(g.group)} <span class="small muted">${g.room}</span></td>${PROC.map(([k])=>{const v=g.proc[k];return `<td class="h" style="background:rgba(var(--heat),${hasValue(v)?0.06+v*0.1:0})">${displayNumber(v)}</td>`}).join('')}</tr>`).join('')}
+      ${rooms.map(r=>`<tr><th>เฉลี่ย ${r}</th>${PROC.map(([k])=>`<th class="num" style="text-align:center">${displayNumber(mean(procGroups.filter(g=>g.room===r).map(g=>g.proc[k])),2)}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`:empty('ยังไม่มีคะแนน Rubric กระบวนการ SPARK')}`);
+
+  // 14 UPRISE
+  const U=S.upriseEvidence||{};
+  const UP=[['U','Useful','สร้างชิ้นงานที่สามารถใช้เป็นสื่อการเรียนรู้แก่เพื่อนหรือผู้ใช้อื่นได้',['Final Product','User Test','Feedback'],'มีหลักฐานขั้น K'],
+    ['P','Problem Solving','ผู้เรียนเริ่มต้นจากการค้นหาปัญหา วิเคราะห์สาเหตุ และออกแบบแนวทางแก้',['Curiosity Note','Problem Statement','Project Brief'],'มีหลักฐานขั้น P'],
+    ['R','Real World','เชื่อมโยงองค์ความรู้คณิตศาสตร์กับการออกแบบ การตัดสินใจ การเล่นเกม และประสบการณ์ของผู้ใช้',['Game Scenario','Applied Mathematics','User Context'],'มีหลักฐานขั้น A'],
+    ['I','Impact','ผลงานถูกนำไปทดลองใช้ เก็บ Feedback และนำข้อมูลกลับไปปรับปรุง',['Test Result','Feedback','Change Log','Impact Summary'],'มีหลักฐานทั้งขั้น R และ K'],
+    ['S','Self-Directed','ผู้เรียนเลือกแนวคิด ค้นข้อมูล ตรวจสอบ AI และตัดสินใจพัฒนาผลงานด้วยตนเอง',['AI Log','Decision Reasoning','Reflection'],'มี AI Log หรือ Reflection'],
+    ['E','Experiential','เรียนรู้จากการลงมือสร้าง ทดลอง ผิดพลาด รับ Feedback และออกแบบใหม่',['Prototype V1','Test','Prototype V2'],'มีหลักฐานขั้น R']];
+  h+=sec('','Meaningful Learning through UPRISE',`<div class="uprise">${UP.map(([L1,n,t,ev,rule],i)=>`<div class="ucard u${i}"><div class="row"><span class="UL">${L1}</span><b>${n}</b></div><p>${t}</p><div class="chips">${ev.map(e=>`<span class="tag">${e}</span>`).join('')}</div><p class="uev">${hasValue(U[L1])?`<b>${U[L1]} จาก ${U.denominator} กลุ่ม</b>${rule}ในระบบ`:'ยังไม่มีหลักฐานที่บันทึก'}</p></div>`).join('')}</div>`,'uprise-sec');
+
+  // 15 narrative
+  h+=sec('Result Narrative','สรุปผลการดำเนินงาน',`<div class="exec narrative"><p>ผลจากการดำเนินการจัดการเรียนรู้ด้วย MATH-SPARK Model ในรายวิชา${esc(C.subject)} กับนักเรียนชั้น${esc(C.target.grade)} จำนวน ${L.totalStudents} คน พบว่า นักเรียนทุกคนมีผลการเรียนปกติ คิดเป็นร้อยละ ${L.passPercent} และไม่พบผลการเรียน 0 หรือ ร</p>
+    <p>กระบวนการเรียนรู้ไม่ได้มุ่งเพียงผลสัมฤทธิ์ทางการเรียน แต่เปิดโอกาสให้ผู้เรียนใช้ความรู้คณิตศาสตร์ในการวิเคราะห์ปัญหา ออกแบบแนวคิด พัฒนาบอร์ดเกม ทดลองใช้ รับข้อเสนอแนะ และปรับปรุงชิ้นงาน ผ่านกระบวนการ SPARK โดยใช้ AI ในฐานะ Thinking Partner</p>
+    <p>การประเมินผลจึงครอบคลุมทั้งความถูกต้องทางคณิตศาสตร์ ความคิดสร้างสรรค์ การใช้ AI อย่างมีวิจารณญาณ กระบวนการพัฒนาต้นแบบ การทำงานเป็นทีม และหลักฐานผลกระทบจากการนำผลงานไปใช้</p>
+    <p>ในส่วนของผลการประเมินความคิดสร้างสรรค์เชิงปริมาณ ระบบจะนำเสนอเมื่อมีการบันทึกผลจากแบบวัดความคิดสร้างสรรค์ฉบับจริง เพื่อให้ข้อมูลที่เผยแพร่สามารถตรวจสอบย้อนกลับได้และแยกจากข้อมูลตัวอย่างอย่างชัดเจน</p></div>`);
+
+  // 16 evidence gallery (only real URLs)
+  const EVX=window.MSH_EVIDENCE||{};
+  const cardsEv=[...rooms.map(r=>VIDEOS[r]?[VIDEOS[r],'การเรียนรู้ในห้อง '+r,'วิดีโอการนำเสนอใน Google Drive','▶',ROOMC[r]]:null),
+    ...rooms.map(r=>ROOM_FOLDERS[r]?[DRIVE_F+ROOM_FOLDERS[r],'ผลงานนักเรียน '+r,'โฟลเดอร์ผลงานรายกลุ่ม','▣',ROOMC[r]]:null),
+    ai.interactions?['#questions','AI Log','คลังคำถามถึง AI Thinking Coach (ไม่ระบุตัวบุคคล)','✦','var(--a)']:null,
+    EVX.aiLog?[EVX.aiLog,'AI Log','หลักฐานที่ครูคัดเลือก','✦','var(--a)']:null,
+    EVX.prototype?[EVX.prototype,'Prototype & Feedback','ต้นแบบและผลการทดลองเล่น','◆','var(--r)']:null].filter(Boolean);
+  h+=sec('Evidence','หลักฐานการจัดการเรียนรู้จริง',`<div class="evg">${cardsEv.map(([u,t,s,ic,col])=>`<a class="vid" style="--room:${col}" href="${esc(u)}" ${u.startsWith('#')?'data-go="questions"':'target="_blank" rel="noopener"'}><span class="play">${ic}</span><span><b>${esc(t)}</b><br><span class="small muted">${esc(s)}</span></span></a>`).join('')}</div>`);
+
+  // 17 impact journey
+  const J=[[C.target.totalStudents+' Learners','ผู้เรียน ม.2/2 และ ม.2/3'],[C.project.totalGroups+' Innovation Teams','ทีมพัฒนาบอร์ดเกม'],['Mathematical Thinking',''],['Creativity',''],['Critical AI Use',''],['Prototype & Re-design',''],['Innovation',''],['Real-world Impact','']];
+  h+=sec('Impact Journey','เส้นทางสู่ผลลัพธ์',`<ol class="journey2">${J.map(([a,b],i)=>`<li class="${i<2?'fact':''}"><b>${a}</b>${b?`<span>${b}</span>`:''}</li>`).join('')}</ol><p class="small muted">Creativity, Critical AI Use และ Real-world Impact ในเส้นทางนี้เป็นผลลัพธ์ที่มุ่งพัฒนา</p>`);
+
+  $('#rReal').innerHTML=h;
+  const pb=$('#printBtn'); if(pb) pb.onclick=()=>window.print();
+}
+
 /* ============================== demo dataset (clearly labelled, never presented as real) ============================== */
 function rng(seed){return ()=>{seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const DEMO_GROUPS={'ม.2/2':['Poly Quest','Factor Escape','Monomial Market','Algebra Adventure'],'ม.2/3':['Poly Racer','X-Cave Escape','Term Trader','Factor Kingdom']};
@@ -1502,25 +1826,22 @@ let tipEl=null;
 document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');tipEl=tipEl||$('#tip');if(!t){tipEl.hidden=true;return}tipEl.textContent=t.dataset.tip;tipEl.hidden=false;tipEl.style.left=Math.min(e.clientX+14,innerWidth-270)+'px';tipEl.style.top=(e.clientY+14)+'px'});
 
 /* ============================== report view ============================== */
-function realReport(){
-  if(st.be&&st.be.isTeacher){const hasData=Object.keys(st.t.students).length||Object.keys(st.t.scores).length;
-    return hasData?computeReport({students:st.t.students,reviews:st.t.reviews,scores:st.t.scores,logs:st.t.logs||{}}):null}
-  return st.report.published||null;
-}
-$('#rSource').onclick=e=>{const b=e.target.closest('[data-src]');if(!b)return;st.report.src=b.dataset.src;renderReport()};
+const liveTeacher=()=>!!(st.be&&st.be.isTeacher&&(st.be.mode==='gas'||st.be.mode==='claude'));
+$('#rDemoToggle').onclick=()=>{st.report.src=st.report.src==='demo'?null:'demo';renderReport();window.scrollTo({top:0})};
 async function renderReport(){
-  if(st.be&&st.be.isTeacher&&!st.t.logs&&st.be.loadAllLogs){st.t.logs={};st.be.loadAllLogs().then(l=>{st.t.logs=l||{};if(st.view==='report')renderReport()}).catch(()=>{})}
-  const real=realReport();
-  const src=st.report.src||(real?'real':'demo');
-  const demo=src==='demo';
-  document.querySelectorAll('#rSource button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.src===src));
-  const R=demo?computeReport(makeDemo()):real;
-  $('#rBanner').innerHTML=demo?`<div class="demo-banner"><b>ข้อมูลจำลองเพื่อสาธิตหน้ารายงาน</b><span class="small">ตัวเลขทั้งหมดในหน้านี้สร้างขึ้นสำหรับ 2 ห้อง ห้องละ 37 คน เพื่อแสดงรูปแบบรายงานเท่านั้น ไม่ใช่ผลการทดลองจริง จึงไม่ควรนำไปอ้างในเล่มรายงานหรือการนำเสนอ</span></div>`
-    :R?`<div class="notice">ข้อมูลจริงจากระบบ · ${st.be&&st.be.isTeacher?'คำนวณสดจากงานนักเรียนและคะแนนที่ครูบันทึก':'สรุปที่ครูเผยแพร่เมื่อ '+fmtTime(R.generatedAt)}</div>`
-    :`<div class="notice warn">ยังไม่มีข้อมูลจริง ${st.be&&st.be.isTeacher?'เมื่อมีนักเรียนบันทึกงานหรือครูให้คะแนนในห้องครู รายงานจะคำนวณให้อัตโนมัติ':'ครูยังไม่ได้เผยแพร่สรุปผล'} · เลือก “ข้อมูลจำลอง (สาธิต)” เพื่อดูตัวอย่างหน้ารายงาน</div>`;
-  const ids=['rKpis','cRubric','cLevels','cCreative','cFunnel','cCards','cProcess','cAI','cGroups'];
-  if(!R){ids.forEach(i=>$('#'+i).innerHTML='');$('#rFoot').textContent='';return}
-  const tag=demo?' <span class="tag" style="color:var(--warn)">จำลอง</span>':'';
+  if(liveTeacher()&&!st.t.logs&&st.be.loadAllLogs){st.t.logs={};st.be.loadAllLogs().then(l=>{st.t.logs=l||{};if(st.view==='report')renderReport()}).catch(()=>{})}
+  const teacher=liveTeacher()||(st.be&&st.be.mode==='preview');
+  $('#rTools').hidden=!teacher;
+  const demo=teacher&&st.report.src==='demo';
+  $('#rDemoToggle').textContent=demo?'← กลับไปหน้ารายงานผลจริง':'ดูตัวอย่างรูปแบบรายงาน (ข้อมูลสาธิต)';
+  $('#rReal').hidden=demo; $('#rDemoWrap').hidden=!demo;
+  if(demo) renderDemoReport(); else renderRealReport();
+}
+/* demo layout preview for teachers only — never mixed into the real report */
+function renderDemoReport(){
+  const demo=true, R=computeReport(makeDemo());
+  $('#rBanner').innerHTML=`<div class="demo-banner"><b>ข้อมูลจำลองเพื่อสาธิตหน้ารายงาน</b><span class="small">ตัวเลขทั้งหมดในส่วนนี้สร้างขึ้นเพื่อแสดงรูปแบบรายงานเท่านั้น ไม่ใช่ผลการจัดการเรียนรู้จริง และไม่ถูกนำไปรวมในรายงานผลจริงหรือสรุปที่เผยแพร่</span></div>`;
+  const tag=' <span class="tag" style="color:var(--warn)">จำลอง</span>';
   const RM=R.rooms, tot=k=>ROOMS.reduce((a,r)=>a+(RM[r][k]||0),0);
   const nStu=tot('students'), scored=R.groups.filter(g=>g.total!=null), good=scored.filter(g=>g.total>=22).length;
   const allFive=tot('allFive'), cardsAll=ROOMS.reduce((a,r)=>a+RM[r].cards.approved+RM[r].cards.revise+RM[r].cards.pending,0), appr=ROOMS.reduce((a,r)=>a+RM[r].cards.approved,0);
@@ -1559,7 +1880,7 @@ async function renderReport(){
     hbars({cats:STEPS.map(s=>s.k+' · '+s.th),max:Math.max(5,...ROOMS.flatMap(r=>Object.values(RM[r].ai))),labelW:210,series:ROOMS.map(r=>({name:r,color:ROOMC[r],values:STEPS.map(s=>RM[r].ai[s.k])})),fmt:v=>v+' คำถาม'});
   $('#cGroups').innerHTML=`<h3>คะแนนรายกลุ่ม${tag}</h3><div class="tbl-wrap"><table><thead><tr><th>ห้อง</th><th>กลุ่ม</th>${CRIT.map(([,n,m])=>`<th class="num" title="${n}">${n.split(/และ| /)[0]} /${m}</th>`).join('')}<th class="num">รวม /30</th><th>ระดับ</th><th class="num">โจทย์ผ่าน</th></tr></thead>
     <tbody>${R.groups.map(g=>`<tr><td class="nowrap"><span style="color:${ROOMC[g.room]}">●</span> ${g.room}</td><td class="nowrap">${esc(g.group)}</td>${CRIT.map(([k])=>`<td class="num">${g.crit?f1(g.crit[k]):'–'}</td>`).join('')}<td class="num"><b>${g.total!=null?f1(g.total):'–'}</b></td><td class="nowrap">${g.level||'ยังไม่ประเมิน'}</td><td class="num">${g.approved}/${g.cardsTotal}</td></tr>`).join('')||'<tr><td colspan="10" class="empty">ยังไม่มีข้อมูล</td></tr>'}</tbody></table></div>`;
-  $('#rFoot').textContent=demo?'ข้อมูลจำลองสร้างด้วยตัวสุ่มแบบกำหนดค่าเริ่มต้น จึงแสดงตัวเลขชุดเดิมทุกครั้งที่เปิด':'รายงานคำนวณจากข้อมูลในระบบเท่านั้น ไม่รวมผลที่ไม่ได้บันทึก';
+  $('#rFoot').textContent='ข้อมูลจำลองสร้างด้วยตัวสุ่มแบบกำหนดค่าเริ่มต้น จึงแสดงตัวเลขชุดเดิมทุกครั้งที่เปิด';
 }
 
 /* ============================== questions view ============================== */
@@ -1649,9 +1970,10 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-editscore]
   $('#sRoom').value=s.room;$('#sGroup').value=s.group;CRIT.forEach(([k])=>$('#sc-'+k).value=s[k]??'');PROC.forEach(([k])=>$('#sp-'+k).value=s[k]??'');$('#sNote').value=s.note||'';$('#scoreForm').scrollIntoView({behavior:'smooth',block:'center'})});
 $('#publishBtn').onclick=async()=>{
   if(tDemo()){toast('เผยแพร่ได้เฉพาะข้อมูลจริง สลับเป็น “ข้อมูลจริง” ก่อน');return}
+  if(!liveTeacher()){toast('ต้องเชื่อมต่อระบบของครูก่อนจึงจะเผยแพร่ได้');return}
   const b=$('#publishBtn'); b.disabled=true;
   try{ if(!st.t.logs||!Object.keys(st.t.logs).length){try{st.t.logs=await st.be.loadAllLogs()}catch(e){}}
-    const R=computeReport({students:st.t.students,reviews:st.t.reviews,scores:st.t.scores,logs:st.t.logs||{}});
+    const R=buildRealSnapshot({students:st.t.students,reviews:st.t.reviews,scores:st.t.scores,logs:st.t.logs||{}},Date.now());
     await st.be.publishReport(R); st.report.published=R; toast('เผยแพร่สรุปผลแล้ว ผู้เข้าชมเห็นในหน้ารายงานผล') }
   catch(e){toast('เผยแพร่ไม่สำเร็จ')} finally{b.disabled=false}};
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-open]');if(!b)return;openDrawer(b.dataset.open)});
@@ -1713,7 +2035,7 @@ go((location.hash||'#home').slice(1),false);
   if(!be) be=localBackend();
   st.be=be;
   $('#modeNote').textContent=be.label;
-  if(be.mode==='preview'){$('#rSource').hidden=true;$('#tSource').hidden=true}
+  if(be.mode==='preview'){$('#tSource').hidden=true}
   if(!be.isTeacher){try{st.report.published=await be.getReport()}catch(e){}}
   await afterAuth();
   if(be.isTeacher) enableTeacher();
