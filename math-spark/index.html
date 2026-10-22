@@ -1572,6 +1572,11 @@ const SPARK_ASPECTS = [['pu','problemUnderstanding','Problem Understanding','ค
   ['ai','ideaAndAILiteracy','Idea & AI Literacy','สร้างทางเลือก ใช้ AI และตัดสินใจด้วยเหตุผล'],
   ['pi','prototypeIteration','Prototype & Iteration','สร้างต้นแบบ ทดลอง และปรับปรุง'],
   ['ie','impactEvidence','Impact Evidence','แสดงหลักฐานคุณค่าหรือผลจากการใช้งาน']];
+/* เกณฑ์แปลผลค่าเฉลี่ย Rubric SPARK (คะแนน 1–4) ตามที่ครูผู้สอนกำหนด: มากกว่า 3.50 สูงมาก · มากกว่า 2.50 สูง · มากกว่า 1.50 กลาง · ไม่เกิน 1.50 ต่ำ
+   เทียบกับค่าที่ปัดเป็นทศนิยม 2 ตำแหน่ง เพื่อให้ตรงกับตัวเลขที่แสดง */
+const SPARK_LEVELS = [[3.5,'สูงมาก'],[2.5,'สูง'],[1.5,'กลาง']];
+const SPARK_LEVEL_NOTE = 'เกณฑ์แปลผลค่าเฉลี่ย: มากกว่า 3.50 = สูงมาก · 2.51–3.50 = สูง · 1.51–2.50 = กลาง · 1.00–1.50 = ต่ำ';
+const sparkLevel = v => { if(!hasValue(v)) return null; const x=Math.round(Number(v)*100)/100; const f=SPARK_LEVELS.find(([t])=>x>t); return f?f[1]:'ต่ำ'; };
 
 /* ---------- verified learning outcome (derived + checked) ---------- */
 function verifiedOutcome(){
@@ -1940,17 +1945,18 @@ function renderRealReport(){
   if(SR&&SR.byRoom&&rooms.every(r=>hasValue(meanOf(Object.values(SR.byRoom[r]))))) cmp.push({cat:'Rubric SPARK เฉลี่ย',vals:rooms.map(r=>safePercent(meanOf(Object.values(SR.byRoom[r])),SR.maxScore)),txt:r=>`${displayNumber(meanOf(Object.values(SR.byRoom[r])),2)}/${SR.maxScore}`});
   if(evBy) cmp.push({cat:'หลักฐานครบ 5 ขั้น',vals:rooms.map(r=>safePercent(SE.byRoom[r].completeAll,SE.byRoom[r].total)),txt:r=>`${SE.byRoom[r].completeAll}/${SE.byRoom[r].total} คน`});
   if(QG&&QG.byRoom) cmp.push({cat:'โจทย์ผ่านการตรวจ',vals:rooms.map(r=>{const c=QG.byRoom[r];return safePercent(c.approved,c.approved+c.revise+c.pending)}),txt:r=>{const c=QG.byRoom[r];return `${c.approved}/${c.approved+c.revise+c.pending} ข้อ`}});
-  const cmpSrc=demo?{kind:'synthetic'}:(cmp.length?{kind:'system'}:{kind:'pending'});
+  const cmpUsed=[CR&&'creativity',P&&'productRubric',SR&&'sparkRubric',evBy&&'sparkEvidence',QG&&QG.byRoom&&'qualityGatekeeper'].filter(Boolean).map(k=>src[k]);
+  const cmpSrc=demo?{kind:'synthetic'}:(cmp.length?(cmpUsed.find(x=>x&&x.kind==='import')||{kind:'system'}):{kind:'pending'});
   h+=sec('Room Comparison','เปรียบเทียบสองห้องเรียน',cmp.length?`<div class="chart"><p class="sub">ร้อยละของคะแนนเต็มหรือของจำนวนทั้งหมดในแต่ละตัวชี้วัด · ป้ายแสดงค่าของแต่ละห้อง</p>${legendRooms()}${hbars({cats:cmp.map(c=>c.cat),max:100,unit:'%',ticks:[0,25,50,75,100],labelW:200,pad:150,series:rooms.map((r,j)=>({name:r,color:ROOMC[r],values:cmp.map(c=>c.vals[j])})),fmt:(v,i,s)=>cmp[i].txt(s.name)})}</div>`:pendBox('ยังไม่มีผลประเมินรายห้องที่บันทึกจริง'),cmpSrc);
 
   // SPARK rubric
   const asp=SR?SR.aspects:null, pGroups=SR&&SR.groups?SR.groups.filter(g=>g.proc&&PROC.some(([k])=>hasValue(g.proc[k]))):[];
   h+=sec('SPARK Process Rubric','Rubric กระบวนการ SPARK',`<div class="chips">${SPARK_ASPECTS.map(([,,a,b])=>`<span class="tag"><b>${a}</b> · ${b}</span>`).join('')}</div>
-    <p class="small muted">4 ดีเยี่ยม · 3 ดี · 2 พัฒนา · 1 เริ่มต้น</p>
-    ${SR?`<div class="kpis3">${SPARK_ASPECTS.map(([k,,a])=>`<div class="kpi"><span>${a}</span><b>${displayNumber(asp[k],2)}<span class="small muted"> / ${SR.maxScore}</span></b></div>`).join('')}<div class="kpi"><span>ค่าเฉลี่ยรวม 4 ด้าน</span><b>${displayNumber(SR.overallMean,2)}<span class="small muted"> / ${SR.maxScore}</span></b></div></div>
+    <p class="small muted">คะแนนรายด้าน: 4 ดีเยี่ยม · 3 ดี · 2 พัฒนา · 1 เริ่มต้น<br>${SPARK_LEVEL_NOTE}</p>
+    ${SR?`<div class="kpis3">${SPARK_ASPECTS.map(([k,,a])=>`<div class="kpi"><span>${a}</span><b>${displayNumber(asp[k],2)}<span class="small muted"> / ${SR.maxScore}</span></b>${hasValue(asp[k])?`<small>ระดับ${sparkLevel(asp[k])}</small>`:''}</div>`).join('')}<div class="kpi"><span>ค่าเฉลี่ยรวม 4 ด้าน</span><b>${displayNumber(SR.overallMean,2)}<span class="small muted"> / ${SR.maxScore}</span></b>${hasValue(SR.overallMean)?`<small>ระดับ${sparkLevel(SR.overallMean)}</small>`:''}</div></div>
       <div class="chart">${SR.byRoom?legendRooms():''}${hbars({cats:SPARK_ASPECTS.map(a=>a[2]),max:SR.maxScore,ticks:[0,1,2,3,4],labelW:200,series:SR.byRoom?rooms.map(r=>({name:r,color:ROOMC[r],values:SPARK_ASPECTS.map(([k])=>SR.byRoom[r][k])})):[{name:'ค่าเฉลี่ย',color:'var(--k)',values:SPARK_ASPECTS.map(([k])=>asp[k])}],fmt:v=>displayNumber(v,2)+'/'+SR.maxScore})}</div>
-      ${pGroups.length?`<div class="tbl-wrap"><table class="heat"><colgroup><col style="width:32%">${PROC.map(()=>'<col style="width:17%">').join('')}</colgroup><thead><tr><th>กลุ่ม</th>${PROC.map(([,n])=>`<th style="white-space:normal;text-align:center">${n}</th>`).join('')}</tr></thead><tbody>
-        ${pGroups.map(g=>`<tr><td><span style="color:${ROOMC[g.room]}">●</span> ${esc(g.group)} <span class="small muted">${g.room}</span></td>${PROC.map(([k])=>{const v=g.proc[k];return `<td class="h" style="background:rgba(var(--heat),${hasValue(v)?0.06+v*0.1:0})">${displayNumber(v)}</td>`}).join('')}</tr>`).join('')}</tbody></table></div>`:''}`
+      ${pGroups.length?`<div class="tbl-wrap"><table class="heat"><colgroup><col style="width:28%">${PROC.map(()=>'<col style="width:13%">').join('')}<col style="width:9%"><col style="width:11%"></colgroup><thead><tr><th>กลุ่ม</th>${PROC.map(([,n])=>`<th style="white-space:normal;text-align:center">${n}</th>`).join('')}<th style="text-align:center">เฉลี่ย</th><th style="text-align:center">ระดับ</th></tr></thead><tbody>
+        ${pGroups.map(g=>`<tr><td><span style="color:${ROOMC[g.room]}">●</span> ${esc(g.group)} <span class="small muted">${g.room}</span></td>${PROC.map(([k])=>{const v=g.proc[k];return `<td class="h" style="background:rgba(var(--heat),${hasValue(v)?0.06+v*0.1:0})">${displayNumber(v)}</td>`}).join('')}${(()=>{const m=meanOf(PROC.map(([k])=>g.proc[k]));return `<td class="num">${displayNumber(m,2)}</td><td style="text-align:center">${sparkLevel(m)||'–'}</td>`})()}</tr>`).join('')}</tbody></table></div>`:''}`
     :pendBox('ยังไม่มีคะแนน Rubric กระบวนการ SPARK ที่บันทึกจริง')}`,src.sparkRubric);
 
   // UPRISE

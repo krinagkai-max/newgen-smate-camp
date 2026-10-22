@@ -20,7 +20,7 @@ window.MSH_API_URL = '';
    ระบบคำนวณค่าเฉลี่ย ร้อยละ และระดับเอง และไม่รับชุดตัวเลขที่ตรงกับชุดข้อมูลตัวอย่าง */
 window.MSH_VERIFIED_RESULTS = {
   "status": "verified",
-  "source": "ครูผู้สอนประเมินชิ้นงานตาม Rubric 30 คะแนน (23 ต.ค. 2569)",
+  "source": "ครูผู้สอนประเมินชิ้นงานตาม Rubric 30 คะแนน และ Rubric กระบวนการ SPARK 4 ด้าน (23 ต.ค. 2569)",
   "productRubric": {
     "maxScore": 30,
     "groups": [
@@ -110,6 +110,91 @@ window.MSH_VERIFIED_RESULTS = {
           "des": 5,
           "rul": 4,
           "pre": 5
+        }
+      }
+    ]
+  },
+  "sparkRubric": {
+    "maxScore": 4,
+    "groups": [
+      {
+        "room": "ม.2/2",
+        "group": "กลุ่ม 1 · BINGO เอกนาม–พหุนาม",
+        "proc": {
+          "pu": 4,
+          "ai": 3,
+          "pi": 3,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/2",
+        "group": "กลุ่ม 2 · เศรษฐีคณิตศาสตร์",
+        "proc": {
+          "pu": 3,
+          "ai": 4,
+          "pi": 3,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/2",
+        "group": "กลุ่ม 3 · Speed Treasures",
+        "proc": {
+          "pu": 3,
+          "ai": 2,
+          "pi": 2,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/2",
+        "group": "กลุ่ม 4 · Polynomial Domino",
+        "proc": {
+          "pu": 3,
+          "ai": 4,
+          "pi": 4,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/3",
+        "group": "กลุ่ม 1 · Math Mission",
+        "proc": {
+          "pu": 3,
+          "ai": 4,
+          "pi": 3,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/3",
+        "group": "กลุ่ม 2 · รถไฟพหุนาม",
+        "proc": {
+          "pu": 3,
+          "ai": 3,
+          "pi": 2,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/3",
+        "group": "กลุ่ม 3 · MATH UNO",
+        "proc": {
+          "pu": 2,
+          "ai": 2,
+          "pi": 3,
+          "ie": 3
+        }
+      },
+      {
+        "room": "ม.2/3",
+        "group": "กลุ่ม 4 · ภารกิจพิชิต 50 ช่อง",
+        "proc": {
+          "pu": 3,
+          "ai": 3,
+          "pi": 2,
+          "ie": 2
         }
       }
     ]
