@@ -472,6 +472,7 @@ dialog .x{position:absolute;top:8px;right:8px}
     <div><p class="eyebrow">พื้นที่ทำงานกลุ่ม · โครงงานบอร์ดเกม Polynomial Adventure</p><h2>บันทึกหลักฐาน ถาม AI และส่งโจทย์ให้ครู</h2></div>
     <p class="muted small" id="sparkWho"></p>
   </div>
+  <div class="notice warn" id="localNote" hidden><b>เว็บนี้ยังไม่ได้เชื่อมระบบส่งงานของครู</b> งานที่บันทึกจะเก็บไว้ในเบราว์เซอร์ของเครื่องนี้เท่านั้น และยังส่งโจทย์ให้ครูไม่ได้</div>
   <div class="steps" role="tablist" id="stepTabs" aria-label="ขั้น SPARK"></div>
   <div class="work">
     <article class="panel" id="lesson"></article>
@@ -683,6 +684,7 @@ dialog .x{position:absolute;top:8px;right:8px}
 <div class="toast" id="toast" hidden></div>
 <div class="tip" id="tip" hidden></div>
 
+<script src="config.js"></script>
 <script>
 /* ============================== content ============================== */
 const ROOMS=['ม.2/2','ม.2/3'];
@@ -896,10 +898,17 @@ async function claudeBackend(){
   };
 }
 
-function gasCall(fn,...args){return new Promise((res,rej)=>google.script.run.withSuccessHandler(res).withFailureHandler(rej)[fn](...args))}
+const API_URL=(window.MSH_API_URL||'').trim();
+const hasGsRun=()=>!!(window.google&&google.script&&google.script.run);
+function gasCall(fn,...args){
+  if(hasGsRun()) return new Promise((res,rej)=>google.script.run.withSuccessHandler(res).withFailureHandler(rej)[fn](...args));
+  return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({fn,args})})
+    .then(r=>{if(!r.ok)throw new Error('เชื่อมต่อระบบไม่สำเร็จ ('+r.status+')');return r.json()})
+    .then(j=>{if(!j||!j.ok)throw new Error((j&&j.error)||'ระบบตอบกลับไม่ถูกต้อง');return j.data});
+}
 let be_gasPull=null;
 async function gasBackend(){
-  if(!(window.google&&google.script&&google.script.run)) return null;
+  if(!hasGsRun()&&!API_URL) return null;
   const info=await gasCall('api_init');
   let cred=lsGet('msh-cred',null), tpin=ssGet('msh-tpin');
   const C=()=>JSON.stringify(cred);
@@ -1036,6 +1045,7 @@ function renderSpark(){
   renderWho();
   const ev=st.mine.evidence||{};
   $('#stepTabs').innerHTML=STEPS.map(s=>{const on=ev[s.k]&&(ev[s.k].text||ev[s.k].link);return `<button role="tab" class="c-${s.k}" data-step="${s.k}" aria-selected="${s.k===st.step}"><span class="L">${s.k}</span><span><span class="n">${s.th}</span><br><span class="st"><i class="dot ${on?'on':''}"></i> ${on?'บันทึกหลักฐานแล้ว':'ยังไม่บันทึก'}</span></span></button>`}).join('');
+  $('#localNote').hidden=!(st.be&&st.be.mode==='local');
   renderLesson(); renderChat();
 }
 $('#stepTabs').addEventListener('click',e=>{const b=e.target.closest('[data-step]');if(!b)return;st.step=b.dataset.step;st.editing=null;go(st.step.toLowerCase())});
