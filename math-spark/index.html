@@ -442,7 +442,11 @@ dialog .x{position:absolute;top:8px;right:8px}
   .print-head{display:block;text-align:center;font-family:var(--f-display);border-bottom:2px solid #15307A;padding-bottom:8px;margin-bottom:8px;line-height:1.5}
   .rhead,.pillars,.ai-hero,.exec{background:#fff!important}
   .report{gap:18px}
-  .section-h{break-after:avoid;page-break-after:avoid}
+  .section-h{break-after:avoid;page-break-after:avoid;break-inside:avoid;page-break-inside:avoid}
+  .report,.rsec{display:block}
+  .report > * + *{margin-top:18px}
+  .rsec > * + *{margin-top:12px}
+  .rsec{break-before:auto}
   .kpi,.chart,.panel,.bsa-col,.pstep,.ucard,.journey2 li,.lo-donut,.ai-hero,.exec,svg,tr{break-inside:avoid;page-break-inside:avoid}
   .tbl-wrap{overflow:visible}
   table{break-inside:auto}
