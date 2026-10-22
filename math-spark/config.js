@@ -2,13 +2,23 @@
    ถ้าเว้นว่าง เว็บจะทำงานแบบเก็บงานในเครื่องผู้ใช้เท่านั้น */
 window.MSH_API_URL = '';
 
-/* ผลแบบวัดความคิดสร้างสรรค์ (ฉบับจริง)
-   ขณะ status เป็น 'pending' หน้ารายงานจะแสดง "อยู่ระหว่างสรุปผลการประเมิน"
-   เมื่อได้ผลจริงแล้ว เปลี่ยน status เป็น 'complete' และกรอกตัวเลข เช่น
-   window.MSH_CREATIVITY = { status: 'complete', n: 74, mean: 0, sd: 0, criterion: 0, passed: 0,
-     rooms: { 'ม.2/2': { n: 37, mean: 0, passed: 0 }, 'ม.2/3': { n: 37, mean: 0, passed: 0 } } };
-   (ตัวเลข 0 ในตัวอย่างนี้เป็นเพียงตำแหน่งให้กรอก ห้ามปล่อยไว้เมื่อเปลี่ยนเป็น complete) */
-window.MSH_CREATIVITY = { status: 'pending' };
+/* ผลประเมินจริงสำหรับหน้า "รายงานผล" (โหมด Verified Real)
+   เว้นเป็น null ไว้ = ส่วนนั้นแสดง "รอผลประเมิน"
+   เมื่อได้ผลจริง ให้ใส่ข้อมูลรูปแบบเดียวกับชุดข้อมูลตัวอย่าง โดยต้องมี status: 'verified' และ source เช่น
+   window.MSH_VERIFIED_RESULTS = {
+     status: 'verified',
+     source: 'แบบวัดความคิดสร้างสรรค์ ฉบับครู ประเมินวันที่ ...',
+     creativity: { n: 74, maxScore: 20, mean: ..., sd: ..., criterion: ..., passed: ...,
+       rooms: { 'ม.2/2': { n: 37, mean: ..., passed: ... }, 'ม.2/3': { n: 37, mean: ..., passed: ... } } },
+     productRubric: { maxScore: 30, groupScores: [ ... 8 ค่า กลุ่ม 1–4 = ม.2/2, 5–8 = ม.2/3 ... ] },
+     sparkRubric: { maxScore: 4, problemUnderstanding: ..., ideaAndAILiteracy: ..., prototypeIteration: ..., impactEvidence: ... },
+     sparkEvidence: { total: 74, S: ..., P: ..., A: ..., R: ..., K: ..., completeAll: ... },
+     aiLiteracy: { logCount: ..., studentsWithLog: ..., rubricMean: ..., rubricMax: 4 },
+     qualityGatekeeper: { approved: ..., revise: ..., pending: ... }
+   };
+   ใส่เฉพาะส่วนที่มีผลจริง ส่วนที่ไม่ใส่จะแสดง "รอผลประเมิน"
+   ระบบคำนวณค่าเฉลี่ย ร้อยละ และระดับเอง และไม่รับชุดตัวเลขที่ตรงกับชุดข้อมูลตัวอย่าง */
+window.MSH_VERIFIED_RESULTS = null;
 
 /* ลิงก์หลักฐานเพิ่มเติมที่ครูอนุญาตให้เผยแพร่ (เว้นว่างไว้ = ไม่แสดงการ์ด)
    ห้ามใส่ลิงก์ที่มีชื่อ เลขที่ หรือข้อมูลส่วนบุคคลของนักเรียน */
