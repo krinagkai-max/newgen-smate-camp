@@ -614,10 +614,13 @@ dialog .x{position:absolute;top:8px;right:8px}
   <div class="section-h">
     <div><p class="eyebrow">ค22222 คณิตศาสตร์เสริมศักยภาพ 2 · ม.2/2 และ ม.2/3</p><h2>ภารกิจ: โครงงานบอร์ดเกมคณิตศาสตร์ Polynomial Adventure</h2></div>
   </div>
+  <div class="poster-row">
+  <button class="poster" id="projectBtn" aria-label="ขยายภาพรายละเอียดโครงงานบอร์ดเกมคณิตศาสตร์"><img src="img/project.jpg" alt="รายละเอียดโครงงานบอร์ดเกมคณิตศาสตร์ Math Board Game Project: Polynomial Adventure ลักษณะกิจกรรม จุดประสงค์ รูปแบบเกม องค์ประกอบของชิ้นงาน ขั้นตอนการดำเนินงาน และเกณฑ์การประเมิน 30 คะแนน" loading="lazy"><span>รายละเอียดโครงงาน Math Board Game Project · กดเพื่อขยาย</span></button>
   <div class="panel" style="gap:12px">
     <div class="section-h"><h3>เอกสารและที่ส่งงาน</h3><span class="small muted">เปิดใน Google Drive</span></div>
     <div class="res" id="resDocs"></div>
     <div><p class="small" style="margin-bottom:6px"><b>โฟลเดอร์ส่งงานของแต่ละห้อง</b> · อัปโหลดภาพต้นแบบ การ์ด กติกา และเล่มรายงานไว้ในโฟลเดอร์กลุ่มของตนเอง</p><div class="res" id="resRooms"></div></div>
+  </div>
   </div>
   <div class="two">
     <div class="rule-box"><h3>ลักษณะกิจกรรม</h3>
@@ -1097,6 +1100,7 @@ function renderStatic(){
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-slide]');if(!b)return;const [src,cap]=SLIDES[+b.dataset.slide];$('#lbImg').src=src;$('#lbImg').alt=cap;$('#lightbox').showModal()});
 $('#posterBtn').onclick=()=>{$('#lbImg').src=$('#posterBtn img').src;$('#lbImg').alt='โปสเตอร์ MATH-SPARK Model';$('#lightbox').showModal()};
+$('#projectBtn').onclick=()=>{$('#lbImg').src=$('#projectBtn img').src;$('#lbImg').alt='รายละเอียดโครงงานบอร์ดเกมคณิตศาสตร์';$('#lightbox').showModal()};
 $('#lbClose').onclick=()=>$('#lightbox').close();
 $('#lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')$('#lightbox').close()});
 
